@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "badminton2021RN",
+    "slug": "badminton2021RN",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "badminton2021RN"
+}
