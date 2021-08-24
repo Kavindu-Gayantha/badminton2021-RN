@@ -1,0 +1,1 @@
+export const BASE_URL = "http://192.168.118.115:8080/badminton";
