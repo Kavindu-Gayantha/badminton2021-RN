@@ -16,11 +16,11 @@ import { BASE_URL } from "../api/BASE_URL";
 
 const PlayersScreen = ({navigation}) => {
     const [players, setPlayers] = useState([]);
-    // const [updatePlayer, setUpdatePlayers] = useState([]);
+    const [updatePlayer, setUpdatePlayers] = useState([]);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-     
+        setUpdatePlayers();
         const getAllPlayers = async () => {
             // setLoading(true);
             // await GetRequest('faculty/getAllActive').then(res => {
@@ -31,10 +31,10 @@ const PlayersScreen = ({navigation}) => {
             // });
             setLoading(true);
             try {
-                const request = await axios.get(`${BASE_URL}/faculty/getAllActive`);
-            // console.log("players get:", typeof(request.data.data));
-            setPlayers(request.data.data);
-            console.log("players state:  ", players);
+                const request = await axios.get(`${BASE_URL}/players/getAll`);
+                // console.log("players get:", typeof(request.data.data));
+                setPlayers(request.data.data);
+                console.log("players state:  ", players);
             } catch(error) {
                 console.log(error);
             }
@@ -44,7 +44,7 @@ const PlayersScreen = ({navigation}) => {
         }
 
         getAllPlayers();
-    }, ['faculty/getAllActive']);
+    }, [updatePlayer]);
     // this runs everytime players are changed with use effect hook
 
     
@@ -55,28 +55,7 @@ const PlayersScreen = ({navigation}) => {
                 <Text style={styles.title}>All Players</Text>
                 <Text style={styles.titleRight}>Go Home</Text>
             </View>    
-                {/* <ScrollView>
-                {players ? players.map((data) => {
-                    return (
-                        
-                        <View key={data.id} >
-                            <Text>{data.faculty}</Text>
-                        
-                        {/* // <FlatList data={players} /> */}
-                        {/* </View>    
-                    );
-                    
-                })
-                    
-                        : <Text>No faculty</Text>}
-                    </ScrollView> */}
-            {/* <FlatList
-                style={styles.playerList}
-                data={players}
-                renderItem={({ item }) => (
-                    <Text style={styles.item} >{item.faculty}</Text>
-                )}
-            /> */}
+              
             {players.length > 0 ? 
                 <PlayerComponent data={players} />
             : <Text style={styles.noDataContainer}>Loading Data....</Text>}

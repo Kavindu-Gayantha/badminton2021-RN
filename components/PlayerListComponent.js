@@ -10,8 +10,7 @@ const PlayerComponent = (props) => {
    const [modalOpen, setModelOpen] = useState(false);
   const players = props.data;
   
-  const addNewPlayer =()=> {
-    console.log('pressed');
+  const addNewPlayer = () => {
     setModelOpen(true);
   }
 
@@ -30,8 +29,9 @@ const PlayerComponent = (props) => {
         
           <View style={styles.modalContent} >
             
-            <Button onPress={closeModal} title="close" />
-            <CreatePlayer />
+            
+          <CreatePlayer />
+          <Button onPress={closeModal} color="red" style={styles.closeBtn} title="close" />
           </View>
       </Modal>
         <FlatList
@@ -39,7 +39,7 @@ const PlayerComponent = (props) => {
                 
           data={players}
           renderItem={({ item }) => (
-            <Text style={styles.item} >{item.faculty}</Text>
+            <Text style={styles.item} >{item.name}</Text>
           )}
         />
     </View>
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   },
   playerList: {
     // maxHeight: Dimensions.get('screen')
-    // backgroundColor: 'red',
+    backgroundColor: 'white',
     // justifyContent: 'flex-start'
   },
   item: {
@@ -77,12 +77,16 @@ const styles = StyleSheet.create({
   modalContent: {
     backgroundColor: 'yellow',
     flex: 12,
-    padding: 2,
-    margin: 12,
+    padding: 12,
+    margin: 2,
   },
   button: {
     color: 'red',
     width: '100%',
     margin: '2%',
+  },
+  closeBtn: {
+    color: 'red',
+    backgroundColor: 'red'
   }
 })
