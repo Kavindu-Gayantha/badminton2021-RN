@@ -14,38 +14,11 @@ import { BASE_URL } from "../api/BASE_URL";
 // const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyNzkxMjAzNCwiZXhwIjoxOTQzNDg4MDM0fQ.vxGyYCwLx5RaGF8UZbLxWv1ccZIiT4cwVTxss3nF0y4'
 // const supabase = createClient(supabaseUrl, supabaseKey)
 
-const PlayersScreen = () => {
+const PlayersScreen = ({navigation}) => {
     const [players, setPlayers] = useState([]);
     // const [updatePlayer, setUpdatePlayers] = useState([]);
     const [loading, setLoading] = useState(false);
 
-//     const getAllPlayers = async () => {
-//          try {
-        
-//              let {data: players, error} = await supabase
-//                  .from('faculty')
-//                  .select('*')
-//                  if(error) {
-// console.log(error)
-//         } else {
-//                      return players;
-//                  } 
-//             //  console.log("all players", JSON.parse(players));
-//             //  return data;
-//          } catch (error) {
-//              console.log('error ***********', error);
-//          }
-//     }
-    const onPress = () => {
-        // axios.get("http://192.168.118.115:8080/badminton/players/getAll").then(data => {
-        //     console.log('data *********', JSON.parse(data));
-        // }).catch(error => {
-        //     console.log('error', error);
-        // })
-        // const data = GetRequest();
-        // setPlayers(data);
-        // console.log('data: ', players);
-    }
     useEffect(() => {
      
         const getAllPlayers = async () => {
@@ -57,29 +30,32 @@ const PlayersScreen = () => {
             //     // setLoading(false);
             // });
             setLoading(true);
-            const request = await axios.get(`${BASE_URL}/faculty/getAllActive`);
-            console.log("players get:", typeof(request.data.data));
+            try {
+                const request = await axios.get(`${BASE_URL}/faculty/getAllActive`);
+            // console.log("players get:", typeof(request.data.data));
             setPlayers(request.data.data);
             console.log("players state:  ", players);
+            } catch(error) {
+                console.log(error);
+            }
+            
             setLoading(false);
             
         }
 
         getAllPlayers();
     }, ['faculty/getAllActive']);
-
-    // console.log("players are: ", players.data);
     // this runs everytime players are changed with use effect hook
 
     
     return (
         <View style={styles.container}>
             <View style={styles.titleGrid}>
-                <Text style={styles.titleLeft}>Back</Text>
+                <Button onPress={() => navigation.navigate('HomeTabs')} title = "Back" style={styles.titleLeft}>Back</Button>
                 <Text style={styles.title}>All Players</Text>
                 <Text style={styles.titleRight}>Go Home</Text>
             </View>    
-                <ScrollView>
+                {/* <ScrollView>
                 {players ? players.map((data) => {
                     return (
                         
@@ -87,13 +63,23 @@ const PlayersScreen = () => {
                             <Text>{data.faculty}</Text>
                         
                         {/* // <FlatList data={players} /> */}
-                        </View>    
+                        {/* </View>    
                     );
                     
                 })
                     
                         : <Text>No faculty</Text>}
-                    </ScrollView>
+                    </ScrollView> */}
+            {/* <FlatList
+                style={styles.playerList}
+                data={players}
+                renderItem={({ item }) => (
+                    <Text style={styles.item} >{item.faculty}</Text>
+                )}
+            /> */}
+            {players.length > 0 ? 
+                <PlayerComponent data={players} />
+            : <Text style={styles.noDataContainer}>Loading Data....</Text>}
             </View>
 
     );
@@ -104,27 +90,31 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white',
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
+        // alignItems: 'flex-start',
+        // justifyContent: 'flex-start',
         marginTop: '12%',
     },
     titleGrid: {
         top: 0,
         fontWeight: 'bold',
         alignItems: 'center',
-        justifyContent: 'center',
+        // justifyContent: 'center',
         flex: 1,
         marginTop: 5,
-        flexDirection: "row"
+        flexDirection: "row",
+        marginBottom: 8,
+        padding: 3,
     },
     titleLeft: {
         flex: 1,
         justifyContent: "center",
         textAlign: "center",
         flexDirection: "row",
+        backgroundColor: 'green',
+        alignContent: 'center'
     },
     title: {
-        flex: 1,
+        flex: 3,
           textAlign: "center",
         flexDirection: "row",
     },
@@ -132,5 +122,15 @@ const styles = StyleSheet.create({
         flex: 1,
           textAlign: "center",
         flexDirection: "row",
+    },
+    noDataContainer: {
+        flex: 11,
+        // justifyContent: 'center',
+        // alignContent: 'center',
+        // alignItems: 'center',
+        color: 'blue',
+        fontWeight: 'bold',
+        margin: 5,
     }
+    
 });
