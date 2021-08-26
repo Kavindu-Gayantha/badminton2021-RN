@@ -15,7 +15,7 @@ const BoysScreen = () => {
     useEffect(() => {
         // setUpdatePlayers();
          getAllBoys();
-    }, ['/players/getBoys']);
+    }, []);
    
     // this runs everytime players are changed with use effect hook
    
@@ -36,12 +36,7 @@ const BoysScreen = () => {
     
     return (
         <View style={styles.container}>
-            {/* <View style={styles.titleGrid}> */}
-                {/* <Button onPress={() => navigation.navigate('HomeTabs')} title = "Back" style={styles.titleLeft}>Back</Button> */}
-                {/* <Text style={styles.title}>Boys</Text> */}
-                {/* <Text style={styles.titleRight}>Go Home</Text> */}
-            {/* </View>     */}
-              
+                     
             {boys.length > 0 ? 
                 <BoyComponent data={boys} />
             : <Text style={styles.noDataContainer}>Loading Data....</Text>}

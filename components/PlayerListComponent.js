@@ -9,8 +9,12 @@ const PlayerComponent = (props) => {
   const [addPlayerArea, setAddPlayerArea] = useState(false);
    const [modalOpen, setModelOpen] = useState(false);
   const players = props.data;
+  // console.log("props::", props);
   
   const addNewPlayer = () => {
+    // props.setPlayers({name: "name2",
+    // facultyName: "FOS",
+    // gender: "male"});
     setModelOpen(true);
   }
 
@@ -28,13 +32,15 @@ const PlayerComponent = (props) => {
        <Modal visible={modalOpen} animationType="slide">
         
           <View style={styles.modalContent} >
-            
-            
-          <CreatePlayer />
+         
+          <CreatePlayer setPlayers={props.setPlayers} />
+          
           <Button onPress={closeModal} color="red" style={styles.closeBtn} title="close" />
-          </View>
+        </View>
+        
       </Modal>
-        <FlatList
+       
+      <FlatList
           style={styles.playerList}
                 
           data={players}
@@ -43,7 +49,6 @@ const PlayerComponent = (props) => {
           )}
         />
     </View>
-    // <Text style={{paddingTop: 122}}>hi</Text>
   );
 }
 
