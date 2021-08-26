@@ -14,7 +14,8 @@ import { BASE_URL } from "../api/BASE_URL";
 // const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyNzkxMjAzNCwiZXhwIjoxOTQzNDg4MDM0fQ.vxGyYCwLx5RaGF8UZbLxWv1ccZIiT4cwVTxss3nF0y4'
 // const supabase = createClient(supabaseUrl, supabaseKey)
 
-const PlayersScreen = ({navigation}) => {
+const PlayersScreen = ({ navigation }) => {
+    // setUpdatePlayers([]);
     const [players, setPlayers] = useState([]);
     const [updatePlayer, setUpdatePlayers] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -22,7 +23,7 @@ const PlayersScreen = ({navigation}) => {
     useEffect(() => {
         // setUpdatePlayers();
         
-
+        
         getAllPlayers();
     }, []);
     // this runs everytime players are changed with use effect hook

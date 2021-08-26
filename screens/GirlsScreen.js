@@ -5,16 +5,21 @@ import { useState, useEffect } from "react";
 import {Text, StyleSheet, View} from "react-native";
 import GirlsComponent from "../components/GirlsListComponent";
 
-const GirlsScreen = () => {
+const GirlsScreen = ({navigation}) => {
     const [girls, setgirls] = useState([]);
+    const [updateGirl, setUpdateGirs] = useState(null);
 
     useEffect(() => {
-        getAllGirls();
-        
-    }, [])
+        const unsubscribe = navigation.addListener('focus', () => {
+      // do something
+            getAllGirls();
+    });
+       return unsubscribe; 
+    }, [navigation])
     
     const getAllGirls = async () => {
-        
+        setUpdateGirs();
+        console.log("girls tab");
         try {
             const request = await axios.get(`${BASE_URL}/players/getGirls`);
                 // console.log("players get:", typeof(request.data.data));

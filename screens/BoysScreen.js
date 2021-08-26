@@ -2,20 +2,31 @@ import * as React from "react";
 // import {Text} from "react-native";
 import BoyComponent from "../components/BoysListComponent";
 import { useState, useEffect } from "react";
+import { useIsFocused } from '@react-navigation/native';
 
 import axios from "axios";
 import { BASE_URL } from "../api/BASE_URL";
 import { Text, View, Button, StyleSheet, Dimensions, FlatList, Modal } from 'react-native';
 
-const BoysScreen = () => {
+const BoysScreen = ({navigation}) => {
+    // const isBoysTabPressed = useIsFocused();
+    // console.log("kkkkkkkkk")
     const [boys, setBoys] = useState([]);
-    const [updatePlayer, setUpdatePlayers] = useState([]);
+    const [updatePlayer, setUpdatePlayers] = useState(1);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+      // do something
+            // console.log("use effect");
+            getAllBoys();
+    });
         // setUpdatePlayers();
-         getAllBoys();
-    }, []);
+        
+        
+        return unsubscribe;
+    }, [navigation]);
+
    
     // this runs everytime players are changed with use effect hook
    
@@ -33,7 +44,7 @@ const BoysScreen = () => {
             setLoading(false);
             
         }
-    
+    // getAllBoys();
     return (
         <View style={styles.container}>
                      

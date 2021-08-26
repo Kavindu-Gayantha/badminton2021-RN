@@ -56,11 +56,13 @@ const Tab = createBottomTabNavigator();
 
 function HomeTabs() {
     return (
-        <Tab.Navigator screenOptions={{headerShown: true}} initialRouteName="Home">
+        <Tab.Navigator screenOptions={{ headerShown: true }} initialRouteName="Home">
+    
             <Tab.Screen name="Boys" component={BoysScreen} options={{
                 tabBarIcon: ({color}) => (
                     <TabBarIcon name="man" color={color}/>
                 ),
+            
             }}/>
             <Tab.Screen name="Girls" component={GirlsScreen} options={{
                 tabBarIcon: ({color}) => (
@@ -93,7 +95,7 @@ export default function App() {
     return (
         <NavigationContainer>
             <RootStack.Navigator screenOptions={{headerShown: false}}>
-                <RootStack.Screen name="HomeTabs" component={HomeTabs}/>
+                <RootStack.Screen name="HomeTabs" component={HomeTabs} />
                 <RootStack.Screen name="Players" component={PlayersScreen}/>
             </RootStack.Navigator>
         </NavigationContainer>
