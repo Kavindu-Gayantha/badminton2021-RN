@@ -7,7 +7,9 @@ import { BASE_URL } from "../api/BASE_URL";
 import { Gender } from "../lib/constants";
 
 
-const CreatePlayer = () => {
+const CreatePlayer = ( props ) => {
+  console.log("set plalala", props);
+  // const { setPlayers() } = props;
   const [faculties, setFaculties] = useState([]);
   const [loading, setLoading] = useState(false);
   const [facultyDropDown, setFacultyDropDown] = useState(false);
@@ -72,15 +74,16 @@ const CreatePlayer = () => {
     'facultyName': selectedFaculty,
     'gender': selectedGender
     }
+    
     if (playerObject.name != "" || playerObject.gender != "" || playerObject.facultyName != "") {
       console.log("submit form: ", playerObject);
       setShowErrors(false);
       setShowSubmitTxt(true);
       createPlayerMethod(playerObject).then(() => {
-        setName("");
+        setName();
         setSelectedFac("");
         setSelectedGender("");
-        playerObject = null;
+        // playerObject = null;
       })
       
     } else {
@@ -94,6 +97,7 @@ const CreatePlayer = () => {
       const request = await axios.post(`${BASE_URL}/players/create`, body);
       setShowSubmitTxt(true);
       setResponseMessage(request.data.statusMessage);
+      props.setPlayers(request.data.data);
       console.log('request response', request.data.statusMessage);
 
     } catch (error) {
@@ -124,7 +128,7 @@ const CreatePlayer = () => {
               onChangeText={props.handleChange('facultyName')}
               value={selectedFaculty}
               style={styles.inputBox}
-              keyboardType=""
+              keyboardType="default"
               onResponderStart={() => setFacultyDropDown(true)}
              
 
@@ -137,12 +141,13 @@ const CreatePlayer = () => {
                         </View>
                 );
               })}
+            
             <TextInput
               placeholder="Gender"
               onChangeText={props.handleChange('gender')}
               value={selectedGender}
               style={styles.inputBox}
-              keyboardType=""
+              keyboardType="default"
               onResponderStart={() => setGenderDropDown(true)}
              
 
@@ -155,6 +160,7 @@ const CreatePlayer = () => {
                         </View>
                 );
               })}
+            
             <Button title="Create" onPress={onSubmitCreatePlayer} />
             {showErrors == true ?
             

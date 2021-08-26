@@ -21,7 +21,12 @@ const PlayersScreen = ({navigation}) => {
 
     useEffect(() => {
         // setUpdatePlayers();
-        const getAllPlayers = async () => {
+        
+
+        getAllPlayers();
+    }, []);
+    // this runs everytime players are changed with use effect hook
+const getAllPlayers = async () => {
          
             setLoading(true);
             try {
@@ -35,12 +40,11 @@ const PlayersScreen = ({navigation}) => {
             
             setLoading(false);
             
-        }
-
-        getAllPlayers();
-    }, []);
-    // this runs everytime players are changed with use effect hook
-
+}
+    // set new player to existing playerlist 
+    const addPlayer = (input) => {
+        setPlayers([...players, input]);
+    }
     
     return (
         <View style={styles.container}>
@@ -50,8 +54,8 @@ const PlayersScreen = ({navigation}) => {
                 <Text style={styles.titleRight}>Go Home</Text>
             </View>    
               
-            {players.length > 0 ? 
-                <PlayerComponent data={players} />
+            {players && players.length > 0 ? 
+                <PlayerComponent data={players} setPlayers={addPlayer} />
             : <Text style={styles.noDataContainer}>Loading Data....</Text>}
             </View>
 
