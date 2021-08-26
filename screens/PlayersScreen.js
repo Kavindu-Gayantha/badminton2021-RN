@@ -20,15 +20,9 @@ const PlayersScreen = ({navigation}) => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        setUpdatePlayers();
+        // setUpdatePlayers();
         const getAllPlayers = async () => {
-            // setLoading(true);
-            // await GetRequest('faculty/getAllActive').then(res => {
-            //     console.log('request::::', res.data);
-          
-            //     // setPlayers(res.data);
-            //     // setLoading(false);
-            // });
+         
             setLoading(true);
             try {
                 const request = await axios.get(`${BASE_URL}/players/getAll`);
@@ -44,7 +38,7 @@ const PlayersScreen = ({navigation}) => {
         }
 
         getAllPlayers();
-    }, [updatePlayer]);
+    }, []);
     // this runs everytime players are changed with use effect hook
 
     
