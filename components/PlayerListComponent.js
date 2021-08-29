@@ -1,8 +1,8 @@
 import * as React from "react";
 import {useEffect, useState} from "react";
-import { Text, View, Button, StyleSheet, Dimensions, FlatList, Modal } from 'react-native';
+import { Text, View, Button, StyleSheet, Dimensions, FlatList, Modal, TouchableOpacity, Image } from 'react-native';
 import CreatePlayer from "./CreatePlayerComponent";
-import ModelPlayer from "./ModelCreatePlayer";
+import { globalStyles, profileImgs } from "../styles/globalStyles";
 
 
 const PlayerComponent = (props) => {
@@ -12,9 +12,6 @@ const PlayerComponent = (props) => {
   // console.log("props::", props);
   
   const addNewPlayer = () => {
-    // props.setPlayers({name: "name2",
-    // facultyName: "FOS",
-    // gender: "male"});
     setModelOpen(true);
   }
 
@@ -25,7 +22,7 @@ const PlayerComponent = (props) => {
   
   return (
     <View style={styles.container}>
-      <Button onPress={addNewPlayer} title="Add Player" style={styles.button} />
+      <Button onPress={addNewPlayer} title="Add Player" color="#41733f" style={globalStyles.primaryBtn} />
       
       {/* display add new player component when button click */}
       {/* {addPlayerArea && */}
@@ -41,11 +38,29 @@ const PlayerComponent = (props) => {
       </Modal>
        
       <FlatList
-          style={styles.playerList}
+          style={globalStyles.listContainer}
                 
           data={players}
-          renderItem={({ item }) => (
-            <Text style={styles.item} >{item.name}</Text>
+        renderItem={({ item }) => (
+            <TouchableOpacity  
+              style={globalStyles.touchableOpacityList}>
+                <View style={globalStyles.coverListItemView}>
+                {item.gender === "male" ?
+                  <Image
+                  source={profileImgs.male}
+                  // width="10"
+                    style={{height:90, width: 90, borderRadius: 50, justifyContent: 'center', alignItems:'center'}}
+                  /> :
+                  <Image
+                    source={profileImgs.female}
+                    style={{height:90, width: 90, borderRadius: 50, justifyContent: 'center', alignItems:'center'}}
+                    />}
+                </View>
+            {/* <View style={globalStyles.coverListItemView}> */}
+              <Text style={globalStyles.listItem} >{item.name}</Text>
+              {/* </View> */}
+                 </TouchableOpacity>
+           
           )}
         />
     </View>
@@ -69,12 +84,9 @@ const styles = StyleSheet.create({
   },
   item: {
     margin: 1,
-    paddingLeft: 10,
-        backgroundColor: 'blue',
-        margin: 2,
     color: 'white',
     height: 100,
-  //  alignSelf: 'flex-start',
+    flex:1, //here you can use flex:1 also
     textAlignVertical: 'center'
         
 

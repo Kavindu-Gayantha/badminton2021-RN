@@ -10,53 +10,16 @@ import GirlsScreen from "./screens/GirlsScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import {Ionicons} from "@expo/vector-icons";
 import PlayersScreen from "./screens/PlayersScreen";
+import { globalStyles } from './styles/globalStyles';
 
-// const FeedStack = createNativeStackNavigator();
-// function FeedScreen() {
-//     return(
-//         <Text>FeedScreen</Text>
-//     );
-// }
 
-// const FeedStack = createNativeStackNavigator();
-// function ProfileScreen() {
-//     return(
-//         <Text>ProfileScreen</Text>
-//     );
-// }
-//
-// function SettingsScreen() {
-//     return(
-//         <Text>SettingsScreen</Text>
-//     );
-// }
-
-// function FeedStackScreen() {
-//   return (
-//     <FeedStack.Navigator>
-//       <FeedStack.Screen name="Feed" component={FeedScreen} />
-//       {/* other screens */}
-//     </FeedStack.Navigator>
-//   );
-// }
-
-// const ProfileStack = createNativeStackNavigator();
-//
-// function ProfileStackScreen() {
-//   return (
-//     <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
-//       <ProfileStack.Screen name="Profile" component={ProfileScreen} />
-//       {/* other screens */}
-//     </ProfileStack.Navigator>
-//   );
-// }
 
 const Tab = createBottomTabNavigator();
 
 
 function HomeTabs() {
     return (
-        <Tab.Navigator screenOptions={{ headerShown: true }} initialRouteName="Home">
+        <Tab.Navigator screenOptions={{ headerShown: true, tabBarInactiveTintColor: '#ffffff',tabBarInactiveBackgroundColor: '#41733f',tabBarActiveTintColor:'#98ee99', tabBarActiveBackgroundColor: '#134717' }} initialRouteName="Home">
     
             <Tab.Screen name="Boys" component={BoysScreen} options={{
                 tabBarIcon: ({color}) => (

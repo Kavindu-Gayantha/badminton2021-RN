@@ -7,6 +7,8 @@ import { useIsFocused } from '@react-navigation/native';
 import axios from "axios";
 import { BASE_URL } from "../api/BASE_URL";
 import { Text, View, Button, StyleSheet, Dimensions, FlatList, Modal } from 'react-native';
+import { globalStyles } from "../styles/globalStyles";
+import { CirclesLoader } from "react-native-indicator";
 
 const BoysScreen = ({navigation}) => {
     // const isBoysTabPressed = useIsFocused();
@@ -50,7 +52,9 @@ const BoysScreen = ({navigation}) => {
                      
             {boys.length > 0 ? 
                 <BoyComponent data={boys} />
-            : <Text style={styles.noDataContainer}>Loading Data....</Text>}
+            : <View style={globalStyles.loader}>
+                    <CirclesLoader color="green" />
+                </View>}
             </View>
 
     );

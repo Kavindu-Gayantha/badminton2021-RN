@@ -4,6 +4,8 @@ import { BASE_URL } from "../api/BASE_URL";
 import { useState, useEffect } from "react";
 import {Text, StyleSheet, View} from "react-native";
 import GirlsComponent from "../components/GirlsListComponent";
+import { globalStyles } from "../styles/globalStyles";
+import { CirclesLoader } from "react-native-indicator";
 
 const GirlsScreen = ({navigation}) => {
     const [girls, setgirls] = useState([]);
@@ -34,7 +36,9 @@ const GirlsScreen = ({navigation}) => {
         <View style={styles.container}>
             {girls.length > 0 ?
             <GirlsComponent data={girls}/>
-            : <Text style={styles.noDataContainer}>Loading Data....</Text>}
+            : <View style={globalStyles.loader}>
+                    <CirclesLoader color="green" />
+                </View>}
         </View>
     );
 }

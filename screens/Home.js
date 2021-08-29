@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Button, View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { globalStyles } from '../styles/globalStyles';
 
 
 const HomeScreen = ({navigation}) => {
@@ -19,8 +20,6 @@ const goNextPage = () => {
       <Text style={styles.title}>Hi {userName}</Text>
       <View
         style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
       />
       <View style={styles.buttonGroup}>
         {loginUserType === "Admin" &&
@@ -86,7 +85,7 @@ const styles = StyleSheet.create({
 
   buttonContainer: {
     flex: 1,
-    backgroundColor: "blue",
+    backgroundColor: "#134717",
     marginRight: 1,
     // height: 80,
     padding: 5,

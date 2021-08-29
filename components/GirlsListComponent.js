@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Text, View, Button, StyleSheet, Dimensions, FlatList, Modal } from 'react-native';
+import { globalStyles } from "../styles/globalStyles";
 
 
 const GirlsComponent = (props) => {
@@ -9,10 +10,10 @@ const GirlsComponent = (props) => {
   return (
     <View style={styles.container}>
       <FlatList
-        style={styles.playerList}
+        style={globalStyles.listContainer}
         data={girlsList}
         renderItem={({ item }) => (
-          <Text style={styles.item} >
+          <Text style={globalStyles.listItem} >
             {item.name}
           </Text>
         )}  
