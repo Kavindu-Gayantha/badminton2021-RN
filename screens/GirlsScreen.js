@@ -4,17 +4,24 @@ import { BASE_URL } from "../api/BASE_URL";
 import { useState, useEffect } from "react";
 import {Text, StyleSheet, View} from "react-native";
 import GirlsComponent from "../components/GirlsListComponent";
+import { globalStyles } from "../styles/globalStyles";
+import { CirclesLoader } from "react-native-indicator";
 
-const GirlsScreen = () => {
+const GirlsScreen = ({navigation}) => {
     const [girls, setgirls] = useState([]);
+    const [updateGirl, setUpdateGirs] = useState(null);
 
     useEffect(() => {
-        getAllGirls();
-        
-    }, [])
+        const unsubscribe = navigation.addListener('focus', () => {
+      // do something
+            getAllGirls();
+    });
+       return unsubscribe; 
+    }, [navigation])
     
     const getAllGirls = async () => {
-        
+        setUpdateGirs();
+        console.log("girls tab");
         try {
             const request = await axios.get(`${BASE_URL}/players/getGirls`);
                 // console.log("players get:", typeof(request.data.data));
@@ -29,7 +36,9 @@ const GirlsScreen = () => {
         <View style={styles.container}>
             {girls.length > 0 ?
             <GirlsComponent data={girls}/>
-            : <Text style={styles.noDataContainer}>Loading Data....</Text>}
+            : <View style={globalStyles.loader}>
+                    <CirclesLoader color="green" />
+                </View>}
         </View>
     );
 }

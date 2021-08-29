@@ -1,6 +1,7 @@
 import * as React from "react";
 import {useEffect, useState} from "react";
 import { Text, View, Button, StyleSheet, Dimensions, FlatList, Modal } from 'react-native';
+import { globalStyles } from "../styles/globalStyles";
 import CreatePlayer from "./CreatePlayerComponent";
 import ModelPlayer from "./ModelCreatePlayer";
 
@@ -19,11 +20,11 @@ const BoyComponent = (props) => {
       {/* display add new player component when button click */}
       {/* {addPlayerArea && */}
        <FlatList
-          style={styles.playerList}
+          style={globalStyles.listContainer}
                 
           data={boysList}
           renderItem={({ item }) => (
-            <Text style={styles.item} >{item.name}</Text>
+            <Text style={globalStyles.listItem} >{item.name}</Text>
           )}
         />
     </View>

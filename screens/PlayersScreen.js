@@ -8,13 +8,16 @@ import { GetRequest } from "../api/Requests";
 import PlayerComponent from "../components/PlayerListComponent";
 import axios from "axios";
 import { BASE_URL } from "../api/BASE_URL";
+import { globalStyles } from "../styles/globalStyles";
 // import { createClient } from '@supabase/supabase-js'
+import { CirclesLoader } from 'react-native-indicator';
 
 // const supabaseUrl = 'https://txxjtlrnmxsxpnwaemti.supabase.co'
 // const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyNzkxMjAzNCwiZXhwIjoxOTQzNDg4MDM0fQ.vxGyYCwLx5RaGF8UZbLxWv1ccZIiT4cwVTxss3nF0y4'
 // const supabase = createClient(supabaseUrl, supabaseKey)
 
-const PlayersScreen = ({navigation}) => {
+const PlayersScreen = ({ navigation }) => {
+    // setUpdatePlayers([]);
     const [players, setPlayers] = useState([]);
     const [updatePlayer, setUpdatePlayers] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -22,7 +25,7 @@ const PlayersScreen = ({navigation}) => {
     useEffect(() => {
         // setUpdatePlayers();
         
-
+        
         getAllPlayers();
     }, []);
     // this runs everytime players are changed with use effect hook
@@ -47,16 +50,20 @@ const getAllPlayers = async () => {
     }
     
     return (
-        <View style={styles.container}>
+        <View style={globalStyles.container}>
             <View style={styles.titleGrid}>
-                <Button onPress={() => navigation.navigate('HomeTabs')} title = "Back" style={styles.titleLeft}>Back</Button>
+                <Button onPress={() => navigation.navigate('HomeTabs')} color="#66bb6a" backgroundColor="#000000" title = "Back" style={globalStyles.primaryBtn}>Back</Button>
                 <Text style={styles.title}>All Players</Text>
                 <Text style={styles.titleRight}>Go Home</Text>
             </View>    
               
             {players && players.length > 0 ? 
                 <PlayerComponent data={players} setPlayers={addPlayer} />
-            : <Text style={styles.noDataContainer}>Loading Data....</Text>}
+                :
+                <View style={globalStyles.loader}>
+                    <CirclesLoader color="green" />
+                </View>
+            }
             </View>
 
     );
@@ -70,14 +77,15 @@ const styles = StyleSheet.create({
         // alignItems: 'flex-start',
         // justifyContent: 'flex-start',
         marginTop: '12%',
+
     },
     titleGrid: {
         top: 0,
         fontWeight: 'bold',
         alignItems: 'center',
         // justifyContent: 'center',
-        flex: 1,
-        marginTop: 5,
+        // flex: 3,
+        marginTop: 15,
         flexDirection: "row",
         marginBottom: 8,
         padding: 3,
@@ -87,7 +95,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         textAlign: "center",
         flexDirection: "row",
-        backgroundColor: 'green',
+        backgroundColor: '#32A335',
         alignContent: 'center'
     },
     title: {
