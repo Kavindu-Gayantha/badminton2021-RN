@@ -28,7 +28,8 @@ const PlayersScreen = ({ navigation }) => {
         
         getAllPlayers();
     }, []);
-    // this runs everytime players are changed with use effect hook
+
+    
 const getAllPlayers = async () => {
          
             setLoading(true);
