@@ -21,7 +21,7 @@ const BoyComponent = (props) => {
       {/* {addPlayerArea && */}
        <FlatList
           style={globalStyles.listContainer}
-                
+          keyExtractor={item => item.id.toString()}    
           data={boysList}
           renderItem={({ item }) => (
             <Text style={globalStyles.listItem} >{item.name}</Text>

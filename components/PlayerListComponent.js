@@ -39,9 +39,9 @@ const PlayerComponent = (props) => {
        
       <FlatList
           style={globalStyles.listContainer}
-                
+          keyExtractor={item => item.id.toString()}         
           data={players}
-        renderItem={({ item }) => (
+          renderItem={({ item }) => (
             <TouchableOpacity  
               style={globalStyles.touchableOpacityList}>
                 <View style={globalStyles.coverListItemView}>
