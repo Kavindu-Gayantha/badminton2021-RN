@@ -1,6 +1,6 @@
 import * as React from "react";
-import { Text, View, Button, StyleSheet, Dimensions, FlatList, Modal } from 'react-native';
-import { globalStyles } from "../styles/globalStyles";
+import { Text, View,Image, StyleSheet, Dimensions, FlatList, TouchableOpacity } from 'react-native';
+import { globalStyles, profileImgs } from "../styles/globalStyles";
 
 
 const GirlsComponent = (props) => {
@@ -14,9 +14,24 @@ const GirlsComponent = (props) => {
         keyExtractor={item => item.id.toString()}   
         data={girlsList}
         renderItem={({ item }) => (
-          <Text style={globalStyles.listItem} >
-            {item.name}
-          </Text>
+          <TouchableOpacity  
+              style={globalStyles.touchableOpacityList}>
+                <View style={globalStyles.coverListItemView}>
+                {(item.gender === "Male" || item.gender === 'male') ?
+                  <Image
+                  source={profileImgs.male}
+                  // width="10"
+                    style={globalStyles.flatListImg}
+                  /> :
+                  <Image
+                    source={profileImgs.female}
+                    style={globalStyles.flatListImg}
+                    />}
+                </View>
+            {/* <View style={globalStyles.coverListItemView}> */}
+              <Text style={globalStyles.listItem} >{item.name} - {item.facultyName} </Text>
+              {/* </View> */}
+           </TouchableOpacity>
         )}  
       />
     </View>
