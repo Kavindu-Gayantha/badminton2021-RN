@@ -1,9 +1,7 @@
 import * as React from "react";
 import {useEffect, useState} from "react";
-import { Text, View, Button, StyleSheet, Dimensions, FlatList, Modal } from 'react-native';
-import { globalStyles } from "../styles/globalStyles";
-import CreatePlayer from "./CreatePlayerComponent";
-import ModelPlayer from "./ModelCreatePlayer";
+import { Text, View, Image, StyleSheet, Dimensions, FlatList, TouchableOpacity } from 'react-native';
+import { globalStyles, profileImgs } from "../styles/globalStyles";
 
 
 const BoyComponent = (props) => {
@@ -24,7 +22,24 @@ const BoyComponent = (props) => {
           keyExtractor={item => item.id.toString()}    
           data={boysList}
           renderItem={({ item }) => (
-            <Text style={globalStyles.listItem} >{item.name}</Text>
+            <TouchableOpacity  
+              style={globalStyles.touchableOpacityList}>
+                <View style={globalStyles.coverListItemView}>
+                {(item.gender === "Male" || item.gender === 'male') ?
+                  <Image
+                  source={profileImgs.male}
+                  // width="10"
+                    style={globalStyles.flatListImg}
+                  /> :
+                  <Image
+                    source={profileImgs.female}
+                    style={globalStyles.flatListImg}
+                    />}
+                </View>
+            {/* <View style={globalStyles.coverListItemView}> */}
+              <Text style={globalStyles.listItem} >{item.name} - {item.facultyName} </Text>
+              {/* </View> */}
+           </TouchableOpacity>
           )}
         />
     </View>
@@ -36,11 +51,11 @@ export default BoyComponent;
 
 const styles = StyleSheet.create({
   container: {
- flex: 12,
+        flex: 1,
         backgroundColor: 'white',
         // alignItems: 'center',
         justifyContent: 'center',
-        // marginTop: '1%',
+        marginTop: '1%',
   },
   playerList: {
     // maxHeight: Dimensions.get('screen')
