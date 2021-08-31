@@ -31,43 +31,56 @@ export const globalStyles = StyleSheet.create({
     backgroundColor: '#66bb6a',
   },
    listItem: {
-        margin: 1,
+        marginLeft: -6,
         paddingLeft: 10,
         backgroundColor: 'white',
-        margin: 2,
+        // margin: 1,
         color: '#000000',
         fontWeight: 'bold',
-        height: 100,
-     textAlignVertical: 'center',
+        // height: 70,
+    //  textAlignVertical: 'center',
      fontSize: 18,
-     borderRadius: 10,
-        flex: 3,
+    //  borderRadius: 1,
+        flex: 4,
+  },
+   listItem2: {
+        // margin: 1,
+        paddingLeft: 10,
+        backgroundColor: 'white',
+        // margin: 1,
+        color: '#000000',
+        fontWeight: 'bold',
+        // height: 70,
+    //  textAlignVertical: 'center',
+     fontSize: 18,
+     borderRadius: 1,
+        flex: 1,
   },
   touchableOpacityList: {
-    margin: 2,
+    margin: 1,
     color: 'white',
     // width: '80%',
-    height: 100,
+    height: 70,
     flex:1, //here you can use flex:1 also
     // textAlignVertical: 'center',
     flexDirection: 'row',
     // width: '100%'
   },
   flatListImg: {
-    width: 30,
-    height: 30,
+    height: 70,
+    width: 70,
+    borderRadius: 1,
     justifyContent: 'center',
-    alignContent: 'center',
-    padding: 1,
-    // flex: 1/4,
+    alignItems: 'center'
   },
   coverListItemView: {
     flex: 1,
     justifyContent: 'center',
     alignContent: 'center',
-    // width:70,    // alignItems: 'center',
+    width:100,    // alignItems: 'center',
     textAlignVertical: 'center',
-    // flexDirection: 'row'
+    // flexDirection: 'column'
+    // maxWidth: '100%'
   }
   
 })
