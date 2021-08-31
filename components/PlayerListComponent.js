@@ -45,19 +45,19 @@ const PlayerComponent = (props) => {
             <TouchableOpacity  
               style={globalStyles.touchableOpacityList}>
                 <View style={globalStyles.coverListItemView}>
-                {item.gender === "male" ?
+                {(item.gender === "Male" || item.gender === 'male') ?
                   <Image
                   source={profileImgs.male}
                   // width="10"
-                    style={{height:90, width: 90, borderRadius: 50, justifyContent: 'center', alignItems:'center'}}
+                    style={globalStyles.flatListImg}
                   /> :
                   <Image
                     source={profileImgs.female}
-                    style={{height:90, width: 90, borderRadius: 50, justifyContent: 'center', alignItems:'center'}}
+                    style={globalStyles.flatListImg}
                     />}
                 </View>
             {/* <View style={globalStyles.coverListItemView}> */}
-              <Text style={globalStyles.listItem} >{item.name}</Text>
+              <Text style={globalStyles.listItem} >{item.name} - {item.facultyName} </Text>
               {/* </View> */}
                  </TouchableOpacity>
            
