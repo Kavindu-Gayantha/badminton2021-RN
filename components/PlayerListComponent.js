@@ -59,7 +59,7 @@ const PlayerComponent = (props) => {
             {/* <View style={globalStyles.coverListItemView}> */}
               <Text style={globalStyles.listItem} >{item.name} - {item.facultyName} </Text>
               {/* </View> */}
-                 </TouchableOpacity>
+           </TouchableOpacity>
            
           )}
         />
@@ -71,7 +71,7 @@ export default PlayerComponent;
 
 const styles = StyleSheet.create({
   container: {
- flex: 12,
+        flex: 1,
         backgroundColor: 'white',
         // alignItems: 'center',
         justifyContent: 'center',
