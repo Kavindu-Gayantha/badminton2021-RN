@@ -49,11 +49,11 @@ const PlayerComponent = (props) => {
                   <Image
                   source={profileImgs.male}
                   // width="10"
-                    style={{height:70, width: 70, borderRadius: 1, justifyContent: 'center', alignItems:'center'}}
+                    style={globalStyles.flatListImg}
                   /> :
                   <Image
                     source={profileImgs.female}
-                    style={{height:70, width: 70, borderRadius: 1, justifyContent: 'center', alignItems:'center'}}
+                    style={globalStyles.flatListImg}
                     />}
                 </View>
             {/* <View style={globalStyles.coverListItemView}> */}
