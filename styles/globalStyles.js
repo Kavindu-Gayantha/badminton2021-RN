@@ -39,7 +39,7 @@ export const globalStyles = StyleSheet.create({
         color: '#000000',
         fontWeight: 'bold',
         // height: 70,
-    //  textAlignVertical: 'center',
+     textAlignVertical: 'center',
      fontSize: 18,
     //  borderRadius: 1,
         flex: 4,
