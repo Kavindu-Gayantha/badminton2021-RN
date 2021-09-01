@@ -9,9 +9,9 @@ const HomeScreen = ({navigation}) => {
     // const loginUserType = "User";
 
     function press() {
-  var count = 0;
-  console.log(`Presssed ${++count}`);
-}
+      var count = 0;
+      console.log(`Presssed ${++count}`);
+    }
 const goNextPage = () => {
     navigation.navigate("Players");
   };

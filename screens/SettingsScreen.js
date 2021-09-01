@@ -37,7 +37,7 @@ const list = [
 //         setVisible(!visible);
 //     };
 // const [visible, setVisible] = useState(false);
-const SettingsScreen = () => {
+const SettingsScreen = ({navigation}) => {
     const [visible, setVisible] = useState(false);
 
     const toggleOverlay = () => {
@@ -46,14 +46,23 @@ const SettingsScreen = () => {
 
     const editListItemPressed = (item) => {
     console.log("itemp pressed: ", item);
-    // switch (item) {
-    //     case 'About': {
-    //         return toggleOverlay();
-    //     }
-    // }
-    if (item === "About") {
-     toggleOverlay();
+    switch (item) {
+        case 'About': {
+            toggleOverlay();
+        } break;
+        case 'Edit Profile': {
+            navigation.navigate("EditProfile");
+        } break;
+        case 'Help': {
+            navigation.navigate("Help");
+        } break;
+        case 'Log out': {
+            navigation.navigate("Help");
+        }
     }
+    // if (item === "About") {
+    //  toggleOverlay();
+    // }
 }
     return(
         <View style={styles.container}>

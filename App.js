@@ -10,7 +10,9 @@ import GirlsScreen from "./screens/GirlsScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import {Ionicons} from "@expo/vector-icons";
 import PlayersScreen from "./screens/PlayersScreen";
+import HelpScreen from "./screens/HelpScreen";
 import { globalStyles } from './styles/globalStyles';
+import EditProfileScreen from './screens/EditProfileScreen';
 
 
 
@@ -56,12 +58,14 @@ const RootStack = createNativeStackNavigator();
 
 export default function App() {
     return (
-        <NavigationContainer>
-            <RootStack.Navigator screenOptions={{headerShown: false}}>
-                <RootStack.Screen name="HomeTabs" component={HomeTabs} />
-                <RootStack.Screen name="Players" component={PlayersScreen}/>
-            </RootStack.Navigator>
-        </NavigationContainer>
+      <NavigationContainer>
+        <RootStack.Navigator screenOptions={{ headerShown: false }}>
+          <RootStack.Screen name="HomeTabs" component={HomeTabs} />
+          <RootStack.Screen name="Players" component={PlayersScreen} />
+          <RootStack.Screen name="Help" component={HelpScreen} />
+          <RootStack.Screen name="EditProfile" component={EditProfileScreen} />
+        </RootStack.Navigator>
+      </NavigationContainer>
     );
 }
 // to add icons to tab bar
