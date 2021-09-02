@@ -1,8 +1,10 @@
 import * as React from "react";
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { BASE_URL } from "../api/BASE_URL";
+import { globalStyles } from "../styles/globalStyles";
+import CreateSmsComponent from "../components/CreateSmsComponent";
 
 const SmsScreen = ({ navigation }) => {
   const [smsAlerts, setSmsAlerts] = useState([]);
@@ -30,6 +32,10 @@ const SmsScreen = ({ navigation }) => {
 
     setLoading(false);
   };
-  return <Text>SmsScreen</Text>;
+  return (
+    <View style={globalStyles.container}>
+      <CreateSmsComponent />
+    </View>
+  );
 };
 export default SmsScreen;
