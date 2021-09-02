@@ -7,7 +7,7 @@ const EditProfileScreen = ({ navigation }) => {
   console.log("props edit profile: ", navigation);
   return (
     <View style={globalStyles.container}>
-      <HeaderComponent navigation={navigation} />
+      <HeaderComponent title="Edit Profile" navigation={navigation} />
       <Text>edit profile screen</Text>
     </View>
   );
