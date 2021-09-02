@@ -20,9 +20,6 @@ import { globalStyles } from "../styles/globalStyles";
 import { CirclesLoader } from "react-native-indicator";
 import HeaderComponent from "../components/HeaderComponent";
 
-// const supabaseUrl = 'https://txxjtlrnmxsxpnwaemti.supabase.co'
-// const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyNzkxMjAzNCwiZXhwIjoxOTQzNDg4MDM0fQ.vxGyYCwLx5RaGF8UZbLxWv1ccZIiT4cwVTxss3nF0y4'
-// const supabase = createClient(supabaseUrl, supabaseKey)
 
 const PlayersScreen = ({ navigation }) => {
   // setUpdatePlayers([]);
