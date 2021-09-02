@@ -7,7 +7,7 @@ import { globalStyles } from "../styles/globalStyles";
 
 const SmsListComponent = (props) => {
   console.log("props", props);
-  const smsList = props.data;
+  const smsList = props.data.reverse();
 
   return (
     <ScrollView style={styles.container}>
