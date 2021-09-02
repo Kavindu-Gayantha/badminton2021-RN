@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, FlatList } from "react-native";
 import { Card } from "react-native-elements";
 import { ScrollView } from "react-native-gesture-handler";
 import { globalStyles } from "../styles/globalStyles";
+import moment from "moment";
 
 const SmsListComponent = (props) => {
   console.log("props", props);
@@ -14,7 +15,7 @@ const SmsListComponent = (props) => {
       {smsList.map((item) => (
         <Card containerStyle={styles.cardContainer} key={item.id}>
           <Card.Title style={styles.cardTitle}>
-            <Text>{item.timestamp}</Text>
+            <Text>{moment(item.timestamp).format("LLLL")}</Text>
           </Card.Title>
           <Text style={styles.msg}>{item.msg}</Text>
         </Card>
