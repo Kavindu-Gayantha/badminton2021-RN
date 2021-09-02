@@ -2,8 +2,8 @@ import * as React from "react";
 import { Text, Button, View, StyleSheet } from "react-native";
 import { globalStyles } from "../styles/globalStyles";
 
-const HeaderComponent = ({ navigation }) => {
-  console.log("props:  ", navigation);
+const HeaderComponent = ({ navigation, title }) => {
+  console.log("props:  ", title);
   return (
     <View style={styles.titleGrid}>
       <Button
@@ -15,7 +15,7 @@ const HeaderComponent = ({ navigation }) => {
       >
         Back
       </Button>
-      <Text style={styles.title}>All Players</Text>
+      <Text style={styles.title}>{title}</Text>
       <Text style={styles.titleRight}>Go Home</Text>
     </View>
   );
