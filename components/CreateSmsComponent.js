@@ -1,11 +1,13 @@
 import React from "react";
 import { View, Text, TextInput, StyleSheet, Card } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Input } from "react-native-elements";
 import { Button } from "react-native-elements";
 import { Formik } from "formik";
+import axios from "axios";
+import { BASE_URL } from "../api/BASE_URL";
 
-const CreateSmsComponent = () => {
+const CreateSmsComponent = (props) => {
   const [msg, setMsg] = useState("");
   const [showErrors, setShowErrors] = useState(false);
   const [showSubmitTxt, setShowSubmitTxt] = useState(false);
@@ -13,10 +15,34 @@ const CreateSmsComponent = () => {
 
   const onSubmitSms = () => {
     console.log("sms: ", msg);
-    // setMsg("");
+    
+    const body = {
+      'msg': msg,
+      'timestamp': ''
+    }
+    createSmsAlertMethod(body).then(()=> setMsg(""));
   };
-  const submitText = (value) => {
-    console.log("submit text vlaue: ", value);
+  
+  useEffect(() => {
+    // const unsubscribe = navigation.addListener("focus", () => {
+      // do something
+      setResponseMessage(false);
+      // console.log("smsAlerts state use effect :  ", smsAlerts);
+    // });
+    // return unsubscribe;
+  }, []);
+
+  //Create sms API here
+  const createSmsAlertMethod = async (body) => {
+    try {
+      const request = await axios.post(`${BASE_URL}/sms/create`, body);
+        setShowSubmitTxt(true);
+        setResponseMessage(request.data.statusMessage);
+        props.setSmsAlerts(request.data.data);
+        console.log("request response", request.data.statusMessage);
+    } catch (error) {
+        console.log(error);
+    }
   };
   return (
     <View style={styles.createMsgContainer}>
@@ -40,7 +66,7 @@ const CreateSmsComponent = () => {
               buttonStyle={styles.btn}
               onPress={onSubmitSms}
             />
-            {showErrors == true ? (
+            {/* {showErrors == true ? (
               <Text style={styles.errorMsg}>
                 Please provide required data to continue...
               </Text>
@@ -48,7 +74,7 @@ const CreateSmsComponent = () => {
               showSubmitTxt == true && (
                 <Text style={styles.successMsg}>{responseMessage}</Text>
               )
-            )}
+            )} */}
           </View>
         )}
       </Formik>
