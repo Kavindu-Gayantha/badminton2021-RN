@@ -111,7 +111,7 @@ const CreatePlayer = ( props ) => {
       <Formik
         initialValues={{ createPlayerObject }}
         onSubmit={(values) => {
-          console.log("valalala:  ", values);
+          // console.log("valalala:  ", values);
         }}
       >
         {(props) => (

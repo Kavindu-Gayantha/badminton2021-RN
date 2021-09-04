@@ -8,7 +8,7 @@ import { globalStyles, profileImgs } from "../styles/globalStyles";
 const PlayerComponent = (props) => {
   const [addPlayerArea, setAddPlayerArea] = useState(false);
    const [modalOpen, setModelOpen] = useState(false);
-  const players = props.data;
+  const players = props.data.reverse();
   // console.log("props::", props);
   
   const addNewPlayer = () => {
