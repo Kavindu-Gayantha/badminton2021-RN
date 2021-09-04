@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { Text, View, TextInput } from "react-native";
+import { Text, View, TextInput,StyleSheet } from "react-native";
 import { globalStyles } from "../styles/globalStyles";
 
 const RegisterScreen = () => {
@@ -11,7 +11,7 @@ const RegisterScreen = () => {
 
   return (
     <View style={globalStyles.container}>
-      <TextInput
+      {/* <TextInput
         placeholder="First Name"
         onChangeText={(value) => setFirstName(value)}
         value={firstName}
@@ -23,9 +23,9 @@ const RegisterScreen = () => {
         value={selectedFaculty}
         style={styles.inputBox}
         keyboardType="default"
-        onResponderStart={() => setFacultyDropDown(true)}
-      />
-      {facultyDropDown &&
+        onResponderStart={() => setFacultyDropDown(true)} */}
+      {/* /> */}
+      {/* {facultyDropDown &&
         faculties &&
         faculties.map((value) => {
           return (
@@ -33,7 +33,7 @@ const RegisterScreen = () => {
               <Text onPress={(e) => selectFaculty(value)}>{value.faculty}</Text>
             </View>
           );
-        })}
+        })} */}
     </View>
   );
 };
