@@ -1,35 +1,33 @@
-import * as React from 'react';
+import * as React from "react";
 import { Button, View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { globalStyles } from '../styles/globalStyles';
+import { globalStyles } from "../styles/globalStyles";
 
+const HomeScreen = ({ navigation }) => {
+  const userName = "Kavindu";
+  const loginUserType = "Admin";
+  // const loginUserType = "User";
 
-const HomeScreen = ({navigation}) => {
-    const userName = "Kavindu"
-    const loginUserType = "Admin";
-    // const loginUserType = "User";
-
-    function press() {
-      var count = 0;
-      console.log(`Presssed ${++count}`);
-    }
-const goNextPage = () => {
-    navigation.navigate("Players");
+  function press() {
+    var count = 0;
+    console.log(`Presssed ${++count}`);
+  }
+  const goNextPage = (routeLink) => {
+    navigation.navigate(routeLink);
   };
-    return(
-         <View style={styles.container}>
+  return (
+    <View style={styles.container}>
       <Text style={styles.title}>Hi {userName}</Text>
-      <View
-        style={styles.separator}
-      />
+      <View style={styles.separator} />
       <View style={styles.buttonGroup}>
-        {loginUserType === "Admin" &&
+        {loginUserType === "Admin" && (
+          <TouchableOpacity style={styles.buttonContainer}>
+            <Text style={styles.buttonText} onPress={press}>
+              Practice Days
+            </Text>
+          </TouchableOpacity>
+        )}
         <TouchableOpacity style={styles.buttonContainer}>
-          <Text style={styles.buttonText} onPress={press}>
-            Practice Days
-          </Text>
-        </TouchableOpacity>}
-        <TouchableOpacity style={styles.buttonContainer}>
-          <Text style={styles.buttonText} onPress={goNextPage}>
+          <Text style={styles.buttonText} onPress={() => goNextPage("Players")}>
             Players
           </Text>
         </TouchableOpacity>
@@ -40,18 +38,22 @@ const goNextPage = () => {
             SMS
           </Text>
         </TouchableOpacity>
-        {loginUserType === "Admin" &&
-        <TouchableOpacity style={styles.buttonContainer}>
-          <Text style={styles.buttonText} onPress={press}>
-            Videos
-          </Text>
-        </TouchableOpacity> }
+        {loginUserType === "Admin" && (
+          <TouchableOpacity style={styles.buttonContainer}>
+            <Text
+              style={styles.buttonText}
+              onPress={() => goNextPage("Videos")}
+            >
+              Videos
+            </Text>
+          </TouchableOpacity>
+        )}
       </View>
 
       {/* <EditScreenInfo path="/screens/TabTwoScreen.tsx" /> */}
     </View>
-    );
-}
+  );
+};
 export default HomeScreen;
 
 const styles = StyleSheet.create({
@@ -102,4 +104,3 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
-

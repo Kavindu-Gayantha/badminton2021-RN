@@ -14,6 +14,7 @@ import HelpScreen from "./screens/HelpScreen";
 import { globalStyles } from "./styles/globalStyles";
 import EditProfileScreen from "./screens/EditProfileScreen";
 import LoginScreen from "./screens/LoginScreen";
+import VideoScreen from "./screens/VideoScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -79,7 +80,7 @@ export default function App() {
       <RootStack.Navigator screenOptions={{ headerShown: false }}>
         <RootStack.Screen name="Login" component={LoginScreen} />
         <RootStack.Screen name="HomeTabs" component={HomeTabs} />
-
+        <RootStack.Screen name="Videos" component={VideoScreen} />
         <RootStack.Screen name="Players" component={PlayersScreen} />
         <RootStack.Screen name="Help" component={HelpScreen} />
         <RootStack.Screen name="EditProfile" component={EditProfileScreen} />
