@@ -5,6 +5,7 @@ import { Card } from "react-native-elements";
 import { ScrollView } from "react-native-gesture-handler";
 import { globalStyles } from "../styles/globalStyles";
 import moment from "moment";
+import { CirclesLoader } from "react-native-indicator";
 
 const SmsListComponent = (props) => {
   console.log("props", props);
@@ -12,14 +13,18 @@ const SmsListComponent = (props) => {
 
   return (
     <ScrollView style={styles.container}>
-      {smsList.map((item) => (
-        <Card containerStyle={styles.cardContainer} key={item.id}>
-          <Card.Title style={styles.cardTitle}>
-            <Text>{moment(item.timestamp).format("LLLL")}</Text>
-          </Card.Title>
-          <Text style={styles.msg}>{item.msg}</Text>
-        </Card>
-      ))}
+      {smsList !== null ? (
+        smsList.map((item) => (
+          <Card containerStyle={styles.cardContainer} key={item.id}>
+            <Card.Title style={styles.cardTitle}>
+              <Text>{moment(item.timestamp).format("LLLL")}</Text>
+            </Card.Title>
+            <Text style={styles.msg}>{item.msg}</Text>
+          </Card>
+        ))
+      ) : (
+        <CirclesLoader color="green" />
+      )}
     </ScrollView>
   );
 };

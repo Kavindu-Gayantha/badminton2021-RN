@@ -6,6 +6,7 @@ import { BASE_URL } from "../api/BASE_URL";
 import { globalStyles } from "../styles/globalStyles";
 import CreateSmsComponent from "../components/CreateSmsComponent";
 import SmsListComponent from "../components/SmsListComponent";
+import { CirclesLoader } from "react-native-indicator";
 
 const SmsScreen = ({ navigation }) => {
   const [smsAlerts, setSmsAlerts] = useState([]);
@@ -47,7 +48,13 @@ const SmsScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <CreateSmsComponent setSmsAlerts={addSMSList} />
-      <SmsListComponent data={smsAlerts} />
+      {smsAlerts.length > 0 ? (
+        <SmsListComponent data={smsAlerts} />
+      ) : (
+        <View style={globalStyles.loader}>
+          <CirclesLoader color="green" />
+        </View>
+      )}
     </View>
   );
 };
