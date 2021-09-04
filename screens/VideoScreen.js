@@ -1,9 +1,10 @@
 import React, { useState, useCallback, useRef } from "react";
 import { View, Text, Alert, Button } from "react-native";
 import YoutubePlayer from "react-native-youtube-iframe";
+import HeaderComponent from "../components/HeaderComponent";
 import { globalStyles } from "../styles/globalStyles";
 
-const VideoScreen = () => {
+const VideoScreen = ({navigation}) => {
   const [playing, setPlaying] = useState(false);
 
   const onStateChange = useCallback((state) => {
@@ -19,6 +20,7 @@ const VideoScreen = () => {
 
   return (
     <View style={globalStyles.container}>
+      <HeaderComponent title="Videos" navigation={navigation}/>
       <YoutubePlayer
         height={300}
         play={playing}
