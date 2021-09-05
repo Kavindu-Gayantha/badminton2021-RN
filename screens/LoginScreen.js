@@ -1,11 +1,18 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { Text, View, TextInput, StyleSheet } from "react-native";
+import {
+  Text,
+  View,
+  TextInput,
+  StyleSheet,
+  ImageBackground,
+} from "react-native";
 import { Button } from "react-native-elements/dist/buttons/Button";
 import { globalStyles } from "../styles/globalStyles";
 import { Card, Divider } from "react-native-elements";
 
 const LoginScreen = ({ navigation }) => {
+  const image = require('../assets/welcomescreen.jpg');
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showSubmitBtn, setShowSubmitBtn] = useState(false);
@@ -21,9 +28,10 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <ImageBackground source={image} resizeMode="cover" style={styles.image}>
       <Card containerStyle={styles.cardContainer}>
         <Card.Title>
-          <Text style={globalStyles.titleText}>Login to Badminton App</Text>
+          <Text style={styles.title}>Login to Badminton App</Text>
         </Card.Title>
         <Divider orientation="vertical" width={5} />
         <TextInput
@@ -61,6 +69,7 @@ const LoginScreen = ({ navigation }) => {
           </View>
         )}
       </Card>
+      </ImageBackground>
     </View>
   );
 };
@@ -70,9 +79,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     borderRadius: 2,
-    backgroundColor: "#ddd",
+    backgroundColor: "#98ee99",
     // margin: 15,
-    padding: 10,
+    // padding: 10,
     justifyContent: "center",
   },
   title: {
@@ -80,6 +89,8 @@ const styles = StyleSheet.create({
     fontSize: 30,
     textAlign: "center",
     padding: 5,
+    color: 'black',
+    shadowOpacity: 1
   },
   inputBox: {
     padding: 5,
@@ -99,11 +110,15 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     justifyContent: "center",
-    // alignItems: 'center',
-    backgroundColor: "#98ee99",
-    flex: 1,
+    opacity: 0.6,
+    backgroundColor: "white",
+    // flex: 1/2,
     // width: '100%'
     // marginBottom: 20,
     // margin:20,
+  },
+  image: {
+    flex: 1,
+    justifyContent: "center",
   },
 });
