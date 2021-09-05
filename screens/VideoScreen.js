@@ -14,6 +14,7 @@ import { globalStyles } from "../styles/globalStyles";
 import axios from "axios";
 import { BASE_URL } from "../api/BASE_URL";
 import { CirclesLoader } from "react-native-indicator";
+import { Divider } from "react-native-elements/dist/divider/Divider";
 
 const VideoScreen = ({ navigation }) => {
   const [playing, setPlaying] = useState(false);
@@ -53,31 +54,36 @@ const VideoScreen = ({ navigation }) => {
     }
   };
 
+  const addNewVideo = (data) => {
+    setVideos([...videos, data]);
+  }
+
   return (
     <View style={globalStyles.container}>
       <HeaderComponent title="Videos" navigation={navigation} />
-      <AddVideoComponent />
+      <AddVideoComponent addNewVideo={addNewVideo} />
       <ScrollView style={styles.container}>
         {videos.length > 0 ? (
-          videos
-            .reverse()
-            .map((item) => (
-              
+          videos.reverse().map((item) => (
+            <View key={item.id} style={styles.videos}>
               <YoutubePlayer
-                
-                key={item.id}
                 height={300}
                 play={playing}
                 videoId={item.youtubeLink}
                 onChangeState={onStateChange}
               />
-            ))
+              {/* <Button
+                title={playing ? "pause" : "play"}
+                onPress={togglePlaying}
+              /> */}
+              <Divider />
+            </View>
+          ))
         ) : (
           <View style={globalStyles.loader}>
             <CirclesLoader color="green" />
           </View>
         )}
-        <Button title={playing ? "pause" : "play"} onPress={togglePlaying} />
       </ScrollView>
     </View>
   );
@@ -88,6 +94,10 @@ export default VideoScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 2,
+    // padding: 2,
+  },
+  videos: {
+    marginBottom: -10,
+    // flex: 1/3
   },
 });
