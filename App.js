@@ -27,6 +27,7 @@ function HomeTabs() {
         tabBarInactiveBackgroundColor: "#41733f",
         tabBarActiveTintColor: "#98ee99",
         tabBarActiveBackgroundColor: "#134717",
+        
       }}
       initialRouteName="Home"
     >

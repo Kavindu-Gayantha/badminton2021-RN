@@ -1,109 +1,126 @@
 import * as React from "react";
-import {useEffect, useState} from "react";
-import { Text, View, Button, StyleSheet, Dimensions, FlatList, Modal, TouchableOpacity, Image } from 'react-native';
+import { useEffect, useState } from "react";
+import {
+  Text,
+  View,
+  Button,
+  StyleSheet,
+  Dimensions,
+  FlatList,
+  Modal,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import CreatePlayer from "./CreatePlayerComponent";
 import { globalStyles, profileImgs } from "../styles/globalStyles";
 
-
 const PlayerComponent = (props) => {
   const [addPlayerArea, setAddPlayerArea] = useState(false);
-   const [modalOpen, setModelOpen] = useState(false);
+  const [modalOpen, setModelOpen] = useState(false);
   const players = props.data.reverse();
-  // console.log("props::", props);
-  
+  console.log("props::", props);
+  const { loginUserType } = props;
+
   const addNewPlayer = () => {
     setModelOpen(true);
-  }
+  };
 
   const closeModal = () => {
     setModelOpen(false);
-  }
-   
-  
+  };
+
   return (
     <View style={styles.container}>
-      <Button onPress={addNewPlayer} title="Add Player" color="#41733f" style={globalStyles.primaryBtn} />
-      
+      {loginUserType && loginUserType == "Admin" && (
+        <Button
+          onPress={addNewPlayer}
+          title="Add Player"
+          color="#41733f"
+          style={globalStyles.primaryBtn}
+        />
+      )}
       {/* display add new player component when button click */}
       {/* {addPlayerArea && */}
-       <Modal visible={modalOpen} animationType="slide">
-        
-          <View style={styles.modalContent} >
-         
+      <Modal visible={modalOpen} animationType="slide">
+        <View style={styles.modalContent}>
           <CreatePlayer setPlayers={props.setPlayers} />
-          
-          <Button onPress={closeModal} color="red" style={styles.closeBtn} title="close" />
+
+          <Button
+            onPress={closeModal}
+            color="red"
+            style={styles.closeBtn}
+            title="close"
+          />
         </View>
-        
       </Modal>
-       
+
       <FlatList
-          style={globalStyles.listContainer}
-          keyExtractor={item => item.id.toString()}         
-          data={players}
-          renderItem={({ item }) => (
-            <TouchableOpacity  
-              style={globalStyles.touchableOpacityList}>
-                <View style={globalStyles.coverListItemView}>
-                {(item.gender === "Male" || item.gender === 'male') ?
-                  <Image
+        style={globalStyles.listContainer}
+        keyExtractor={(item) => item.id.toString()}
+        data={players}
+        renderItem={({ item }) => (
+          <TouchableOpacity style={globalStyles.touchableOpacityList}>
+            <View style={globalStyles.coverListItemView}>
+              {item.gender === "Male" || item.gender === "male" ? (
+                <Image
                   source={profileImgs.male}
                   // width="10"
-                    style={globalStyles.flatListImg}
-                  /> :
-                  <Image
-                    source={profileImgs.female}
-                    style={globalStyles.flatListImg}
-                    />}
-                </View>
+                  style={globalStyles.flatListImg}
+                />
+              ) : (
+                <Image
+                  source={profileImgs.female}
+                  style={globalStyles.flatListImg}
+                />
+              )}
+            </View>
             {/* <View style={globalStyles.coverListItemView}> */}
-              <Text style={globalStyles.listItem} >{item.name} - {item.facultyName} </Text>
-              {/* </View> */}
-           </TouchableOpacity>
-           
-          )}
-        />
+            <Text style={globalStyles.listItem}>
+              {item.name} - {item.facultyName}{" "}
+            </Text>
+            {/* </View> */}
+          </TouchableOpacity>
+        )}
+      />
     </View>
   );
-}
+};
 
 export default PlayerComponent;
 
 const styles = StyleSheet.create({
   container: {
-        flex: 1,
-        backgroundColor: 'white',
-        // alignItems: 'center',
-        justifyContent: 'center',
-        // marginTop: '1%',
+    flex: 1,
+    backgroundColor: "white",
+    // alignItems: 'center',
+    justifyContent: "center",
+    // marginTop: '1%',
   },
   playerList: {
     // maxHeight: Dimensions.get('screen')
-    backgroundColor: 'white',
+    backgroundColor: "white",
     // justifyContent: 'flex-start'
   },
   item: {
     margin: 1,
-    color: 'white',
+    color: "white",
     height: 100,
-    flex:1, //here you can use flex:1 also
-    textAlignVertical: 'center'
-        
-
+    flex: 1, //here you can use flex:1 also
+    textAlignVertical: "center",
   },
   modalContent: {
-    backgroundColor: 'yellow',
+    backgroundColor: "yellow",
     flex: 12,
     padding: 12,
     margin: 2,
   },
   button: {
-    color: 'red',
-    width: '100%',
-    margin: '2%',
+    color: "red",
+    width: "100%",
+    margin: "2%",
   },
   closeBtn: {
-    color: 'red',
-    backgroundColor: 'red'
-  }
-})
+    color: "red",
+    backgroundColor: "red",
+  },
+});

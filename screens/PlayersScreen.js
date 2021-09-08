@@ -21,11 +21,13 @@ import { CirclesLoader } from "react-native-indicator";
 import HeaderComponent from "../components/HeaderComponent";
 
 
-const PlayersScreen = ({ navigation }) => {
+const PlayersScreen = ({ navigation, route }) => {
   // setUpdatePlayers([]);
   const [players, setPlayers] = useState([]);
   const [updatePlayer, setUpdatePlayers] = useState([]);
   const [loading, setLoading] = useState(false);
+  const {loginUserType } = route.params;
+
 
   useEffect(() => {
     // setUpdatePlayers();
@@ -56,7 +58,7 @@ const PlayersScreen = ({ navigation }) => {
       <HeaderComponent title="All Players" navigation={navigation} />
 
       {players && players.length > 0 ? (
-        <PlayerComponent data={players} setPlayers={addPlayer} />
+        <PlayerComponent data={players} loginUserType={loginUserType} setPlayers={addPlayer} />
       ) : (
         <View style={globalStyles.loader}>
           <CirclesLoader color="green" />
