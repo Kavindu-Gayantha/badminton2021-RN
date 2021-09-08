@@ -7,22 +7,37 @@ import { globalStyles } from "../styles/globalStyles";
 import CreateSmsComponent from "../components/CreateSmsComponent";
 import SmsListComponent from "../components/SmsListComponent";
 import { CirclesLoader } from "react-native-indicator";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const SmsScreen = ({ navigation }) => {
+const SmsScreen = ({ navigation, route }) => {
   const [smsAlerts, setSmsAlerts] = useState([]);
   const [data, setData] = useState([]);
-  //  const [updatePlayer, setUpdatePlayers] = useState([]);
+  const [userToken, setUserToken] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const { userType } = userToken;
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       // do something
       getAllSmsAlerts();
       console.log("smsAlerts state use effect :  ", smsAlerts);
+      const userToken = getTokenMethod();
+
+      console.log("Token in smstabs: ", userToken);
     });
     return unsubscribe;
   }, [navigation]);
 
+  const getTokenMethod = async () => {
+    try {
+      const userToken = await AsyncStorage.getItem("loginToken");
+      setUserToken(JSON.parse(userToken));
+      return userToken;
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const getAllSmsAlerts = async () => {
     setLoading(true);
     try {
@@ -47,7 +62,9 @@ const SmsScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <CreateSmsComponent setSmsAlerts={addSMSList} />
+      {userType && userType == "Admin" && (
+        <CreateSmsComponent setSmsAlerts={addSMSList} />
+      )}
       {smsAlerts.length > 0 ? (
         <SmsListComponent data={smsAlerts} />
       ) : (

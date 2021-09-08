@@ -1,31 +1,57 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as React from "react";
+import { useEffect, useState } from "react";
 import { Button, View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { globalStyles } from "../styles/globalStyles";
+// import getTokenMethod from "../api/Token";
 
 const HomeScreen = ({ navigation }) => {
-  const userName = "Kavindu";
-  const loginUserType = "Admin";
+  const [userType, setUserType] = useState(null);
+  const [userToken, setUserToken] = useState("");
   // const loginUserType = "User";
+  const loginUserType = userToken.userType;
+  const userName = userToken.firstName;
+  console.log("user type is: ", loginUserType);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      // do something
+      const userToken = getTokenMethod();
+
+      console.log("Token in hometabs: ", userToken);
+    });
+    return unsubscribe;
+  }, [navigation]);
+
+  const getTokenMethod = async () => {
+    try {
+      const userToken = await AsyncStorage.getItem("loginToken");
+      setUserToken(JSON.parse(userToken));
+      return userToken;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   function press() {
     var count = 0;
     console.log(`Presssed ${++count}`);
   }
   const goNextPage = (routeLink) => {
-    navigation.navigate(routeLink);
+    navigation.navigate(routeLink, { loginUserType: loginUserType });
   };
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Hi {userName}</Text>
       <View style={styles.separator} />
       <View style={styles.buttonGroup}>
-        {loginUserType === "Admin" && (
-          <TouchableOpacity style={styles.buttonContainer}>
-            <Text style={styles.buttonText} onPress={press}>
-              Practice Days
-            </Text>
-          </TouchableOpacity>
-        )}
+        {/* {loginUserType === "Admin" && ( */}
+        <TouchableOpacity style={styles.buttonContainer}>
+          <Text style={styles.buttonText} onPress={press}>
+            Practice Days
+          </Text>
+        </TouchableOpacity>
+        {/* // )} */}
         <TouchableOpacity style={styles.buttonContainer}>
           <Text style={styles.buttonText} onPress={() => goNextPage("Players")}>
             Players
@@ -34,20 +60,17 @@ const HomeScreen = ({ navigation }) => {
       </View>
       <View style={styles.buttonGroup}>
         <TouchableOpacity style={styles.buttonContainer}>
-          <Text style={styles.buttonText} onPress={press}>
+          <Text style={styles.buttonText} onPress={() => goNextPage("sms")}>
             SMS
           </Text>
         </TouchableOpacity>
-        {loginUserType === "Admin" && (
-          <TouchableOpacity style={styles.buttonContainer}>
-            <Text
-              style={styles.buttonText}
-              onPress={() => goNextPage("Videos")}
-            >
-              Videos
-            </Text>
-          </TouchableOpacity>
-        )}
+        {/* {loginUserType === "Admin" && ( */}
+        <TouchableOpacity style={styles.buttonContainer}>
+          <Text style={styles.buttonText} onPress={() => goNextPage("Videos")}>
+            Videos
+          </Text>
+        </TouchableOpacity>
+        {/* )} */}
       </View>
 
       {/* <EditScreenInfo path="/screens/TabTwoScreen.tsx" /> */}

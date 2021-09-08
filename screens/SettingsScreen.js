@@ -22,21 +22,7 @@ const list = [
     },
     
 ];
-// const editListItemPressed = (item) => {
-//     console.log("itemp pressed: ", item);
-//     // switch (item) {
-//     //     case 'About': {
-//     //         return toggleOverlay();
-//     //     }
-//     // }
-//     if (item === "About") {
-//      toggleOverlay();
-//     }
-// }
-// const toggleOverlay = () => {
-//         setVisible(!visible);
-//     };
-// const [visible, setVisible] = useState(false);
+
 const SettingsScreen = ({navigation}) => {
     const [visible, setVisible] = useState(false);
 

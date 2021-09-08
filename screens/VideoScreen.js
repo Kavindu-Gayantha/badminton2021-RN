@@ -16,9 +16,10 @@ import { BASE_URL } from "../api/BASE_URL";
 import { CirclesLoader } from "react-native-indicator";
 import { Divider } from "react-native-elements/dist/divider/Divider";
 
-const VideoScreen = ({ navigation }) => {
+const VideoScreen = ({ navigation, route }) => {
   const [playing, setPlaying] = useState(false);
   const [videos, setVideos] = useState([]);
+  const { loginUserType } = route.params;
 
   const onStateChange = useCallback((state) => {
     if (state === "ended") {
@@ -56,12 +57,14 @@ const VideoScreen = ({ navigation }) => {
 
   const addNewVideo = (data) => {
     setVideos([...videos, data]);
-  }
+  };
 
   return (
     <View style={globalStyles.container}>
       <HeaderComponent title="Videos" navigation={navigation} />
-      <AddVideoComponent addNewVideo={addNewVideo} />
+      {loginUserType && loginUserType == "Admin" && (
+        <AddVideoComponent addNewVideo={addNewVideo} />
+      )}
       <ScrollView style={styles.container}>
         {videos.length > 0 ? (
           videos.reverse().map((item) => (
