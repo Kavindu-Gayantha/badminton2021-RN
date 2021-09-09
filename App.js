@@ -12,9 +12,12 @@ import { Ionicons } from "@expo/vector-icons";
 import PlayersScreen from "./screens/PlayersScreen";
 import HelpScreen from "./screens/HelpScreen";
 import { globalStyles } from "./styles/globalStyles";
-import EditProfileScreen from "./screens/EditProfileScreen";
+import EditProfileScreen from "./screens/ProfileScreen";
 import LoginScreen from "./screens/LoginScreen";
 import VideoScreen from "./screens/VideoScreen";
+import ProfileComponent from "./components/EditProfileComponent";
+import EditProfileComponent from "./components/EditProfileComponent";
+import ProfileScreen from "./screens/ProfileScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -27,7 +30,6 @@ function HomeTabs() {
         tabBarInactiveBackgroundColor: "#41733f",
         tabBarActiveTintColor: "#98ee99",
         tabBarActiveBackgroundColor: "#134717",
-        
       }}
       initialRouteName="Home"
     >
@@ -84,7 +86,8 @@ export default function App() {
         <RootStack.Screen name="Videos" component={VideoScreen} />
         <RootStack.Screen name="Players" component={PlayersScreen} />
         <RootStack.Screen name="Help" component={HelpScreen} />
-        <RootStack.Screen name="EditProfile" component={EditProfileScreen} />
+        <RootStack.Screen name="EditProfile" component={EditProfileComponent} />
+        <RootStack.Screen name="Profile" component={ProfileScreen} />
       </RootStack.Navigator>
     </NavigationContainer>
   );
