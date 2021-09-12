@@ -31,19 +31,19 @@ const list = [
 ];
 
 const SettingsScreen = ({ navigation }) => {
-    const [visible, setVisible] = useState(false);
-    const [userToken, setUserToken] = useState(null);
+  const [visible, setVisible] = useState(false);
+  const [userToken, setUserToken] = useState(null);
 
   const toggleOverlay = () => {
     setVisible(!visible);
   };
-    useEffect(() => {
-      const unsubscribe = navigation.addListener("focus", () => {
-        // do something
-        getTokenMethod();
-      });
-      return unsubscribe;
-    }, [navigation]);
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      // do something
+      getTokenMethod();
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   const editListItemPressed = (item) => {
     console.log("itemp pressed: ", item);
@@ -55,7 +55,7 @@ const SettingsScreen = ({ navigation }) => {
         break;
       case "Profile":
         {
-          navigation.navigate("Profile", { userToken: userToken });
+          navigation.navigate("MyProfile", { userToken: userToken });
         }
         break;
       case "Help":
@@ -71,18 +71,18 @@ const SettingsScreen = ({ navigation }) => {
     //  toggleOverlay();
     // }
   };
-    
-    const getTokenMethod = async () => {
-      try {
-        const token = await AsyncStorage.getItem("loginToken");
-          setUserToken(JSON.parse(token));
-          console.log("get token", userToken);
-        return userToken;
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    
+
+  const getTokenMethod = async () => {
+    try {
+      const token = await AsyncStorage.getItem("loginToken");
+      setUserToken(JSON.parse(token));
+      console.log("get token", userToken);
+      return userToken;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       {list.map((item, i) => (
