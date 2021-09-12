@@ -18,6 +18,7 @@ import VideoScreen from "./screens/VideoScreen";
 import ProfileComponent from "./components/EditProfileComponent";
 import EditProfileComponent from "./components/EditProfileComponent";
 import ProfileScreen from "./screens/ProfileScreen";
+import PlayerProfileScreen from "./screens/PlayerProfileScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -88,6 +89,7 @@ export default function App() {
         <RootStack.Screen name="Help" component={HelpScreen} />
         <RootStack.Screen name="EditProfile" component={EditProfileComponent} />
         <RootStack.Screen name="Profile" component={ProfileScreen} />
+        <RootStack.Screen name="PlayerProfile" component={PlayerProfileScreen} />
       </RootStack.Navigator>
     </NavigationContainer>
   );

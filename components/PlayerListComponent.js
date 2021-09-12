@@ -12,14 +12,29 @@ import {
   Image,
 } from "react-native";
 import CreatePlayer from "./CreatePlayerComponent";
+import { Overlay, Card, Icon } from "react-native-elements";
 import { globalStyles, profileImgs } from "../styles/globalStyles";
 
 const PlayerComponent = (props) => {
   const [addPlayerArea, setAddPlayerArea] = useState(false);
   const [modalOpen, setModelOpen] = useState(false);
+  const [morePlayerModalOpen, setMorePlayerModalOpen] = useState(false);
+  const [singlePlayerObj, setSinglePlayerObj] = useState(null);
   const players = props.data.reverse();
-  console.log("props::", props);
-  const { loginUserType } = props;
+  // console.log("props::", props);
+  const { loginUserType, navigation, setPlayers, userToken } = props;
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      // do something
+      setMorePlayerModalOpen(false);
+    });
+    return unsubscribe;
+  }, [navigation]);
+
+  const toggleOverlay = () => {
+    setMorePlayerModalOpen(!morePlayerModalOpen);
+  };
 
   const addNewPlayer = () => {
     setModelOpen(true);
@@ -27,6 +42,26 @@ const PlayerComponent = (props) => {
 
   const closeModal = () => {
     setModelOpen(false);
+    // setMorePlayerModalOpen(false);
+  };
+
+  const openMorePlayerModel = (player) => {
+    console.log("one long press player: ", player);
+    setSinglePlayerObj(player);
+    setMorePlayerModalOpen(true);
+  };
+
+  // long press model open icon click event
+  const onPressMorePlayerModelIcon = (icon) => {
+    console.log("clicked item modal: ", icon);
+    switch (icon) {
+      case "profile":
+        {
+          navigation.navigate("PlayerProfile", { userData: singlePlayerObj });
+        }
+        break;
+    }
+    // navigation.navigate("Profile")
   };
 
   return (
@@ -43,7 +78,7 @@ const PlayerComponent = (props) => {
       {/* {addPlayerArea && */}
       <Modal visible={modalOpen} animationType="slide">
         <View style={styles.modalContent}>
-          <CreatePlayer setPlayers={props.setPlayers} />
+          <CreatePlayer setPlayers={setPlayers} />
 
           <Button
             onPress={closeModal}
@@ -54,12 +89,49 @@ const PlayerComponent = (props) => {
         </View>
       </Modal>
 
+      {/*  more player long press modal open  */}
+      <Overlay isVisible={morePlayerModalOpen} onBackdropPress={toggleOverlay}>
+        <Text style={styles.morePlayersModalTitle}>
+          {singlePlayerObj != null && singlePlayerObj.name}
+        </Text>
+
+        <View style={styles.morePlayerModalContent}>
+          <View style={styles.morePlayerBtns}>
+            <Icon
+              name="edit"
+              type="material"
+              color="green"
+              onPress={() => onPressMorePlayerModelIcon("edit")}
+            />
+          </View>
+          <View style={styles.morePlayerBtns}>
+            <Icon
+              name="delete"
+              type="material"
+              color="green"
+              onPress={() => onPressMorePlayerModelIcon("delete")}
+            />
+          </View>
+          <View style={styles.morePlayerBtns}>
+            <Icon
+              name="person"
+              type="material"
+              color="green"
+              onPress={() => onPressMorePlayerModelIcon("profile")}
+            />
+          </View>
+        </View>
+      </Overlay>
+
       <FlatList
         style={globalStyles.listContainer}
         keyExtractor={(item) => item.id.toString()}
         data={players}
         renderItem={({ item }) => (
-          <TouchableOpacity style={globalStyles.touchableOpacityList}>
+          <TouchableOpacity
+            onLongPress={() => openMorePlayerModel(item)}
+            style={globalStyles.touchableOpacityList}
+          >
             <View style={globalStyles.coverListItemView}>
               {item.gender === "Male" || item.gender === "male" ? (
                 <Image
@@ -113,6 +185,25 @@ const styles = StyleSheet.create({
     flex: 12,
     padding: 12,
     margin: 2,
+  },
+  morePlayersModalTitle: {
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 20,
+    padding: 5,
+  },
+  morePlayerModalContent: {
+    padding: 1,
+    margin: 1,
+    justifyContent: "space-around",
+    flexDirection: "row",
+    width: "60%",
+  },
+  morePlayerBtns: {
+    flexDirection: "column",
+    padding: 1,
+    margin: 1,
+    flex: 1,
   },
   button: {
     color: "red",
