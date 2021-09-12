@@ -38,7 +38,7 @@ const HomeScreen = ({ navigation }) => {
     console.log(`Presssed ${++count}`);
   }
   const goNextPage = (routeLink) => {
-    navigation.navigate(routeLink, { loginUserType: loginUserType });
+    navigation.navigate(routeLink, { userToken: userToken });
   };
   return (
     <View style={styles.container}>

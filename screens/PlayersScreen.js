@@ -26,8 +26,9 @@ const PlayersScreen = ({ navigation, route }) => {
   const [players, setPlayers] = useState([]);
   const [updatePlayer, setUpdatePlayers] = useState([]);
   const [loading, setLoading] = useState(false);
-  const {loginUserType } = route.params;
-
+  const { userToken } = route.params;
+  const loginUserType = userToken.userType;
+  // console.log("user token route param: ", userToken);
 
   useEffect(() => {
     // setUpdatePlayers();
@@ -58,7 +59,7 @@ const PlayersScreen = ({ navigation, route }) => {
       <HeaderComponent title="All Players" navigation={navigation} />
 
       {players && players.length > 0 ? (
-        <PlayerComponent data={players} loginUserType={loginUserType} setPlayers={addPlayer} />
+        <PlayerComponent data={players} loginUserType={loginUserType} userToken={userToken} navigation={navigation} setPlayers={addPlayer} />
       ) : (
         <View style={globalStyles.loader}>
           <CirclesLoader color="green" />
