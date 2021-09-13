@@ -4,7 +4,7 @@ import { Card, Icon } from 'react-native-elements';
 import { globalStyles } from '../styles/globalStyles'
 
 export default function PlayerProfileComponent( props ) {
-  console.log("props profile component: ", props);
+  console.log("props plauyer profile component: ", props);
   const { userData } = props;
 
   // "active": true,
