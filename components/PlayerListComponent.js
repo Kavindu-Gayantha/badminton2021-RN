@@ -14,6 +14,7 @@ import {
 import CreatePlayer from "./CreatePlayerComponent";
 import { Overlay, Card, Icon } from "react-native-elements";
 import { globalStyles, profileImgs } from "../styles/globalStyles";
+import PlayerMoreOptionModalComponent from "./PlayerMoreOptionModalComponent";
 
 const PlayerComponent = (props) => {
   const [addPlayerArea, setAddPlayerArea] = useState(false);
@@ -90,12 +91,12 @@ const PlayerComponent = (props) => {
       </Modal>
 
       {/*  more player long press modal open  */}
-      <Overlay isVisible={morePlayerModalOpen} onBackdropPress={toggleOverlay}>
+      {/* <Overlay isVisible={morePlayerModalOpen} onBackdropPress={toggleOverlay}>
         <Text style={styles.morePlayersModalTitle}>
           {singlePlayerObj != null && singlePlayerObj.name}
-        </Text>
+        </Text> */}
 
-        <View style={styles.morePlayerModalContent}>
+      {/* <View style={styles.morePlayerModalContent}>
           <View style={styles.morePlayerBtns}>
             <Icon
               name="edit"
@@ -120,8 +121,15 @@ const PlayerComponent = (props) => {
               onPress={() => onPressMorePlayerModelIcon("profile")}
             />
           </View>
-        </View>
-      </Overlay>
+        </View> */}
+      <PlayerMoreOptionModalComponent
+        toggleOverlay={toggleOverlay}
+        setMorePlayerModalOpen={setMorePlayerModalOpen}
+        morePlayerModalOpen={morePlayerModalOpen}
+        singlePlayerObj={singlePlayerObj}
+        navigation={navigation}
+      />
+      {/* </Overlay> */}
 
       <FlatList
         style={globalStyles.listContainer}
