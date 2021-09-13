@@ -62,24 +62,9 @@ const PlayerProfileScreen = (props) => {
       {/* <View style={styles.profilePicContainer}>
         <Image source={profileImgs.male} style={styles.proImg} />
       </View> */}
-      <View style={styles.profilePicContainer}>
-        <View style={styles.avatarWrap}>
-          <Avatar
-            rounded
-            size= "xlarge"
-            source={
-              userData != null && userData.gender === "male"
-                ? profileImgs.male
-                : profileImgs.female
-            }
-          />
-        </View>
-        <Text style={globalStyles.titleText}>
-          {userProfile !== null && userProfile.name} {""}{" "}
-          {userData != null && userData.lastName}
-        </Text>
+     
         <PlayerProfileComponent userData={userData} />
-      </View>
+      
     </View>
   );
 };

@@ -54,7 +54,7 @@ const MyProfileScreen = (props) => {
   return (
     <View style={globalStyles.container}>
       <HeaderComponent title="My Profile" navigation={navigation} />
-      <View style={styles.profilePicContainer}>
+      {/* <View style={styles.profilePicContainer}>
         <Avatar
           rounded
           size="large"
@@ -63,20 +63,20 @@ const MyProfileScreen = (props) => {
               ? profileImgs.male
               : profileImgs.female
           }
-        />
-        <View>
+        /> */}
+        {/* <View>
           <Text style={styles.title}>
             Hi{" "}
             {userToken !== null
               ? userToken.firstName
               : userProfile !== null && userProfile.name}
             {/* <View><Text style={{fontSize: 15}}>{userToken != null && userToken.email}</Text></View> */}
-          </Text>
-          <Text style={styles.subTitle}>
-            {userToken != null && userToken.email}
-          </Text>
-        </View>
-        <View style={styles.iconWrap}>
+          {/* </Text> */} 
+          {/* <Text style={styles.subTitle}>
+            {userToken != null && userToken.email} */}
+          {/* </Text>
+        </View> */}
+        {/* <View style={styles.iconWrap}>
           <Icon
             iconStyle={styles.iconStyle}
             name="edit"
@@ -92,8 +92,8 @@ const MyProfileScreen = (props) => {
             color="red"
             onPress={null}
           />
-        </View>
-      </View>
+        </View> */}
+      {/* </View> */}
       <PlayerProfileComponent userData={userData} />
     </View>
   );
@@ -105,10 +105,12 @@ const styles = StyleSheet.create({
     flex: 1 / 8,
     flexDirection: "row",
     justifyContent: "flex-start",
-    padding: 10,
-    height: 10,
+    padding: 5,
+    alignSelf: 'center',
     backgroundColor: "white",
-    // width: 10,
+    margin: 5,
+    borderRadius: 10,
+    width: "95%",
     // borderColor: 'red',
   },
   proImg: {
@@ -135,14 +137,14 @@ const styles = StyleSheet.create({
     padding: 10,
     // flex: 1/2,
     flexDirection: "row",
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
   },
   iconWrap: {
     flex: 1,
     flexDirection: "row",
     // backgroundColor: "red",
     justifyContent: "space-evenly",
-    alignItems: 'center',
+    alignItems: "center",
     padding: 8,
     margin: 8,
   },
