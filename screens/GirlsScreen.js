@@ -10,11 +10,13 @@ import { CirclesLoader } from "react-native-indicator";
 const GirlsScreen = ({navigation}) => {
     const [girls, setgirls] = useState([]);
     const [updateGirl, setUpdateGirs] = useState(null);
+     const [morePlayerModalOpen, setMorePlayerModalOpen] = useState(false);
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
       // do something
             getAllGirls();
+            setMorePlayerModalOpen(false);
     });
        return unsubscribe; 
     }, [navigation])
@@ -32,14 +34,21 @@ const GirlsScreen = ({navigation}) => {
             console.log(error);
         }
     }
-    return(
-        <View style={styles.container}>
-            {girls.length > 0 ?
-            <GirlsComponent navigation={navigation} data={girls}/>
-            : <View style={globalStyles.loader}>
-                    <CirclesLoader color="green" />
-                </View>}
-        </View>
+    return (
+      <View style={styles.container}>
+        {girls.length > 0 ? (
+          <GirlsComponent
+            setMorePlayerModalOpen={setMorePlayerModalOpen}
+            morePlayerModalOpen={morePlayerModalOpen}
+            navigation={navigation}
+            data={girls}
+          />
+        ) : (
+          <View style={globalStyles.loader}>
+            <CirclesLoader color="green" />
+          </View>
+        )}
+      </View>
     );
 }
 export default GirlsScreen;
