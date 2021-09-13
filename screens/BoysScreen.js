@@ -2,110 +2,121 @@ import * as React from "react";
 // import {Text} from "react-native";
 import BoyComponent from "../components/BoysListComponent";
 import { useState, useEffect } from "react";
-import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused } from "@react-navigation/native";
 
 import axios from "axios";
 import { BASE_URL } from "../api/BASE_URL";
-import { Text, View, Button, StyleSheet, Dimensions, FlatList, Modal } from 'react-native';
+import {
+  Text,
+  View,
+  Button,
+  StyleSheet,
+  Dimensions,
+  FlatList,
+  Modal,
+} from "react-native";
 import { globalStyles } from "../styles/globalStyles";
 import { CirclesLoader } from "react-native-indicator";
 
-const BoysScreen = ({navigation}) => {
-    // const isBoysTabPressed = useIsFocused();
-    // console.log("kkkkkkkkk")
-    const [boys, setBoys] = useState([]);
-    const [updatePlayer, setUpdatePlayers] = useState(1);
-    const [loading, setLoading] = useState(false);
+const BoysScreen = ({ navigation }) => {
+  // const isBoysTabPressed = useIsFocused();
+  // console.log("kkkkkkkkk")
+  const [boys, setBoys] = useState([]);
+  const [updatePlayer, setUpdatePlayers] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [morePlayerModalOpen, setMorePlayerModalOpen] = useState(false);
 
-    useEffect(() => {
-        const unsubscribe = navigation.addListener('focus', () => {
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
       // do something
-            // console.log("use effect");
-            getAllBoys();
+      // console.log("use effect");
+        getAllBoys();
+        setMorePlayerModalOpen(false);
     });
-        // setUpdatePlayers();
-        
-        
-        return unsubscribe;
-    }, [navigation]);
+    // setUpdatePlayers();
 
-   
-    // this runs everytime players are changed with use effect hook
-   
-    const getAllBoys = async () => {
-             setLoading(true);
-            try {
-                const request = await axios.get(`${BASE_URL}/players/getBoys`);
-                // console.log("players get:", typeof(request.data.data));
-                setBoys(request.data.data);
-                console.log("boys:  ", boys);
-            } catch(error) {
-                console.log(error);
-            }
-            
-            setLoading(false);
-            
-        }
-    // getAllBoys();
-    return (
-        <View style={styles.container}>
-                     
-            {boys.length > 0 ? 
-                <BoyComponent data={boys} />
-            : <View style={globalStyles.loader}>
-                    <CirclesLoader color="green" />
-                </View>}
-            </View>
+    return unsubscribe;
+  }, [navigation]);
 
-    );
-}
+  // this runs everytime players are changed with use effect hook
+
+  const getAllBoys = async () => {
+    setLoading(true);
+    try {
+      const request = await axios.get(`${BASE_URL}/players/getBoys`);
+      // console.log("players get:", typeof(request.data.data));
+      setBoys(request.data.data);
+      console.log("boys:  ", boys);
+    } catch (error) {
+      console.log(error);
+    }
+
+    setLoading(false);
+  };
+  // getAllBoys();
+  return (
+    <View style={styles.container}>
+      {boys.length > 0 ? (
+        <BoyComponent
+          setMorePlayerModalOpen={setMorePlayerModalOpen}
+          morePlayerModalOpen={morePlayerModalOpen}
+          navigation={navigation}
+          data={boys}
+        />
+      ) : (
+        <View style={globalStyles.loader}>
+          <CirclesLoader color="green" />
+        </View>
+      )}
+    </View>
+  );
+};
 
 export default BoysScreen;
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'white',
-        // alignItems: 'flex-start',
-        // justifyContent: 'flex-start',
-        marginTop: '1%',
-    },
-    titleGrid: {
-        top: 0,
-        fontWeight: 'bold',
-        alignItems: 'center',
-        // justifyContent: 'center',
-        flex: 1,
-        marginTop: 5,
-        flexDirection: "row",
-        marginBottom: 8,
-        padding: 3,
-    },
-    titleLeft: {
-        flex: 1,
-        justifyContent: "center",
-        textAlign: "center",
-        flexDirection: "row",
-        backgroundColor: 'green',
-        alignContent: 'center'
-    },
-    title: {
-        flex: 3,
-          textAlign: "center",
-        flexDirection: "row",
-    },
-    titleRight: {
-        flex: 1,
-          textAlign: "center",
-        flexDirection: "row",
-    },
-    noDataContainer: {
-        flex: 11,
-        // justifyContent: 'center',
-        // alignContent: 'center',
-        // alignItems: 'center',
-        color: 'blue',
-        fontWeight: 'bold',
-        margin: 5,
-    }
-    
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+    // alignItems: 'flex-start',
+    // justifyContent: 'flex-start',
+    marginTop: "1%",
+  },
+  titleGrid: {
+    top: 0,
+    fontWeight: "bold",
+    alignItems: "center",
+    // justifyContent: 'center',
+    flex: 1,
+    marginTop: 5,
+    flexDirection: "row",
+    marginBottom: 8,
+    padding: 3,
+  },
+  titleLeft: {
+    flex: 1,
+    justifyContent: "center",
+    textAlign: "center",
+    flexDirection: "row",
+    backgroundColor: "green",
+    alignContent: "center",
+  },
+  title: {
+    flex: 3,
+    textAlign: "center",
+    flexDirection: "row",
+  },
+  titleRight: {
+    flex: 1,
+    textAlign: "center",
+    flexDirection: "row",
+  },
+  noDataContainer: {
+    flex: 11,
+    // justifyContent: 'center',
+    // alignContent: 'center',
+    // alignItems: 'center',
+    color: "blue",
+    fontWeight: "bold",
+    margin: 5,
+  },
 });

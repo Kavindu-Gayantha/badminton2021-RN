@@ -13,11 +13,11 @@ import { globalStyles, profileImgs } from "../styles/globalStyles";
 import PlayerMoreOptionModalComponent from "./PlayerMoreOptionModalComponent";
 
 const GirlsComponent = (props) => {
-  const [morePlayerModalOpen, setMorePlayerModalOpen] = useState(false);
+  // const [morePlayerModalOpen, setMorePlayerModalOpen] = useState(false);
   const [singlePlayerObj, setSinglePlayerObj] = useState(null);
   console.log("props girls component:  ", props);
   const girlsList = props.data;
-  const { navigation } = props;
+  const { navigation, morePlayerModalOpen, setMorePlayerModalOpen } = props;
 
   const toggleOverlay = () => {
     setMorePlayerModalOpen(!morePlayerModalOpen);
@@ -89,11 +89,12 @@ export default GirlsComponent;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 12,
+    flex: 1,
     backgroundColor: "white",
     // alignItems: 'center',
     justifyContent: "center",
     // marginTop: '1%',
+    backgroundColor: "#66bb6a",
   },
   playerList: {
     // maxHeight: Dimensions.get('screen')
