@@ -35,7 +35,7 @@ const GirlsScreen = ({navigation}) => {
     return(
         <View style={styles.container}>
             {girls.length > 0 ?
-            <GirlsComponent data={girls}/>
+            <GirlsComponent navigation={navigation} data={girls}/>
             : <View style={globalStyles.loader}>
                     <CirclesLoader color="green" />
                 </View>}
