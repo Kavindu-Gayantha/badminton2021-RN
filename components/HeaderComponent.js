@@ -4,7 +4,7 @@ import { Icon, Header } from "react-native-elements";
 import { globalStyles } from "../styles/globalStyles";
 
 const HeaderComponent = ({ navigation, title }) => {
-  console.log("props:  ", title);
+  // console.log("props:  ", title);
   return (
     // <View style={styles.titleGrid}>
     //   {/* <Button
