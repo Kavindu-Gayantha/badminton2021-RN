@@ -3,9 +3,10 @@ import { StyleSheet } from "react-native";
 export const globalStyles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 3,
+    padding: 1,
     top: 18,
     backgroundColor: "#98ee99",
+    // backgroundColor: "white"
   },
   loader: {
     justifyContent: "center",
@@ -29,8 +30,8 @@ export const globalStyles = StyleSheet.create({
     color: "white",
   },
   listContainer: {
-    backgroundColor: "#66bb6a",
-    marginBottom: 18,
+    backgroundColor: "#98ee99",
+    marginBottom: 1,
   },
   listItem: {
     marginLeft: -6,

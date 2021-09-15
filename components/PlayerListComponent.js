@@ -15,6 +15,7 @@ import CreatePlayer from "./CreatePlayerComponent";
 import { Overlay, Card, Icon } from "react-native-elements";
 import { globalStyles, profileImgs } from "../styles/globalStyles";
 import PlayerMoreOptionModalComponent from "./PlayerMoreOptionModalComponent";
+import FabButton from "./FabButton";
 
 const PlayerComponent = (props) => {
   const [addPlayerArea, setAddPlayerArea] = useState(false);
@@ -67,14 +68,14 @@ const PlayerComponent = (props) => {
 
   return (
     <View style={styles.container}>
-      {loginUserType && loginUserType == "Admin" && (
+      {/* {loginUserType && loginUserType == "Admin" && (
         <Button
           onPress={addNewPlayer}
           title="Add Player"
           color="#41733f"
           style={globalStyles.primaryBtn}
         />
-      )}
+      )} */}
       {/* display add new player component when button click */}
       {/* {addPlayerArea && */}
       <Modal visible={modalOpen} animationType="slide">
@@ -129,6 +130,7 @@ const PlayerComponent = (props) => {
         singlePlayerObj={singlePlayerObj}
         navigation={navigation}
       />
+      {/* <FabButton /> */}
       {/* </Overlay> */}
 
       <FlatList
@@ -162,6 +164,7 @@ const PlayerComponent = (props) => {
           </TouchableOpacity>
         )}
       />
+      <FabButton addNewPlayer={addNewPlayer} />
     </View>
   );
 };
@@ -174,7 +177,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     // alignItems: 'center',
     justifyContent: "center",
-    // marginTop: '1%',
+    // padding: 1
+    marginBottom: '2%',
   },
   playerList: {
     // maxHeight: Dimensions.get('screen')
