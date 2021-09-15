@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { SpeedDial } from "react-native-elements";
 import { globalStyles } from "../styles/globalStyles";
 
-const FabButton = ({ addNewPlayer }) => {
+const FabButton = ({ addNewPlayer, setAttendanceView }) => {
   const [open, setOpen] = useState(false);
 
   // const setOpen = () => {
@@ -33,7 +33,7 @@ const FabButton = ({ addNewPlayer }) => {
         color="green"
         icon={{ name: "person", color: "#fff" }}
         title="Attendance"
-        onPress={() => console.log("Delete Something")}
+        onPress={() => setAttendanceView(true)}
       />
     </SpeedDial>
     // </View>

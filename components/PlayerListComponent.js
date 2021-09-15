@@ -16,16 +16,35 @@ import { Overlay, Card, Icon } from "react-native-elements";
 import { globalStyles, profileImgs } from "../styles/globalStyles";
 import PlayerMoreOptionModalComponent from "./PlayerMoreOptionModalComponent";
 import FabButton from "./FabButton";
+import { Switch } from "react-native-elements";
+// import DateTimePickerComponent from "./DateTimePickerComponent";
 
 const PlayerComponent = (props) => {
   const [addPlayerArea, setAddPlayerArea] = useState(false);
   const [modalOpen, setModelOpen] = useState(false);
   const [morePlayerModalOpen, setMorePlayerModalOpen] = useState(false);
   const [singlePlayerObj, setSinglePlayerObj] = useState(null);
+  const [attendanceView, setAttendanceView] = useState(false);
+  const [switchVal, setSwitchVal] = useState([]);
+  const today = new Date();
   const players = props.data.reverse();
   // console.log("props::", props);
   const { loginUserType, navigation, setPlayers, userToken } = props;
 
+
+  const onChangeSwitch = (item) => {
+    console.log("swith : ", item.id);
+    if (switchVal.indexOf(item.id) ==-1) {
+      setSwitchVal([...switchVal, item.id]);
+      console.log("swich values array: ", switchVal);
+    }
+
+    // list of ids are available now
+
+    
+    // setSwitchVal([...switchVal, item.id]);
+    // console.log("swich values array: ", switchVal);
+  };
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       // do something
@@ -66,16 +85,16 @@ const PlayerComponent = (props) => {
     // navigation.navigate("Profile")
   };
 
+
   return (
     <View style={styles.container}>
-      {/* {loginUserType && loginUserType == "Admin" && (
-        <Button
-          onPress={addNewPlayer}
-          title="Add Player"
-          color="#41733f"
-          style={globalStyles.primaryBtn}
-        />
-      )} */}
+      {loginUserType && loginUserType == "Admin" && attendanceView == true && (
+        <View>
+          <Text>Hi data time picker</Text>
+          {/* <DateTimePickerComponent  /> */}
+          {/* <Text>Date: {today}</Text> */}
+        </View>
+      )}
       {/* display add new player component when button click */}
       {/* {addPlayerArea && */}
       <Modal visible={modalOpen} animationType="slide">
@@ -91,38 +110,6 @@ const PlayerComponent = (props) => {
         </View>
       </Modal>
 
-      {/*  more player long press modal open  */}
-      {/* <Overlay isVisible={morePlayerModalOpen} onBackdropPress={toggleOverlay}>
-        <Text style={styles.morePlayersModalTitle}>
-          {singlePlayerObj != null && singlePlayerObj.name}
-        </Text> */}
-
-      {/* <View style={styles.morePlayerModalContent}>
-          <View style={styles.morePlayerBtns}>
-            <Icon
-              name="edit"
-              type="material"
-              color="green"
-              onPress={() => onPressMorePlayerModelIcon("edit")}
-            />
-          </View>
-          <View style={styles.morePlayerBtns}>
-            <Icon
-              name="delete"
-              type="material"
-              color="green"
-              onPress={() => onPressMorePlayerModelIcon("delete")}
-            />
-          </View>
-          <View style={styles.morePlayerBtns}>
-            <Icon
-              name="person"
-              type="material"
-              color="green"
-              onPress={() => onPressMorePlayerModelIcon("profile")}
-            />
-          </View>
-        </View> */}
       <PlayerMoreOptionModalComponent
         toggleOverlay={toggleOverlay}
         setMorePlayerModalOpen={setMorePlayerModalOpen}
@@ -156,15 +143,25 @@ const PlayerComponent = (props) => {
                 />
               )}
             </View>
-            {/* <View style={globalStyles.coverListItemView}> */}
+
             <Text style={globalStyles.listItem}>
               {item.name} - {item.facultyName}{" "}
             </Text>
+            <Switch
+              
+              color="green"
+              onValueChange={() => onChangeSwitch(item)}
+              value={switchVal.includes(item.id)}
+              // onChange={() => onChangeSwitch(item)}
+            />
             {/* </View> */}
           </TouchableOpacity>
         )}
       />
-      <FabButton addNewPlayer={addNewPlayer} />
+      <FabButton
+        addNewPlayer={addNewPlayer}
+        setAttendanceView={setAttendanceView}
+      />
     </View>
   );
 };
@@ -178,7 +175,7 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     justifyContent: "center",
     // padding: 1
-    marginBottom: '2%',
+    marginBottom: "2%",
   },
   playerList: {
     // maxHeight: Dimensions.get('screen')
@@ -225,5 +222,10 @@ const styles = StyleSheet.create({
   closeBtn: {
     color: "red",
     backgroundColor: "red",
+  },
+  datePickerContainer: {
+    padding: 5,
+    justifyContent: "center",
+    flex: 1,
   },
 });

@@ -44,7 +44,7 @@ export const globalStyles = StyleSheet.create({
     textAlignVertical: "center",
     fontSize: 18,
     //  borderRadius: 1,
-    flex: 4,
+    flex: 3,
   },
   listItem2: {
     // margin: 1,
@@ -80,10 +80,11 @@ export const globalStyles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignContent: "center",
-    width: 100, // alignItems: 'center',
+    // width: 80, // alignItems: 'center',
     textAlignVertical: "center",
     // flexDirection: 'column'
     // maxWidth: '100%'
+    backgroundColor: 'white'
   },
 });
 
