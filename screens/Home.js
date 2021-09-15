@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    // backgroundColor: "#6abf69",
     // justifyContent: 'center',
   },
   title: {
