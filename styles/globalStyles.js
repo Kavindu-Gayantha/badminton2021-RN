@@ -31,7 +31,7 @@ export const globalStyles = StyleSheet.create({
   },
   listContainer: {
     backgroundColor: "#98ee99",
-    marginBottom: 1,
+    marginBottom: 5,
   },
   listItem: {
     marginLeft: -6,

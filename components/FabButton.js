@@ -44,10 +44,12 @@ export default FabButton;
 
 const styles = StyleSheet.create({
   container: {
-    margin: 1,
-    padding: 1,
+    margin: 5,
+    paddingBottom: 20,
+    padding: 20,
     // backgroundColor: 'red',
     // flex: 1,
     color: "green",
+    // alignItems: 'center',
   },
 });
