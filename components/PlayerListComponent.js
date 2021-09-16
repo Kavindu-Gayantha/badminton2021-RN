@@ -26,29 +26,43 @@ const PlayerComponent = (props) => {
   const [singlePlayerObj, setSinglePlayerObj] = useState(null);
   const [attendanceView, setAttendanceView] = useState(false);
   const [switchVal, setSwitchVal] = useState([]);
-  const today = new Date();
-  const players = props.data.reverse();
-  // console.log("props::", props);
+  const [currentDate, setCurrentDate] = useState("");
+
+  // const today = new Date();
+  const players = props.data;
+  console.log("props::", props.data);
   const { loginUserType, navigation, setPlayers, userToken } = props;
 
+  var date = new Date().getDate(); //Current Date
+  var month = new Date().getMonth() + 1; //Current Month
+  var year = new Date().getFullYear(); //Current Year
 
   const onChangeSwitch = (item) => {
     console.log("swith : ", item.id);
-    if (switchVal.indexOf(item.id) ==-1) {
+    if (switchVal.indexOf(item.id) == -1) {
       setSwitchVal([...switchVal, item.id]);
       console.log("swich values array: ", switchVal);
     }
 
     // list of ids are available now
 
-    
     // setSwitchVal([...switchVal, item.id]);
     // console.log("swich values array: ", switchVal);
   };
   useEffect(() => {
+    setCurrentDate(date + "/" + month + "/" + year);
+    console.log("date <<<< ", currentDate);
+    console.log("date get date: ", date);
     const unsubscribe = navigation.addListener("focus", () => {
       // do something
       setMorePlayerModalOpen(false);
+
+      //  setCurrentDate(
+      //    date + "/" + month + "/" + year
+      //  );
+      // setCurrentDate(`${date}/${month}/${year}`);
+      // console.log("date <<<< ", currentDate);
+      // console.log("date get date: ", date);
     });
     return unsubscribe;
   }, [navigation]);
@@ -85,14 +99,29 @@ const PlayerComponent = (props) => {
     // navigation.navigate("Profile")
   };
 
-
   return (
     <View style={styles.container}>
       {loginUserType && loginUserType == "Admin" && attendanceView == true && (
-        <View>
-          <Text>Hi data time picker</Text>
+        <View style={styles.currentDateViewStyle}>
+          <Text>Marking Attendance</Text>
           {/* <DateTimePickerComponent  /> */}
-          {/* <Text>Date: {today}</Text> */}
+          <View
+            style={{
+              flexDirection: "row",
+              flex: 1,
+              
+            }}
+          >
+            <View style={{ flexDirection: "column" , flex: 1, justifyContent: 'space-between', textAlign:'center', alignItems: 'center'}}>
+              <Text>k</Text>
+            </View>
+            <View style={{ flexDirection: "column", flex: 1, justifyContent: 'space-between', textAlign:'center', alignItems: 'center' }}>
+              <Text>Date: {currentDate}</Text>
+            </View>
+            <View style={{ flexDirection: "column", flex: 1, justifyContent: 'space-between', textAlign:'center', alignItems: 'center' }}>
+              <Text>k</Text>
+            </View>
+          </View>
         </View>
       )}
       {/* display add new player component when button click */}
@@ -147,13 +176,16 @@ const PlayerComponent = (props) => {
             <Text style={globalStyles.listItem}>
               {item.name} - {item.facultyName}{" "}
             </Text>
-            <Switch
-              
-              color="green"
-              onValueChange={() => onChangeSwitch(item)}
-              value={switchVal.includes(item.id)}
-              // onChange={() => onChangeSwitch(item)}
-            />
+            {attendanceView == true && (
+              <Switch
+                backgroundColor="white"
+                color="green"
+                onValueChange={() => onChangeSwitch(item)}
+                value={switchVal.includes(item.id)}
+                // onChange={() => onChangeSwitch(item)}
+              />
+            )}
+
             {/* </View> */}
           </TouchableOpacity>
         )}
@@ -175,7 +207,7 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     justifyContent: "center",
     // padding: 1
-    marginBottom: "2%",
+    marginBottom: "5%",
   },
   playerList: {
     // maxHeight: Dimensions.get('screen')
@@ -227,5 +259,11 @@ const styles = StyleSheet.create({
     padding: 5,
     justifyContent: "center",
     flex: 1,
+  },
+  currentDateViewStyle: {
+    alignItems: 'center',
+    padding: 10,
+    fontWeight: 'bold',
+    
   },
 });
