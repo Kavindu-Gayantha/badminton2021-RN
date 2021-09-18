@@ -9,40 +9,42 @@ import SmsListComponent from "../components/SmsListComponent";
 import { CirclesLoader } from "react-native-indicator";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const SmsScreen = (props) => {
+const SmsScreen = ({navigation}) => {
   const [smsAlerts, setSmsAlerts] = useState([]);
   const [data, setData] = useState([]);
-  // const [userToken, setUserToken] = useState("");
+  const [userToken, setUserToken] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // const { userType } = userToken;
-  console.log("props sms screen: ", props);
-  const userToken = props.route.params.userToken;
-  const navigation = props.navigation;
-  const userType = props.route.params.userToken.userType;
+
+  const { userType } = userToken;
+  // console.log("props sms screen: ", props);
+  // const userToken = props.route.params.userToken;
+  // const navigation = props.navigation;
+  // const userType = props.route.params.userToken.userType;
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       // do something
       getAllSmsAlerts(userToken);
       console.log("smsAlerts state use effect :  ", smsAlerts);
-      // const userToken = getTokenMethod();
+      getTokenMethod();
 
       console.log("Token in smstabs: ", userToken);
     });
     return unsubscribe;
   }, [navigation]);
 
-  // const getTokenMethod = async () => {
-  //   try {
-  //     const userToken = await AsyncStorage.getItem("loginToken");
-  //     setUserToken(JSON.parse(userToken));
-  //     getAllSmsAlerts(userToken);
-  //     return userToken;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const getTokenMethod = async () => {
+    try {
+      const userToken = await AsyncStorage.getItem("loginToken");
+      setUserToken(JSON.parse(userToken));
+      getAllSmsAlerts(JSON.parse(userToken));
+       
+      return userToken;
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const getAllSmsAlerts = async (token) => {
     setLoading(true);
     try {

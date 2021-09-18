@@ -84,11 +84,11 @@ export const globalStyles = StyleSheet.create({
     textAlignVertical: "center",
     // flexDirection: 'column'
     // maxWidth: '100%'
-    backgroundColor: 'white'
+    backgroundColor: "white",
   },
 });
 
 export const profileImgs = {
-  'male': require('../assets/profileMen.jpg'),
-  'female': require('../assets/profileWomen.jpg')
-}
+  male: require("../assets/profileMen.jpg"),
+  female: require("../assets/profileWomen.jpg"),
+};
