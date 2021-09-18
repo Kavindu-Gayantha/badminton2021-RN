@@ -17,6 +17,7 @@ import { globalStyles, profileImgs } from "../styles/globalStyles";
 import PlayerMoreOptionModalComponent from "./PlayerMoreOptionModalComponent";
 import FabButton from "./FabButton";
 import { Switch } from "react-native-elements";
+import { Input } from "react-native-elements/dist/input/Input";
 // import DateTimePickerComponent from "./DateTimePickerComponent";
 
 const PlayerComponent = (props) => {
@@ -27,6 +28,7 @@ const PlayerComponent = (props) => {
   const [attendanceView, setAttendanceView] = useState(false);
   const [switchVal, setSwitchVal] = useState([]);
   const [currentDate, setCurrentDate] = useState("");
+  const [dateIn, setDateIn] = useState();
 
   // const today = new Date();
   const players = props.data;
@@ -68,11 +70,11 @@ const PlayerComponent = (props) => {
 
   const submitAttendance = () => {
     const attendanceObj = {
-      'date': currentDate,
+      'date': new Date(),
       'Ids': switchVal,
     }
 
-    // console.log("ssksk: ", attendanceObj);
+    console.log("ssksk: ", attendanceObj);
     setAttendanceView(false);
 
   }
@@ -146,7 +148,8 @@ const PlayerComponent = (props) => {
                 
               }}
             >
-              <Text style={{fontSize: 15,}}>Date: {currentDate}</Text>
+              <Text style={{ fontSize: 15, }}>Date: {currentDate}</Text>
+              {/* <Input style={{margin: -30,}} Date onChange={(a)=> setDateIn(a)} value={dateIn} /> */}
             </View>
             <View
               style={{

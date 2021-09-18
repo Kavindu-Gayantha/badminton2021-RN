@@ -7,11 +7,11 @@ import { globalStyles } from "../styles/globalStyles";
 
 const HomeScreen = ({ navigation }) => {
   const [userType, setUserType] = useState(null);
-  const [userToken, setUserToken] = useState("");
+  const [userToken, setUserToken] = useState(null);
   // const loginUserType = "User";
-  const loginUserType = userToken.userType;
-  const userName = userToken.firstName;
-  console.log("user type is: ", loginUserType);
+  // const loginUserType = userToken.userType;
+  const userName = userToken && userToken.firstName;
+  // console.log("user type is: ", loginUserType);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
@@ -28,7 +28,7 @@ const HomeScreen = ({ navigation }) => {
       const userToken = await AsyncStorage.getItem("loginToken");
       setUserToken(JSON.parse(userToken));
       console.log("token Home screen: ", userToken);
-      return userToken;
+      return JSON.parse(userToken);
     } catch (error) {
       console.log(error);
     }

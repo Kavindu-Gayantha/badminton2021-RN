@@ -9,39 +9,45 @@ import SmsListComponent from "../components/SmsListComponent";
 import { CirclesLoader } from "react-native-indicator";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const SmsScreen = ({ navigation, route }) => {
+const SmsScreen = (props) => {
   const [smsAlerts, setSmsAlerts] = useState([]);
   const [data, setData] = useState([]);
-  const [userToken, setUserToken] = useState("");
+  // const [userToken, setUserToken] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { userType } = userToken;
+  // const { userType } = userToken;
+  console.log("props sms screen: ", props);
+  const userToken = props.route.params.userToken;
+  const navigation = props.navigation;
+  const userType = props.route.params.userToken.userType;
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       // do something
-      getAllSmsAlerts();
+      getAllSmsAlerts(userToken);
       console.log("smsAlerts state use effect :  ", smsAlerts);
-      const userToken = getTokenMethod();
+      // const userToken = getTokenMethod();
 
       console.log("Token in smstabs: ", userToken);
     });
     return unsubscribe;
   }, [navigation]);
 
-  const getTokenMethod = async () => {
-    try {
-      const userToken = await AsyncStorage.getItem("loginToken");
-      setUserToken(JSON.parse(userToken));
-      return userToken;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const getAllSmsAlerts = async () => {
+  // const getTokenMethod = async () => {
+  //   try {
+  //     const userToken = await AsyncStorage.getItem("loginToken");
+  //     setUserToken(JSON.parse(userToken));
+  //     getAllSmsAlerts(userToken);
+  //     return userToken;
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+  const getAllSmsAlerts = async (token) => {
     setLoading(true);
     try {
-      const request = await axios.get(`${BASE_URL}/sms/getAll`);
+      const loginUserUniId = token.uniId;
+      const request = await axios.get(`${BASE_URL}/sms/getAll/${loginUserUniId}`);
       // console.log("players get:", typeof(request.data.data));
       setSmsAlerts(request.data.data);
       // console.log("smsAlerts state:  ", request.data.data);
@@ -63,7 +69,7 @@ const SmsScreen = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       {userType && userType == "Admin" && (
-        <CreateSmsComponent setSmsAlerts={addSMSList} />
+        <CreateSmsComponent userToken={userToken} setSmsAlerts={addSMSList} />
       )}
       {smsAlerts.length > 0 ? (
         <SmsListComponent data={smsAlerts} />
