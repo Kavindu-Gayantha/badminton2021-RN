@@ -20,7 +20,6 @@ import { globalStyles } from "../styles/globalStyles";
 import { CirclesLoader } from "react-native-indicator";
 import HeaderComponent from "../components/HeaderComponent";
 
-
 const PlayersScreen = ({ navigation, route }) => {
   // setUpdatePlayers([]);
   const [players, setPlayers] = useState([]);
@@ -37,9 +36,13 @@ const PlayersScreen = ({ navigation, route }) => {
   }, []);
 
   const getAllPlayers = async () => {
+    const loginUserUniId = userToken.uniId;
+    console.log("login user UNi ID: ", loginUserUniId);
     setLoading(true);
     try {
-      const request = await axios.get(`${BASE_URL}/players/getAll`);
+      const request = await axios.get(
+        `${BASE_URL}/players/getAll/${loginUserUniId}`
+      );
       // console.log("players get:", typeof(request.data.data));
       setPlayers(request.data.data);
       console.log("players state:  ", players);
@@ -59,7 +62,13 @@ const PlayersScreen = ({ navigation, route }) => {
       <HeaderComponent title="All Players" navigation={navigation} />
 
       {players && players.length > 0 ? (
-        <PlayerComponent data={players} loginUserType={loginUserType} userToken={userToken} navigation={navigation} setPlayers={addPlayer} />
+        <PlayerComponent
+          data={players}
+          loginUserType={loginUserType}
+          userToken={userToken}
+          navigation={navigation}
+          setPlayers={addPlayer}
+        />
       ) : (
         <View style={globalStyles.loader}>
           <CirclesLoader color="green" />

@@ -17,33 +17,51 @@ import {
 } from "react-native";
 import { globalStyles } from "../styles/globalStyles";
 import { CirclesLoader } from "react-native-indicator";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const BoysScreen = ({ navigation }) => {
+const BoysScreen = ({ navigation }, props) => {
+  // console.log("tab data: ", props);
   // const isBoysTabPressed = useIsFocused();
   // console.log("kkkkkkkkk")
   const [boys, setBoys] = useState([]);
   const [updatePlayer, setUpdatePlayers] = useState(1);
   const [loading, setLoading] = useState(false);
   const [morePlayerModalOpen, setMorePlayerModalOpen] = useState(false);
+  const [userToken, setUserToken] = useState(null);
 
   useEffect(() => {
+    // const fff = getTokenMethod();
     const unsubscribe = navigation.addListener("focus", () => {
       // do something
-      // console.log("use effect");
-        getAllBoys();
-        setMorePlayerModalOpen(false);
+      // console.log("use effect token :;:;:: ", fff);
+    getTokenMethod();
+      // getAllBoys();
+      setMorePlayerModalOpen(false);
     });
     // setUpdatePlayers();
 
     return unsubscribe;
   }, [navigation]);
 
-  // this runs everytime players are changed with use effect hook
-
-  const getAllBoys = async () => {
-    setLoading(true);
+  const getTokenMethod = async () => {
     try {
-      const request = await axios.get(`${BASE_URL}/players/getBoys`);
+      const userToken = await AsyncStorage.getItem("loginToken");
+      setUserToken(JSON.parse(userToken));
+      console.log("token boys screen: ", JSON.parse(userToken));
+      getAllBoys(JSON.parse(userToken));
+      return userToken;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getAllBoys = async (token) => {
+    try {
+      const loginUserUniId = token.uniId;
+      console.log("logiin user uni id: boys....", loginUserUniId);
+      setLoading(true);
+      const request = await axios.get(
+        `${BASE_URL}/players/getBoys/${loginUserUniId}`
+      );
       // console.log("players get:", typeof(request.data.data));
       setBoys(request.data.data);
       console.log("boys:  ", boys);

@@ -30,7 +30,7 @@ const PlayerComponent = (props) => {
 
   // const today = new Date();
   const players = props.data;
-  console.log("props::", props.data);
+  // console.log("props::", props.data);
   const { loginUserType, navigation, setPlayers, userToken } = props;
 
   var date = new Date().getDate(); //Current Date
@@ -51,8 +51,7 @@ const PlayerComponent = (props) => {
   };
   useEffect(() => {
     setCurrentDate(date + "/" + month + "/" + year);
-    console.log("date <<<< ", currentDate);
-    console.log("date get date: ", date);
+   
     const unsubscribe = navigation.addListener("focus", () => {
       // do something
       setMorePlayerModalOpen(false);
@@ -67,6 +66,16 @@ const PlayerComponent = (props) => {
     return unsubscribe;
   }, [navigation]);
 
+  const submitAttendance = () => {
+    const attendanceObj = {
+      'date': currentDate,
+      'Ids': switchVal,
+    }
+
+    // console.log("ssksk: ", attendanceObj);
+    setAttendanceView(false);
+
+  }
   const toggleOverlay = () => {
     setMorePlayerModalOpen(!morePlayerModalOpen);
   };
@@ -103,23 +112,52 @@ const PlayerComponent = (props) => {
     <View style={styles.container}>
       {loginUserType && loginUserType == "Admin" && attendanceView == true && (
         <View style={styles.currentDateViewStyle}>
-          <Text>Marking Attendance</Text>
+          <Text style={{ fontWeight: "bold", fontSize: 25, color: 'green',padding: 5 }}>
+            Marking Attendance
+          </Text>
           {/* <DateTimePickerComponent  /> */}
           <View
             style={{
               flexDirection: "row",
-              flex: 1,
-              
+              // flex: 1,
+              height: "5%",
             }}
           >
-            <View style={{ flexDirection: "column" , flex: 1, justifyContent: 'space-between', textAlign:'center', alignItems: 'center'}}>
-              <Text>k</Text>
+            <View
+              style={{
+                flexDirection: "column",
+                flex: 1,
+                justifyContent: "space-between",
+                textAlign: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+                Count: {switchVal != null && switchVal.length}
+              </Text>
             </View>
-            <View style={{ flexDirection: "column", flex: 1, justifyContent: 'space-between', textAlign:'center', alignItems: 'center' }}>
-              <Text>Date: {currentDate}</Text>
+            <View
+              style={{
+                flexDirection: "column",
+                flex: 1,
+                justifyContent: "space-between",
+                textAlign: "center",
+                alignItems: "center",
+                
+              }}
+            >
+              <Text style={{fontSize: 15,}}>Date: {currentDate}</Text>
             </View>
-            <View style={{ flexDirection: "column", flex: 1, justifyContent: 'space-between', textAlign:'center', alignItems: 'center' }}>
-              <Text>k</Text>
+            <View
+              style={{
+                flexDirection: "column",
+                flex: 1,
+                justifyContent: "space-between",
+                textAlign: "center",
+                alignItems: "center",
+              }}
+            >
+              <Button title="Submit" color="green" onPress={submitAttendance} />
             </View>
           </View>
         </View>
