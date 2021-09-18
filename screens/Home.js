@@ -27,6 +27,7 @@ const HomeScreen = ({ navigation }) => {
     try {
       const userToken = await AsyncStorage.getItem("loginToken");
       setUserToken(JSON.parse(userToken));
+      console.log("token Home screen: ", userToken);
       return userToken;
     } catch (error) {
       console.log(error);

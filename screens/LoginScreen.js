@@ -58,11 +58,11 @@ const LoginScreen = ({ navigation }) => {
   const setTokenMethod = async (token) => {
     try {
       await AsyncStorage.setItem("loginToken", JSON.stringify(token));
-
+      console.log("loginn token login screen: ", token);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return (
     <View style={styles.container}>

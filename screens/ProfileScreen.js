@@ -14,7 +14,7 @@ const MyProfileScreen = (props) => {
   console.log("props my  profile: ", props.props);
   const userToken =
     props.route.params.userToken !== null && props.route.params.userToken;
-
+  console.log("token my profile ", userToken);
   const [userData, setUserData] = useState(null);
 
   // make an API for get my reg details API for logged in user
