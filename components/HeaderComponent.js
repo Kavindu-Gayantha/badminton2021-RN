@@ -25,7 +25,7 @@ const HeaderComponent = ({ navigation, title }) => {
       containerStyle={styles.titleGrid}
       leftComponent={<HeaderLeftComponent navigation={navigation} />}
       centerComponent={<HeaderCenterComponent title={title} />}
-      rightComponent={<HeaderRightComponent />}
+      rightComponent={<HeaderRightComponent navigation={navigation} />}
     />
   );
 };
@@ -33,7 +33,7 @@ const HeaderLeftComponent = ({ navigation }) => {
   return (
     <Icon
       raised
-      name="arrow-back" 
+      name="arrow-back"
       type="material"
       color="green"
       onPress={() => navigation.goBack()}
@@ -45,14 +45,14 @@ const HeaderCenterComponent = ({ title }) => {
   return <Text style={styles.title}>{title}</Text>;
 };
 
-const HeaderRightComponent = () => {
+const HeaderRightComponent = ({ navigation }) => {
   return (
     <Icon
       raised
       name="home"
       type="material"
       color="green"
-      onPress={() => navigation.goBack()}
+      onPress={() => navigation.navigate("HomeTabs")}
     />
   );
 };
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     textAlignVertical: "center",
     fontWeight: "bold",
     fontSize: 20,
-    color: 'white',
+    color: "white",
   },
   titleRight: {
     flex: 1,

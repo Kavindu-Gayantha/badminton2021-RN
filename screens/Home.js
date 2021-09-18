@@ -61,8 +61,11 @@ const HomeScreen = ({ navigation }) => {
       </View>
       <View style={styles.buttonGroup}>
         <TouchableOpacity style={styles.buttonContainer}>
-          <Text style={styles.buttonText} onPress={() => goNextPage("sms")}>
-            SMS
+          <Text
+            style={styles.buttonText}
+            onPress={() => goNextPage("SchedulePractice")}
+          >
+            Schedule
           </Text>
         </TouchableOpacity>
         {/* {loginUserType === "Admin" && ( */}
