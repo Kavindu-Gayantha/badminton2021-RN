@@ -13,13 +13,17 @@ const CreateSmsComponent = (props) => {
   const [showSubmitTxt, setShowSubmitTxt] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
 
+  const { userToken } = props;
+  console.log("user token from sms: ", userToken);
+
   const onSubmitSms = () => {
     console.log("sms: ", msg);
     
     const body = {
-      'msg': msg,
-      'timestamp': ''
-    }
+      msg: msg,
+      timestamp: "",
+      uniIdFromToken: userToken.uniId, 
+    };
     createSmsAlertMethod(body).then(()=> setMsg(""));
   };
   
