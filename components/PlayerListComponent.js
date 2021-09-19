@@ -93,7 +93,7 @@ const PlayerComponent = (props) => {
       // setShowSubmitTxt(true);
       setResponseMessage(request.data.statusMessage);
       // props.setSmsAlerts(request.data.data);
-      alert(responseMessage);
+      alert(request.data.statusMessage);
       setAttendanceView(false);
 
       console.log("request response", request.data.statusMessage);
@@ -192,7 +192,7 @@ const PlayerComponent = (props) => {
               <Button
                 title="Submit"
                 color="green"
-                onPress={() => attendanceSubmitMethod()}
+                onPress={attendanceSubmitMethod}
               />
             </View>
           </View>
