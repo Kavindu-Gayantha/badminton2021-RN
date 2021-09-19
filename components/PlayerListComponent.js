@@ -19,6 +19,8 @@ import FabButton from "./FabButton";
 import { Switch } from "react-native-elements";
 import { Input } from "react-native-elements/dist/input/Input";
 // import DateTimePickerComponent from "./DateTimePickerComponent";
+import axios from "axios";
+import { BASE_URL } from "../api/BASE_URL";
 
 const PlayerComponent = (props) => {
   const [addPlayerArea, setAddPlayerArea] = useState(false);
@@ -29,10 +31,11 @@ const PlayerComponent = (props) => {
   const [switchVal, setSwitchVal] = useState([]);
   const [currentDate, setCurrentDate] = useState("");
   const [dateIn, setDateIn] = useState();
+  const [responseMessage, setResponseMessage] = useState();
 
   // const today = new Date();
   const players = props.data;
-  // console.log("props::", props.data);
+  // console.log("props ::", props);
   const { loginUserType, navigation, setPlayers, userToken } = props;
 
   var date = new Date().getDate(); //Current Date
@@ -53,7 +56,7 @@ const PlayerComponent = (props) => {
   };
   useEffect(() => {
     setCurrentDate(date + "/" + month + "/" + year);
-   
+
     const unsubscribe = navigation.addListener("focus", () => {
       // do something
       setMorePlayerModalOpen(false);
@@ -70,14 +73,34 @@ const PlayerComponent = (props) => {
 
   const submitAttendance = () => {
     const attendanceObj = {
-      'date': new Date(),
-      'Ids': switchVal,
-    }
-
+      date: new Date(),
+      attendantPlayerIds: switchVal,
+      addedAdminRegId: userToken.uniId,
+    };
+    attendanceSubmitMethod(attendanceObj);
     console.log("ssksk: ", attendanceObj);
-    setAttendanceView(false);
+  };
 
-  }
+  //Create attendance API here
+  const attendanceSubmitMethod = async () => {
+    const body = {
+      date: new Date(),
+      attendantPlayerIds: switchVal,
+      addedAdminRegId: userToken.uniId,
+    };
+    try {
+      const request = await axios.post(`${BASE_URL}/attendance/submit`, body);
+      // setShowSubmitTxt(true);
+      setResponseMessage(request.data.statusMessage);
+      // props.setSmsAlerts(request.data.data);
+      alert(responseMessage);
+      setAttendanceView(false);
+
+      console.log("request response", request.data.statusMessage);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const toggleOverlay = () => {
     setMorePlayerModalOpen(!morePlayerModalOpen);
   };
@@ -114,7 +137,14 @@ const PlayerComponent = (props) => {
     <View style={styles.container}>
       {loginUserType && loginUserType == "Admin" && attendanceView == true && (
         <View style={styles.currentDateViewStyle}>
-          <Text style={{ fontWeight: "bold", fontSize: 25, color: 'green',padding: 5 }}>
+          <Text
+            style={{
+              fontWeight: "bold",
+              fontSize: 25,
+              color: "green",
+              padding: 5,
+            }}
+          >
             Marking Attendance
           </Text>
           {/* <DateTimePickerComponent  /> */}
@@ -145,10 +175,9 @@ const PlayerComponent = (props) => {
                 justifyContent: "space-between",
                 textAlign: "center",
                 alignItems: "center",
-                
               }}
             >
-              <Text style={{ fontSize: 15, }}>Date: {currentDate}</Text>
+              <Text style={{ fontSize: 15 }}>Date: {currentDate}</Text>
               {/* <Input style={{margin: -30,}} Date onChange={(a)=> setDateIn(a)} value={dateIn} /> */}
             </View>
             <View
@@ -160,7 +189,11 @@ const PlayerComponent = (props) => {
                 alignItems: "center",
               }}
             >
-              <Button title="Submit" color="green" onPress={submitAttendance} />
+              <Button
+                title="Submit"
+                color="green"
+                onPress={() => attendanceSubmitMethod()}
+              />
             </View>
           </View>
         </View>
@@ -302,9 +335,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   currentDateViewStyle: {
-    alignItems: 'center',
+    alignItems: "center",
     padding: 10,
-    fontWeight: 'bold',
-    
+    fontWeight: "bold",
   },
 });
