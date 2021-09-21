@@ -7,14 +7,14 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-import YoutubePlayer from "react-native-youtube-iframe";
+// import YoutubePlayer from "react-native-youtube-iframe";
 import AddVideoComponent from "../components/AddVideoComponent";
 import HeaderComponent from "../components/HeaderComponent";
 import { globalStyles } from "../styles/globalStyles";
 import axios from "axios";
 import { BASE_URL } from "../api/BASE_URL";
 import { CirclesLoader } from "react-native-indicator";
-import { Divider } from "react-native-elements/dist/divider/Divider";
+import { Divider } from "react-native-elements";
 
 const VideoScreen = ({ navigation, route }) => {
   const [playing, setPlaying] = useState(false);
@@ -61,7 +61,7 @@ const VideoScreen = ({ navigation, route }) => {
 
   return (
     <View style={globalStyles.container}>
-      <HeaderComponent title="Videos" navigation={navigation} />
+      {/* <HeaderComponent title="Videos" navigation={navigation} />
       {loginUserType && loginUserType == "Admin" && (
         <AddVideoComponent addNewVideo={addNewVideo} />
       )}
@@ -75,10 +75,7 @@ const VideoScreen = ({ navigation, route }) => {
                 videoId={item.youtubeLink}
                 onChangeState={onStateChange}
               />
-              {/* <Button
-                title={playing ? "pause" : "play"}
-                onPress={togglePlaying}
-              /> */}
+      
               <Divider />
             </View>
           ))
@@ -87,7 +84,7 @@ const VideoScreen = ({ navigation, route }) => {
             <CirclesLoader color="green" />
           </View>
         )}
-      </ScrollView>
+      </ScrollView> */}
     </View>
   );
 };

@@ -22,6 +22,9 @@ import { Input } from "react-native-elements/dist/input/Input";
 import axios from "axios";
 import { BASE_URL } from "../api/BASE_URL";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import moment from "moment";
+import ToastComponent from "./ToastComponent";
+import { ToastBackgroundGlobalColors } from "../styles/globalStyles";
 
 const PlayerComponent = (props) => {
   const [addPlayerArea, setAddPlayerArea] = useState(false);
@@ -36,6 +39,17 @@ const PlayerComponent = (props) => {
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
 
+  // toasts
+  const [toastVisible, setToastVisible] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastBackgroundColor, setToastBackgroundColor] = useState("");
+
+  const datePickerOnChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setDate(currentDate);
+    console.log("date chagned: ", currentDate);
+    setOpen(false);
+  };
   // const today = new Date();
   const players = props.data;
   // console.log("props ::", props);
@@ -88,7 +102,7 @@ const PlayerComponent = (props) => {
   //Create attendance API here
   const attendanceSubmitMethod = async () => {
     const body = {
-      date: new Date(),
+      date: date,
       attendantPlayerIds: switchVal,
       addedAdminRegId: userToken.uniId,
     };
@@ -97,7 +111,13 @@ const PlayerComponent = (props) => {
       // setShowSubmitTxt(true);
       setResponseMessage(request.data.statusMessage);
       // props.setSmsAlerts(request.data.data);
-      alert(request.data.statusMessage);
+      setToastMessage(request.data.statusMessage);
+      setToastVisible(true);
+      setToastBackgroundColor(
+        request.data.status
+          ? ToastBackgroundGlobalColors.success
+          : ToastBackgroundGlobalColors.fail
+      );
       setAttendanceView(false);
 
       console.log("request response", request.data.statusMessage);
@@ -157,7 +177,7 @@ const PlayerComponent = (props) => {
               flexDirection: "row",
               // flex: 5,
               // height: "5%",
-              justifyContent: 'space-between'
+              justifyContent: "space-between",
             }}
           >
             <View
@@ -186,29 +206,20 @@ const PlayerComponent = (props) => {
                 Date: {currentDate}
               </Text> */}
               <TouchableOpacity>
-              <Icon
-                name="alarm"
-                onPress={() => {
-                  console.log("touched");
-                  setOpen(true);
-                }}
-              />
+                <Icon
+                  name="alarm"
+                  onPress={() => {
+                    console.log("touched");
+                    setOpen(true);
+                  }}
+                />
+                <Text style={{ fontSize: 10 }}>
+                  {moment(date).format("MMMM Do YYYY")}
+                </Text>
               </TouchableOpacity>
               {/* <Input style={{margin: -30,}} Date onChange={(a)=> setDateIn(a)} value={dateIn} /> */}
             </View>
-            {open && (
-              <DateTimePicker
-                value={date}
-                mode="date"
-                is24Hour={true}
-                display="default"
-                onChange={() => {
-                  setDate(date);
-                  setOpen(false);
-                  console.log("date is: ", date);
-                }}
-              />
-            )}
+
             <View
               style={{
                 flexDirection: "column",
@@ -229,6 +240,22 @@ const PlayerComponent = (props) => {
       )}
       {/* display add new player component when button click */}
       {/* {addPlayerArea && */}
+      <ToastComponent
+        toastVisible={toastVisible}
+        toastMessage={toastMessage}
+        toastBackgroundColor={toastBackgroundColor}
+        setToastVisible={setToastVisible}
+      />
+      {open && (
+        <DateTimePicker
+          value={date}
+          themeVariant="green"
+          mode="date"
+          is24Hour={true}
+          display="default"
+          onChange={datePickerOnChange}
+        />
+      )}
       <Modal visible={modalOpen} animationType="slide">
         <View style={styles.modalContent}>
           <CreatePlayer setPlayers={setPlayers} />
