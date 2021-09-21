@@ -21,6 +21,7 @@ import { Input } from "react-native-elements/dist/input/Input";
 // import DateTimePickerComponent from "./DateTimePickerComponent";
 import axios from "axios";
 import { BASE_URL } from "../api/BASE_URL";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 const PlayerComponent = (props) => {
   const [addPlayerArea, setAddPlayerArea] = useState(false);
@@ -32,15 +33,17 @@ const PlayerComponent = (props) => {
   const [currentDate, setCurrentDate] = useState("");
   const [dateIn, setDateIn] = useState();
   const [responseMessage, setResponseMessage] = useState();
+  const [date, setDate] = useState(new Date());
+  const [open, setOpen] = useState(false);
 
   // const today = new Date();
   const players = props.data;
   // console.log("props ::", props);
   const { loginUserType, navigation, setPlayers, userToken } = props;
 
-  var date = new Date().getDate(); //Current Date
-  var month = new Date().getMonth() + 1; //Current Month
-  var year = new Date().getFullYear(); //Current Year
+  // var date = new Date().getDate(); //Current Date
+  // var month = new Date().getMonth() + 1; //Current Month
+  // var year = new Date().getFullYear(); //Current Year
 
   const onChangeSwitch = (item) => {
     console.log("swith : ", item.id);
@@ -55,11 +58,12 @@ const PlayerComponent = (props) => {
     // console.log("swich values array: ", switchVal);
   };
   useEffect(() => {
-    setCurrentDate(date + "/" + month + "/" + year);
+    // setCurrentDate(date + "/" + month + "/" + year);
 
     const unsubscribe = navigation.addListener("focus", () => {
       // do something
       setMorePlayerModalOpen(false);
+      setAttendanceView(false);
 
       //  setCurrentDate(
       //    date + "/" + month + "/" + year
@@ -151,15 +155,16 @@ const PlayerComponent = (props) => {
           <View
             style={{
               flexDirection: "row",
-              // flex: 1,
-              height: "5%",
+              // flex: 5,
+              // height: "5%",
+              justifyContent: 'space-between'
             }}
           >
             <View
               style={{
-                flexDirection: "column",
+                // flexDirection: "column",
                 flex: 1,
-                justifyContent: "space-between",
+                // justifyContent: "space-between",
                 textAlign: "center",
                 alignItems: "center",
               }}
@@ -172,19 +177,43 @@ const PlayerComponent = (props) => {
               style={{
                 flexDirection: "column",
                 flex: 1,
-                justifyContent: "space-between",
+                // justifyContent: "space-between",
                 textAlign: "center",
                 alignItems: "center",
               }}
             >
-              <Text style={{ fontSize: 15 }}>Date: {currentDate}</Text>
+              {/* <Text style={{ fontSize: 15 }}>
+                Date: {currentDate}
+              </Text> */}
+              <TouchableOpacity>
+              <Icon
+                name="alarm"
+                onPress={() => {
+                  console.log("touched");
+                  setOpen(true);
+                }}
+              />
+              </TouchableOpacity>
               {/* <Input style={{margin: -30,}} Date onChange={(a)=> setDateIn(a)} value={dateIn} /> */}
             </View>
+            {open && (
+              <DateTimePicker
+                value={date}
+                mode="date"
+                is24Hour={true}
+                display="default"
+                onChange={() => {
+                  setDate(date);
+                  setOpen(false);
+                  console.log("date is: ", date);
+                }}
+              />
+            )}
             <View
               style={{
                 flexDirection: "column",
                 flex: 1,
-                justifyContent: "space-between",
+                // justifyContent: "space-between",
                 textAlign: "center",
                 alignItems: "center",
               }}
