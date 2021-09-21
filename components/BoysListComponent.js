@@ -220,7 +220,7 @@ const BoyComponent = (props) => {
                 {row.email}
               </Text>
               <Text text90 green20>
-                {userToken.universityName}**
+                **
               </Text>
             </ListItem.Part>
           </ListItem.Part>
