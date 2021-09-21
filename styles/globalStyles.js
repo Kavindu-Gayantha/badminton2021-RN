@@ -92,3 +92,8 @@ export const profileImgs = {
   male: require("../assets/profileMen.jpg"),
   female: require("../assets/profileWomen.jpg"),
 };
+
+export const ToastBackgroundGlobalColors = {
+  success: "green",
+  fail: "red",
+};
