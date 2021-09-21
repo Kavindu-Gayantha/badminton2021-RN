@@ -8,13 +8,16 @@ import CreateSmsComponent from "../components/CreateSmsComponent";
 import SmsListComponent from "../components/SmsListComponent";
 import { CirclesLoader } from "react-native-indicator";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ExpandableSection, Image } from "react-native-ui-lib";
+import { Icon } from "react-native-elements/dist/icons/Icon";
+import { Col, Row, Grid } from "react-native-easy-grid";
 
-const SmsScreen = ({navigation}) => {
+const SmsScreen = ({ navigation }) => {
   const [smsAlerts, setSmsAlerts] = useState([]);
   const [data, setData] = useState([]);
   const [userToken, setUserToken] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const [expanded, setExpanded] = useState(false);
 
   const { userType } = userToken;
   // console.log("props sms screen: ", props);
@@ -22,6 +25,32 @@ const SmsScreen = ({navigation}) => {
   // const navigation = props.navigation;
   // const userType = props.route.params.userToken.userType;
 
+  // const chevronUp = URL('')
+  const onExpandMethod = () => {
+    setExpanded(!expanded);
+  };
+
+  function getHeaderElement() {
+    return (
+      <View
+        style={{ flexDirection: "row", alignSelf: "center", padding: "1%" }}
+      >
+        <View style={{ flexDirection: "column" }}>
+          <Text style={globalStyles.titleText}>Send a new MSG</Text>
+        </View>
+        <View style={{ flexDirection: "column" }}>
+          <Icon
+            raised
+            size={12}
+            color="white"
+            backgroundColor="green"
+            name={expanded ? "arrow-up" : "arrow-down"}
+            type="font-awesome"
+          />
+        </View>
+      </View>
+    );
+  }
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       // do something
@@ -39,7 +68,7 @@ const SmsScreen = ({navigation}) => {
       const userToken = await AsyncStorage.getItem("loginToken");
       setUserToken(JSON.parse(userToken));
       getAllSmsAlerts(JSON.parse(userToken));
-       
+
       return userToken;
     } catch (error) {
       console.log(error);
@@ -49,7 +78,9 @@ const SmsScreen = ({navigation}) => {
     setLoading(true);
     try {
       const loginUserUniId = token.uniId;
-      const request = await axios.get(`${BASE_URL}/sms/getAll/${loginUserUniId}`);
+      const request = await axios.get(
+        `${BASE_URL}/sms/getAll/${loginUserUniId}`
+      );
       // console.log("players get:", typeof(request.data.data));
       setSmsAlerts(request.data.data);
       // console.log("smsAlerts state:  ", request.data.data);
@@ -71,7 +102,15 @@ const SmsScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       {userType && userType == "Admin" && (
-        <CreateSmsComponent userToken={userToken} setSmsAlerts={addSMSList} />
+        // <CreateSmsComponent userToken={userToken} setSmsAlerts={addSMSList} />
+        <ExpandableSection
+          top={false}
+          expanded={expanded}
+          sectionHeader={getHeaderElement()}
+          onPress={onExpandMethod}
+        >
+          <CreateSmsComponent userToken={userToken} setSmsAlerts={addSMSList} />
+        </ExpandableSection>
       )}
       {smsAlerts.length > 0 ? (
         <SmsListComponent data={smsAlerts} />
@@ -91,5 +130,8 @@ const styles = StyleSheet.create({
     padding: 5,
     // marginTop: 5,
     flex: 1,
+  },
+  icon: {
+    alignSelf: "center",
   },
 });
