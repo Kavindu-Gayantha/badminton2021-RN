@@ -23,17 +23,18 @@ import HeaderComponent from "../components/HeaderComponent";
 const PlayersScreen = ({ navigation, route }) => {
   // setUpdatePlayers([]);
   const [players, setPlayers] = useState([]);
-  const [updatePlayer, setUpdatePlayers] = useState([]);
+  const [updatePlayer, setUpdatePlayer] = useState([]);
   const [loading, setLoading] = useState(false);
   const { userToken } = route.params;
   const loginUserType = userToken.userType;
+  // const [updatePlayer, setUpdatePlayer] = useState(null);
   // console.log("user token route param: ", userToken);
 
   useEffect(() => {
     // setUpdatePlayers();
 
     getAllPlayers();
-  }, []);
+  }, [updatePlayer]);
 
   const getAllPlayers = async () => {
     const loginUserUniId = userToken.uniId;
@@ -54,6 +55,7 @@ const PlayersScreen = ({ navigation, route }) => {
   };
   // set new player to existing playerlist
   const addPlayer = (input) => {
+    setUpdatePlayer(input);
     setPlayers([...players, input]);
   };
 

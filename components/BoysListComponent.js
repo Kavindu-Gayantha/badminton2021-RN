@@ -16,7 +16,7 @@ import PlayerMoreOptionModalComponent from "./PlayerMoreOptionModalComponent";
 import { ListItem, Text, Switch } from "react-native-ui-lib";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ToastBackgroundGlobalColors } from "../styles/globalStyles";
-import { ExpandableSection } from "react-native-ui-lib";
+import { ExpandableSection, Drawer } from "react-native-ui-lib";
 import AttendanceMarkComponent from "./AttendanceMarkComponent";
 import { Icon } from "react-native-elements/dist/icons/Icon";
 
@@ -153,52 +153,55 @@ const BoyComponent = (props) => {
   };
 
   const keyExtractor = (item) => item.id.toString();
-
+  function renderLeftItem(row) {
+    return <Text>Left</Text>;
+  }
   function renderRow(row, id) {
     // console.log("row : ", row);
     // const statusColor = row.inventory.status === 'Paid' ? Colors.green30 : Colors.red30;
 
     return (
       <View>
-        <ListItem
-          // @ts-expect-error
-          activeBackgroundColor="green"
-          // backgroundColor="green"
-          containerStyle={globalStyles.listContainer}
-          activeOpacity={0.3}
-          height={77.5}
-          onLongPress={() => openMorePlayerModel(row)}
-          onPress={() => alert(`pressed on order #${id + 1}`)}
-        >
-          <ListItem.Part left>
-            <Image
-              source={
-                row.gender == "male" ? profileImgs.male : profileImgs.female
-              }
-              style={styles.image}
-            />
-          </ListItem.Part>
-          <ListItem.Part
-            middle
-            column
-            containerStyle={[
-              styles.border,
-              { paddingRight: 17, backgroundColor: "white" },
-            ]}
+        <Drawer leftItem={renderLeftItem()} useNativeAnimations>
+          <ListItem
+            // @ts-expect-error
+            activeBackgroundColor="green"
+            // backgroundColor="green"
+            containerStyle={globalStyles.listContainer}
+            activeOpacity={0.3}
+            height={77.5}
+            onLongPress={() => openMorePlayerModel(row)}
+            onPress={() => alert(`pressed on order #${id + 1}`)}
           >
-            <ListItem.Part containerStyle={{ marginBottom: 3 }}>
-              <Text
-                green10
-                text60
-                style={{ flex: 1, marginRight: 10, fontWeight: "bold" }}
-                // numberOfLines={1}
-              >
-                {row.name}
-              </Text>
-              <Text green50 text80 style={{ marginTop: 2 }}>
-                {row.id}
-              </Text>
-              {/* {attendanceView == true && (
+            <ListItem.Part left>
+              <Image
+                source={
+                  row.gender == "male" ? profileImgs.male : profileImgs.female
+                }
+                style={styles.image}
+              />
+            </ListItem.Part>
+            <ListItem.Part
+              middle
+              column
+              containerStyle={[
+                styles.border,
+                { paddingRight: 17, backgroundColor: "white" },
+              ]}
+            >
+              <ListItem.Part containerStyle={{ marginBottom: 3 }}>
+                <Text
+                  green10
+                  text60
+                  style={{ flex: 1, marginRight: 10, fontWeight: "bold" }}
+                  // numberOfLines={1}
+                >
+                  {row.name}
+                </Text>
+                <Text green50 text80 style={{ marginTop: 2 }}>
+                  {row.id}
+                </Text>
+                {/* {attendanceView == true && (
                 <Switch
                   backgroundColor="white"
                   onColor="green"
@@ -209,22 +212,23 @@ const BoyComponent = (props) => {
                   
                 />
               )} */}
+              </ListItem.Part>
+              <ListItem.Part>
+                <Text
+                  style={{ flex: 1, marginRight: 10 }}
+                  text90
+                  grey40
+                  // numberOfLines={1}
+                >
+                  {row.email}
+                </Text>
+                <Text text90 green20>
+                  **
+                </Text>
+              </ListItem.Part>
             </ListItem.Part>
-            <ListItem.Part>
-              <Text
-                style={{ flex: 1, marginRight: 10 }}
-                text90
-                grey40
-                // numberOfLines={1}
-              >
-                {row.email}
-              </Text>
-              <Text text90 green20>
-                **
-              </Text>
-            </ListItem.Part>
-          </ListItem.Part>
-        </ListItem>
+          </ListItem>
+        </Drawer>
       </View>
     );
   }

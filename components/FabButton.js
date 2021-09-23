@@ -4,7 +4,12 @@ import { StyleSheet, Text, View } from "react-native";
 import { SpeedDial } from "react-native-elements";
 import { globalStyles } from "../styles/globalStyles";
 
-const FabButton = ({ addNewPlayer, setAttendanceView }) => {
+const FabButton = ({
+  addNewPlayer,
+  setAttendanceView,
+  fabOpen,
+  setFabOpen,
+}) => {
   const [open, setOpen] = useState(false);
 
   // const setOpen = () => {
@@ -17,11 +22,11 @@ const FabButton = ({ addNewPlayer, setAttendanceView }) => {
       color="#134717"
       size="large"
       style={styles.container}
-      isOpen={open}
+      isOpen={fabOpen}
       icon={{ name: "edit", color: "white" }}
       openIcon={{ name: "close", color: "white" }}
-      onOpen={() => setOpen(!open)}
-      onClose={() => setOpen(!open)}
+      onOpen={() => setFabOpen(!fabOpen)}
+      onClose={() => setFabOpen(!fabOpen)}
     >
       <SpeedDial.Action
         color="green"

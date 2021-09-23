@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Dimensions,
   FlatList,
-  Modal,
+  // Modal,
   TouchableOpacity,
   Image,
 } from "react-native";
@@ -26,6 +26,7 @@ import moment from "moment";
 import ToastComponent from "./ToastComponent";
 import { ToastBackgroundGlobalColors } from "../styles/globalStyles";
 import AttendanceMarkComponent from "./AttendanceMarkComponent";
+import { Modal } from "react-native-ui-lib";
 
 const PlayerComponent = (props) => {
   const [addPlayerArea, setAddPlayerArea] = useState(false);
@@ -39,6 +40,7 @@ const PlayerComponent = (props) => {
   const [responseMessage, setResponseMessage] = useState();
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
+  const [fabOpen, setFabOpen] = useState(false);
 
   // toasts
   const [toastVisible, setToastVisible] = useState(false);
@@ -132,6 +134,7 @@ const PlayerComponent = (props) => {
 
   const addNewPlayer = () => {
     setModelOpen(true);
+    setFabOpen(false);
   };
 
   const closeModal = () => {
@@ -187,7 +190,7 @@ const PlayerComponent = (props) => {
           onChange={datePickerOnChange}
         />
       )}
-      <Modal visible={modalOpen} animationType="slide">
+      {/* <Modal visible={modalOpen} animationType="slide">
         <View style={styles.modalContent}>
           <CreatePlayer setPlayers={setPlayers} />
 
@@ -198,6 +201,38 @@ const PlayerComponent = (props) => {
             title="close"
           />
         </View>
+      </Modal> */}
+      <Modal
+        visible={modalOpen}
+        overlayBackgroundColor="white"
+        useGestureHandlerRootView
+        animationType="slide"
+        transparent={true}
+        // blurView={CreatePlayer}
+      >
+        <Modal.TopBar
+          title="Create a new Player"
+          onDone={() => setModelOpen(false)}
+          onCancel={() => setModelOpen(false)}
+          doneLabel="Create"
+          doneButtonProps={{
+            color: "green",
+            borderRadius: 20,
+            backgroundColor: "red",
+          }}
+          // doneIcon="arrow"
+        />
+        <CreatePlayer
+          toastVisible={toastVisible}
+          toastMessage={toastMessage}
+          toastBackgroundColor={toastBackgroundColor}
+          setToastVisible={setToastVisible}
+          setToastMessage={setToastMessage}
+          setToastBackgroundColor={setToastBackgroundColor}
+          setPlayers={setPlayers}
+          userToken={userToken}
+          setModelOpen={setModelOpen}
+        />
       </Modal>
 
       <PlayerMoreOptionModalComponent
@@ -212,7 +247,7 @@ const PlayerComponent = (props) => {
 
       <FlatList
         style={globalStyles.listContainer}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item && item.id.toString()}
         data={players}
         renderItem={({ item }) => (
           <TouchableOpacity
@@ -220,7 +255,7 @@ const PlayerComponent = (props) => {
             style={globalStyles.touchableOpacityList}
           >
             <View style={globalStyles.coverListItemView}>
-              {item.gender === "Male" || item.gender === "male" ? (
+              {item && (item.gender === "Male" || item.gender === "male") ? (
                 <Image
                   source={profileImgs.male}
                   // width="10"
@@ -235,7 +270,7 @@ const PlayerComponent = (props) => {
             </View>
 
             <Text style={globalStyles.listItem}>
-              {item.name} - {item.facultyName}{" "}
+              {item && item.name} - {item && item.facultyName}{" "}
             </Text>
             {attendanceView == true && (
               <Switch
@@ -251,10 +286,14 @@ const PlayerComponent = (props) => {
           </TouchableOpacity>
         )}
       />
-      <FabButton
-        addNewPlayer={addNewPlayer}
-        setAttendanceView={setAttendanceView}
-      />
+      {userToken && userToken.userType == "Admin" && (
+        <FabButton
+          fabOpen={fabOpen}
+          setFabOpen={setFabOpen}
+          addNewPlayer={addNewPlayer}
+          setAttendanceView={setAttendanceView}
+        />
+      )}
     </View>
   );
 };

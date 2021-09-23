@@ -49,7 +49,7 @@ const HomeScreen = ({ navigation }) => {
         {/* {loginUserType === "Admin" && ( */}
         <TouchableOpacity style={styles.buttonContainer}>
           <Text style={styles.buttonText} onPress={press}>
-            Practice Days
+            Report
           </Text>
         </TouchableOpacity>
         {/* // )} */}
