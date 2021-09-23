@@ -27,7 +27,8 @@ export default function PlayerProfileComponent(props) {
             rounded
             size="xlarge"
             source={
-              userData != null && userData.gender === "male"
+              userData != null &&
+              (userData.gender == "male" || userData.gender == "Male")
                 ? profileImgs.male
                 : profileImgs.female
             }
@@ -56,7 +57,7 @@ export default function PlayerProfileComponent(props) {
             </View>
             <View style={styles.buttonWrap}>
               <Button
-                buttonStyle={{ backgroundColor: "red", color: "green",  }}
+                buttonStyle={{ backgroundColor: "red", color: "green" }}
                 title="Delete Profile"
                 onPress={null}
               />
@@ -99,7 +100,6 @@ const styles = StyleSheet.create({
   cardItem: {
     flex: 1,
     flexDirection: "column",
-   
   },
   cardTitle: {
     fontWeight: "bold",
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     padding: 5,
     flex: 1,
-    color: 'green',
-    flexDirection: 'column'
+    color: "green",
+    flexDirection: "column",
   },
 });
