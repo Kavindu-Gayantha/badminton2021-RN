@@ -30,14 +30,13 @@ const PlayerProfileScreen = (props) => {
   // "universityName": "University of Kelaniya",
   // "userType": "Admin not",
 
-
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       // do something
       getUserDataWithEmail(userProfile.email);
     });
     return unsubscribe;
-  }, [navigation])
+  }, [navigation]);
 
   const getUserDataWithEmail = async (email) => {
     //  setUpdateGirs();
@@ -62,9 +61,8 @@ const PlayerProfileScreen = (props) => {
       {/* <View style={styles.profilePicContainer}>
         <Image source={profileImgs.male} style={styles.proImg} />
       </View> */}
-     
-        <PlayerProfileComponent userData={userData} />
-      
+
+      <PlayerProfileComponent userData={userData} />
     </View>
   );
 };
@@ -85,8 +83,8 @@ const styles = StyleSheet.create({
     padding: 4,
   },
   avatarWrap: {
-    alignItems: 'center',
+    alignItems: "center",
     padding: 15,
     // width: 50,
-  }
+  },
 });
