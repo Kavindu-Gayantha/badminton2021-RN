@@ -6,7 +6,7 @@ import { profileImgs } from "../styles/globalStyles";
 
 export default function PlayerProfileComponent(props) {
   console.log("props plauyer profile component: ", props);
-  const { userData } = props;
+  const { userData, userToken } = props;
 
   // "active": true,
   //   "deleted": false,
@@ -38,7 +38,7 @@ export default function PlayerProfileComponent(props) {
           {userData !== null && userData.firstName} {""}{" "}
           {userData != null && userData.lastName}
         </Text>
-        {userData != null && userData.userType == "Admin" && (
+        {userToken != null && (
           <View
             style={{
               padding: 10,

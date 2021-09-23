@@ -64,19 +64,19 @@ const MyProfileScreen = (props) => {
               : profileImgs.female
           }
         /> */}
-        {/* <View>
+      {/* <View>
           <Text style={styles.title}>
             Hi{" "}
             {userToken !== null
               ? userToken.firstName
               : userProfile !== null && userProfile.name}
             {/* <View><Text style={{fontSize: 15}}>{userToken != null && userToken.email}</Text></View> */}
-          {/* </Text> */} 
-          {/* <Text style={styles.subTitle}>
+      {/* </Text> */}
+      {/* <Text style={styles.subTitle}>
             {userToken != null && userToken.email} */}
-          {/* </Text>
+      {/* </Text>
         </View> */}
-        {/* <View style={styles.iconWrap}>
+      {/* <View style={styles.iconWrap}>
           <Icon
             iconStyle={styles.iconStyle}
             name="edit"
@@ -94,7 +94,7 @@ const MyProfileScreen = (props) => {
           />
         </View> */}
       {/* </View> */}
-      <PlayerProfileComponent userData={userData} />
+      <PlayerProfileComponent userToken={userToken} userData={userData} />
     </View>
   );
 };
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-start",
     padding: 5,
-    alignSelf: 'center',
+    alignSelf: "center",
     backgroundColor: "white",
     margin: 5,
     borderRadius: 10,
