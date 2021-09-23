@@ -66,7 +66,9 @@ const GirlsComponent = (props) => {
           <ListItem.Part left>
             <Image
               source={
-                row.gender == "male" ? profileImgs.male : profileImgs.female
+                row.gender == "male" || row.gender == "Male"
+                  ? profileImgs.male
+                  : profileImgs.female
               }
               style={styles.image}
             />
