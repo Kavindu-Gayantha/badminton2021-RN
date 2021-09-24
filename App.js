@@ -22,6 +22,7 @@ import PlayerProfileScreen from "./screens/PlayerProfileScreen";
 import MyProfileScreen from "./screens/ProfileScreen";
 import SchedulePracticeScreen from "./screens/SchedulePracticeScreen";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import RegisterScreen from "./screens/RegisterScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -30,74 +31,75 @@ function HomeTabs() {
     // <SafeAreaView
     //   style={{ flex: 1, justifyContent: "space-between", alignItems: "center" }}
     // >
-      <Tab.Navigator
-        screenOptions={{
-          headerShown: true,
-          tabBarInactiveTintColor: "#ffffff",
-          tabBarInactiveBackgroundColor: "#41733f",
-          tabBarActiveTintColor: "#98ee99",
-          tabBarActiveBackgroundColor: "#134717",
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: true,
+        tabBarInactiveTintColor: "#ffffff",
+        tabBarInactiveBackgroundColor: "#41733f",
+        tabBarActiveTintColor: "#98ee99",
+        tabBarActiveBackgroundColor: "#134717",
+      }}
+      initialRouteName="Home"
+    >
+      <Tab.Screen
+        name="Boys"
+        component={BoysScreen}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="man" color={color} />,
+          headerStyle: { backgroundColor: "green" },
+          headerTitleStyle: { fontWeight: "bold" },
+          headerTintColor: "white",
+          headerTitleAlign: "center",
         }}
-        initialRouteName="Home"
-      >
-        <Tab.Screen
-          name="Boys"
-          component={BoysScreen}
-          options={{
-            tabBarIcon: ({ color }) => <TabBarIcon name="man" color={color} />,
-            headerStyle: { backgroundColor: "green" },
-            headerTitleStyle: { fontWeight: "bold" },
-            headerTintColor: "white",
-            headerTitleAlign: "center",
-          }}
-        />
-        <Tab.Screen
-          name="Girls"
-          component={GirlsScreen}
-          options={{
-            tabBarIcon: ({ color }) => <TabBarIcon name="woman" color={color} />,
-            headerStyle: { backgroundColor: "green" },
-            headerTitleStyle: { fontWeight: "bold" },
-            headerTintColor: "white",
-            headerTitleAlign: "center",
-          }}
-        />
-        <Tab.Screen
-          name="Home"
-          component={Home}
-          options={{
-            tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
-            headerStyle: { backgroundColor: "green" },
-            headerTitleStyle: { fontWeight: "bold" },
-            headerTintColor: "white",
-            headerTitleAlign: "center",
-          }}
-        />
-        <Tab.Screen
-          name="sms"
-          component={SmsScreen}
-          options={{
-            tabBarIcon: ({ color }) => <TabBarIcon name="mail" color={color} />,
-            headerStyle: { backgroundColor: "green" },
-            headerTitleStyle: { fontWeight: "bold" },
-            headerTintColor: "white",
-            headerTitleAlign: "center",
-
-          }}
-        />
-        <Tab.Screen
-          name="Settings"
-          component={SettingsScreen}
-          options={{
-            tabBarIcon: ({ color }) => <TabBarIcon name="settings" color={color} />,
-            headerStyle: { backgroundColor: "green" },
-            headerTitleStyle: { fontWeight: "bold" },
-            headerTintColor: "white",
-            headerTitleAlign: "center",
-          }}
-        />
-        {/*<Tab.Screen name="sms" component={SmsScreen} />*/}
-      </Tab.Navigator>
+      />
+      <Tab.Screen
+        name="Girls"
+        component={GirlsScreen}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="woman" color={color} />,
+          headerStyle: { backgroundColor: "green" },
+          headerTitleStyle: { fontWeight: "bold" },
+          headerTintColor: "white",
+          headerTitleAlign: "center",
+        }}
+      />
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+          headerStyle: { backgroundColor: "green" },
+          headerTitleStyle: { fontWeight: "bold" },
+          headerTintColor: "white",
+          headerTitleAlign: "center",
+        }}
+      />
+      <Tab.Screen
+        name="sms"
+        component={SmsScreen}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="mail" color={color} />,
+          headerStyle: { backgroundColor: "green" },
+          headerTitleStyle: { fontWeight: "bold" },
+          headerTintColor: "white",
+          headerTitleAlign: "center",
+        }}
+      />
+      <Tab.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="settings" color={color} />
+          ),
+          headerStyle: { backgroundColor: "green" },
+          headerTitleStyle: { fontWeight: "bold" },
+          headerTintColor: "white",
+          headerTitleAlign: "center",
+        }}
+      />
+      {/*<Tab.Screen name="sms" component={SmsScreen} />*/}
+    </Tab.Navigator>
     // </SafeAreaView>
   );
 }
@@ -110,6 +112,7 @@ export default function App() {
       <NavigationContainer initialRouteName="Login">
         <RootStack.Navigator screenOptions={{ headerShown: false }}>
           <RootStack.Screen name="Login" component={LoginScreen} />
+          <RootStack.Screen name="Register" component={RegisterScreen} />
           <RootStack.Screen name="HomeTabs" component={HomeTabs} />
           <RootStack.Screen name="Videos" component={VideoScreen} />
           <RootStack.Screen name="Players" component={PlayersScreen} />

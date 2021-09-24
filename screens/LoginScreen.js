@@ -102,7 +102,7 @@ const LoginScreen = ({ navigation }) => {
               <Button
                 title="Register"
                 buttonStyle={styles.submitButton}
-                onPress={onPressLogin}
+                onPress={() => navigation.navigate("Register")}
               />
             </View>
           )}

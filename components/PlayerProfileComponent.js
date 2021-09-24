@@ -13,6 +13,7 @@ export default function PlayerProfileComponent(props) {
   //   "email": "s@gmail.com",
   //   "firstName": "kavindu",
   //   "gender": "male",
+
   //   "id": null,
   //   "lastName": "Ari",
   //   "password": null,
