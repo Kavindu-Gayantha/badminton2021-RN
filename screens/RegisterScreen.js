@@ -13,9 +13,12 @@ import { Card, Divider } from "react-native-elements";
 import axios from "axios";
 import { BASE_URL } from "../api/BASE_URL";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Gender, UniversitiesList } from "../lib/constants";
+import { Gender, UniversitiesList, UserTypes } from "../lib/constants";
 import { RadioGroup } from "react-native-ui-lib";
 import { RadioButton } from "react-native-ui-lib";
+import { ScrollView } from "react-native-gesture-handler";
+// import ModalDropdown from "react-native-modal-dropdown";
+import DropDownPicker from "react-native-dropdown-picker";
 
 const RegisterScreen = ({ navigation }) => {
   const image = require("../assets/welcomescreen.jpg");
@@ -24,27 +27,41 @@ const RegisterScreen = ({ navigation }) => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [userType, setUserType] = useState("");
-  // const [university, setUniversity] = useState(null);
-  const [gender, setGender] = useState("Male");
+  const [university, setUniversity] = useState(UniversitiesList);
+  const [openUniDropDown, setOpenUniDropDown] = useState(false);
+  const [selectedUni, setSelectedUni] = useState(0);
+  const [gender, setGender] = useState(Gender[0].value);
   const [pwd, setPwd] = useState("");
-  const [uniDropDown, setUniDropDown] = useState(false);
+  const [uniDropDown, setUniDropDown] = useState(UserTypes[0].value);
 
-  useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", () => {
-      // do something
-      // const userToken = getTokenMethod();
-      setUniDropDown(false);
-      // console.log("Token in boys: ", userToken);
-    });
-    return unsubscribe;
-  }, [navigation]);
+  // useEffect(() => {
+  //   const unsubscribe = navigation.addListener("focus", () => {
+  // do something
+  // const userToken = getTokenMethod();
+  // setUniDropDown(false);
+  // console.log("Token in boys: ", userToken);
+  //   });
+  //   return unsubscribe;
+  // }, [navigation]);
 
   const onPressRegister = () => {
     console.log("register");
+    const regObj = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      gender: gender,
+      university: 1,
+      password: pwd,
+      userType: userType,
+    };
+
+    console.log("reg obg:", regObj);
   };
 
   const genderHandleChange = (genderType) => {
     console.log("gender", genderType);
+    setGender(genderType);
   };
 
   const uniHandleChange = (uni) => {
@@ -67,7 +84,7 @@ const RegisterScreen = ({ navigation }) => {
               marginBottom: 1,
               padding: 8,
               backgroundColor: "green",
-              backfaceVisibility: 0,
+              // backfaceVisibility: 0,
               // opacity: 0.6,
             }}
             initialValue={gender}
@@ -81,7 +98,7 @@ const RegisterScreen = ({ navigation }) => {
                 alignContent: "space-between",
               }}
               labelStyle={{ color: "white", fontWeight: "bold" }}
-              value="Male"
+              value={"Male"}
               label="Male"
             />
             <RadioButton
@@ -92,8 +109,46 @@ const RegisterScreen = ({ navigation }) => {
                 alignContent: "space-between",
               }}
               labelStyle={{ color: "white", fontWeight: "bold" }}
-              value="Female"
+              value={"Female"}
               label="Female"
+            />
+          </RadioGroup>
+          {/* user type now */}
+          <Divider orientation="horizontal" width={6} />
+          <RadioGroup
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-around",
+              marginBottom: 1,
+              padding: 8,
+              backgroundColor: "green",
+              // backfaceVisibility: 0,
+              // opacity: 0.6,
+            }}
+            initialValue={UserTypes[0].value}
+            onValueChange={(item) => setUserType(item)}
+          >
+            <RadioButton
+              color="white"
+              style={{
+                flexDirection: "column",
+                justifyContent: "center",
+                alignContent: "space-between",
+              }}
+              labelStyle={{ color: "white", fontWeight: "bold" }}
+              value={UserTypes[0].value}
+              label={UserTypes[0].value}
+            />
+            <RadioButton
+              color="white"
+              style={{
+                flexDirection: "column",
+                justifyContent: "center",
+                alignContent: "space-between",
+              }}
+              labelStyle={{ color: "white", fontWeight: "bold" }}
+              value={UserTypes[1].value}
+              label={UserTypes[1].value}
             />
           </RadioGroup>
           <TextInput
@@ -126,6 +181,29 @@ const RegisterScreen = ({ navigation }) => {
             secureTextEntry={true}
             // onResponderStart={() => setShowSubmitBtn(true)}
           />
+          <DropDownPicker
+            open={openUniDropDown}
+            value={selectedUni}
+            items={university}
+            setOpen={() => setOpenUniDropDown(true)}
+            setValue={(item) => {
+              // setSelectedUni(item.key);
+              console.log("item: ", item);
+            }}
+            setItems={(item) => {
+              // setSelectedUni(item.key);
+              console.log("item: ", item);
+            }}
+            onPress={() => {
+              console.log("hi");
+              setOpenUniDropDown(!openUniDropDown);
+            }}
+            // searchable
+            placeholder="Select University"
+            onChangeValue={(value) => {
+              console.log("vlaue", value);
+            }}
+          />
 
           {/* <TextInput
             placeholder="University"
@@ -135,17 +213,19 @@ const RegisterScreen = ({ navigation }) => {
             keyboardType="default"
             onResponderStart={() => setUniDropDown(true)}
           /> */}
-          {/* {uniDropDown &&
-            UniversitiesList &&
-            UniversitiesList.map((array) => {
-              return (
-                <View style={styles.dropDown} key={array.key}>
-                  <Text onPress={(e) => uniHandleChange(array)}>
-                    {array.value}
-                  </Text>
-                </View>
-              );
-            })} */}
+          {/* <ScrollView>
+            {uniDropDown &&
+              UniversitiesList &&
+              UniversitiesList.map((array) => {
+                return (
+                  <View style={styles.dropDown} key={array.key}>
+                    <Text onPress={(e) => uniHandleChange(array)}>
+                      {array.value}
+                    </Text>
+                  </View>
+                );
+              })}
+          </ScrollView> */}
           {/* {showSubmitBtn && (
               <Button
                 title="Login"
