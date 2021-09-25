@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   Text,
   View,
@@ -19,6 +19,8 @@ import { RadioButton } from "react-native-ui-lib";
 import { ScrollView } from "react-native-gesture-handler";
 // import ModalDropdown from "react-native-modal-dropdown";
 import DropDownPicker from "react-native-dropdown-picker";
+import ToastComponent from "../components/ToastComponent";
+import { ToastBackgroundGlobalColors } from "../styles/globalStyles";
 
 const RegisterScreen = ({ navigation }) => {
   const image = require("../assets/welcomescreen.jpg");
@@ -33,6 +35,9 @@ const RegisterScreen = ({ navigation }) => {
   const [gender, setGender] = useState(Gender[0].value);
   const [pwd, setPwd] = useState("");
   const [uniDropDown, setUniDropDown] = useState(UserTypes[0].value);
+  const [toastVisible, setToastVisible] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastBackgroundColor, setToastBackgroundColor] = useState("");
 
   // useEffect(() => {
   //   const unsubscribe = navigation.addListener("focus", () => {
@@ -44,6 +49,16 @@ const RegisterScreen = ({ navigation }) => {
   //   return unsubscribe;
   // }, [navigation]);
 
+  const onUniDropDownOpenMethod = () => {
+    setUniDropDown(true);
+  };
+
+  // const onChangeUniSelectMethod = useCallback((item) => {
+  //   //  setUniDropDown(true);
+  //   console.log("item: selected: ", selectedUni);
+  //   // console.log("")
+  // }, []);
+
   const onPressRegister = () => {
     console.log("register");
     const regObj = {
@@ -51,17 +66,55 @@ const RegisterScreen = ({ navigation }) => {
       lastName: lastName,
       email: email,
       gender: gender,
-      university: 1,
+      university: selectedUni,
       password: pwd,
       userType: userType,
     };
 
     console.log("reg obg:", regObj);
+    if (regObj != null) {
+      registerUserMethod(regObj);
+    }
+  };
+
+  const registerUserMethod = async (body) => {
+    // const loginAdminUniId = userToken.uniId;
+    try {
+      const request = await axios.post(`${BASE_URL}/auth/register`, body);
+      // setShowSubmitTxt(true);
+      // setResponseMessage(request.data.statusMessage);
+      // props.setPlayers(request.data.data);
+      setToastBackgroundColor(
+        request.data.status
+          ? ToastBackgroundGlobalColors.success
+          : ToastBackgroundGlobalColors.fail
+      );
+      setToastMessage(request.data.statusMessage);
+      setToastVisible(true);
+      // setToas
+      console.log("request response", request.data.statusMessage);
+      if (request.data.status) {
+        const timer = setTimeout(() => {
+          console.log("Hello, World!");
+          setToastVisible(false);
+          navigation.navigate("Login");
+        }, 3000);
+        return () => clearTimeout(timer);
+        // navigation.navigate("Login");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const genderHandleChange = (genderType) => {
     console.log("gender", genderType);
     setGender(genderType);
+  };
+
+  const handleUserType = (selectedUserType) => {
+    console.log("user type: ", selectedUserType);
+    setUserType(selectedUserType);
   };
 
   const uniHandleChange = (uni) => {
@@ -125,8 +178,8 @@ const RegisterScreen = ({ navigation }) => {
               // backfaceVisibility: 0,
               // opacity: 0.6,
             }}
-            initialValue={UserTypes[0].value}
-            onValueChange={(item) => setUserType(item)}
+            initialValue={UserTypes[1].value}
+            onValueChange={handleUserType}
           >
             <RadioButton
               color="white"
@@ -185,23 +238,45 @@ const RegisterScreen = ({ navigation }) => {
             open={openUniDropDown}
             value={selectedUni}
             items={university}
-            setOpen={() => setOpenUniDropDown(true)}
-            setValue={(item) => {
-              // setSelectedUni(item.key);
-              console.log("item: ", item);
+            style={styles.inputBox}
+            listMode="FLATLIST"
+            flatListProps={{
+              initialNumToRender: 3,
             }}
-            setItems={(item) => {
-              // setSelectedUni(item.key);
-              console.log("item: ", item);
+            scrollViewProps={{
+              decelerationRate: "fast",
             }}
+            dropDownDirection="TOP"
+            // bottomOffset={3}
+            itemSeparator={true}
+            selectedItemLabelStyle={{
+              color: "green",
+              fontWeight: "bold",
+              // backgroundColor: "black",
+            }}
+            // mode="SIMPLE"
+            closeAfterSelecting
+            schema={{
+              label: "value",
+              value: "key",
+            }}
+            setOpen={onUniDropDownOpenMethod}
+            setValue={(e, index) => setSelectedUni(e)}
             onPress={() => {
-              console.log("hi");
+              // console.log("hi");
               setOpenUniDropDown(!openUniDropDown);
             }}
-            // searchable
+            mode="BADGE"
+            showBadgeDot={true}
             placeholder="Select University"
+            placeholderStyle={{
+              color: "green",
+              fontWeight: "bold",
+            }}
             onChangeValue={(value) => {
-              console.log("vlaue", value);
+              setSelectedUni(value);
+              console.log("vlaue", selectedUni);
+              setOpenUniDropDown(false);
             }}
           />
 
@@ -244,6 +319,12 @@ const RegisterScreen = ({ navigation }) => {
           </View>
         </Card>
       </ImageBackground>
+      <ToastComponent
+        toastVisible={toastVisible}
+        toastMessage={toastMessage}
+        toastBackgroundColor={toastBackgroundColor}
+        setToastVisible={setToastVisible}
+      />
     </View>
     // </View>
   );
@@ -257,7 +338,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#98ee99",
     // margin: 15,
     // padding: 10,
-    justifyContent: "center",
+    // justifyContent: "center",
   },
   title: {
     fontWeight: "bold",
@@ -287,7 +368,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     opacity: 0.6,
     backgroundColor: "white",
-    // flex: 1/2,
+    // flex: 1 / 3,
     // width: '100%'
     // marginBottom: 20,
     // margin:20,
