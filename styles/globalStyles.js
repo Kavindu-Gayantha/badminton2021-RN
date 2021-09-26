@@ -35,8 +35,8 @@ export const globalStyles = StyleSheet.create({
     // shadowColor:
   },
   listItem: {
-    marginLeft: -6,
-    paddingLeft: 10,
+    marginLeft: -4,
+    paddingLeft: 5,
     backgroundColor: "white",
     // margin: 1,
     color: "#000000",
@@ -73,7 +73,7 @@ export const globalStyles = StyleSheet.create({
   flatListImg: {
     height: 70,
     width: 70,
-    borderRadius: 1,
+    borderRadius: 0,
     justifyContent: "center",
     alignItems: "center",
   },

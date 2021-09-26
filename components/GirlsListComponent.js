@@ -78,10 +78,7 @@ const GirlsComponent = (props) => {
           <ListItem.Part
             middle
             column
-            containerStyle={[
-              styles.border,
-              { paddingRight: 17, backgroundColor: "white" },
-            ]}
+            containerStyle={[{ paddingRight: 17, backgroundColor: "white" }]}
           >
             <ListItem.Part containerStyle={{ marginBottom: 3 }}>
               <Text

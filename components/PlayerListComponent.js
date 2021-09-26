@@ -80,7 +80,7 @@ const PlayerComponent = (props) => {
     const unsubscribe = navigation.addListener("focus", () => {
       // do something
       setMorePlayerModalOpen(false);
-      setAttendanceView(false);
+      // setAttendanceView(false);
 
       //  setCurrentDate(
       //    date + "/" + month + "/" + year
