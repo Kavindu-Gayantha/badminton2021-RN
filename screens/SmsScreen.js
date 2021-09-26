@@ -78,6 +78,7 @@ const SmsScreen = ({ navigation }) => {
     setLoading(true);
     try {
       const loginUserUniId = token.uniId;
+      console.log("login user uni id", loginUserUniId);
       const request = await axios.get(
         `${BASE_URL}/sms/getAll/${loginUserUniId}`
       );
