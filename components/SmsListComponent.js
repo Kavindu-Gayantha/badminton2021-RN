@@ -13,7 +13,7 @@ const SmsListComponent = (props) => {
 
   return (
     <ScrollView style={styles.container}>
-      {smsList !== null ? (
+      {smsList && smsList.length > 0 ? (
         smsList.map((item) => (
           <Card containerStyle={styles.cardContainer} key={item.id}>
             <Card.Title style={styles.cardTitle}>
@@ -23,9 +23,8 @@ const SmsListComponent = (props) => {
           </Card>
         ))
       ) : (
-        // <CirclesLoader color="green" />
-        <Card containerStyle={styles.cardContainer}>
-          <Text style={styles.msg}>NO DATA</Text>
+        <Card containerStyle={globalStyles.noDataContainer}>
+          <Text style={globalStyles.noDataMsg}>NO DATA</Text>
         </Card>
       )}
     </ScrollView>

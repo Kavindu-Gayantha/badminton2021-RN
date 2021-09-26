@@ -16,7 +16,7 @@ const SmsScreen = ({ navigation }) => {
   const [smsAlerts, setSmsAlerts] = useState([]);
   const [data, setData] = useState([]);
   const [userToken, setUserToken] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [expanded, setExpanded] = useState(false);
 
   const { userType } = userToken;
@@ -114,12 +114,12 @@ const SmsScreen = ({ navigation }) => {
           <CreateSmsComponent userToken={userToken} setSmsAlerts={addSMSList} />
         </ExpandableSection>
       )}
-      {smsAlerts.length > 0 ? (
+      {loading == false ? (
         <SmsListComponent data={smsAlerts} />
       ) : (
-        <Card containerStyle={globalStyles.noDataContainer}>
-          <Text style={globalStyles.noDataMsg}>NO SMS</Text>
-        </Card>
+        <View style={globalStyles.loader}>
+          <CirclesLoader color="green" />
+        </View>
       )}
       {/* <SmsListComponent data={smsAlerts} /> */}
     </View>

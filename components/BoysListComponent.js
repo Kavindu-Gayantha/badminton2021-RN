@@ -18,7 +18,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ToastBackgroundGlobalColors } from "../styles/globalStyles";
 import { ExpandableSection, Drawer } from "react-native-ui-lib";
 import AttendanceMarkComponent from "./AttendanceMarkComponent";
-import { Icon } from "react-native-elements/dist/icons/Icon";
+import { Icon, Card } from "react-native-elements";
 
 const BoyComponent = (props) => {
   const [addPlayerArea, setAddPlayerArea] = useState(false);
@@ -44,6 +44,9 @@ const BoyComponent = (props) => {
   const [toastMessage, setToastMessage] = useState("");
   const [toastBackgroundColor, setToastBackgroundColor] = useState("");
   const [expanded, setExpanded] = useState(false);
+
+  const { navigation, morePlayerModalOpen, setMorePlayerModalOpen, data } =
+    props;
 
   // const { userType } = userToken;
   // console.log("props sms screen: ", props);
@@ -81,7 +84,6 @@ const BoyComponent = (props) => {
 
   console.log("props boys component:  ", props);
   // const girlsList = props.data;
-  const { navigation, morePlayerModalOpen, setMorePlayerModalOpen } = props;
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
@@ -252,7 +254,6 @@ const BoyComponent = (props) => {
       </ExpandableSection> */}
       {/*  )} */}
       {/* <Button onPress={addNewPlayer} title="Add Player" style={styles.button} /> */}
-
       {/* display add new player component when button click */}
       {/* {addPlayerArea && */}
       {/* <FlatList
@@ -284,11 +285,17 @@ const BoyComponent = (props) => {
           </TouchableOpacity>
         )}
       /> */}
-      <FlatList
-        data={boysList}
-        renderItem={({ item, index }) => renderRow(item, index)}
-        keyExtractor={keyExtractor}
-      />
+      {data && data.length > 0 ? (
+        <FlatList
+          data={boysList}
+          renderItem={({ item, index }) => renderRow(item, index)}
+          keyExtractor={keyExtractor}
+        />
+      ) : (
+        <Card containerStyle={globalStyles.noDataContainer}>
+          <Text style={globalStyles.noDataMsg}>NO PLAYERS</Text>
+        </Card>
+      )}
       <PlayerMoreOptionModalComponent
         toggleOverlay={toggleOverlay}
         setMorePlayerModalOpen={setMorePlayerModalOpen}
