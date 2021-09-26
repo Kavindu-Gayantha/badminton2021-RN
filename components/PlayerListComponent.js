@@ -80,7 +80,7 @@ const PlayerComponent = (props) => {
     const unsubscribe = navigation.addListener("focus", () => {
       // do something
       setMorePlayerModalOpen(false);
-      setAttendanceView(false);
+      // setAttendanceView(false);
 
       //  setCurrentDate(
       //    date + "/" + month + "/" + year
@@ -163,7 +163,7 @@ const PlayerComponent = (props) => {
 
   return (
     <View style={styles.container}>
-      {loginUserType && loginUserType == "Admin" && attendanceView == true && (
+      {loginUserType && loginUserType == "Admin" && attendanceView && (
         <AttendanceMarkComponent
           switchVal={switchVal}
           date={date}
