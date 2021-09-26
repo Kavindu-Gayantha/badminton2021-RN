@@ -15,14 +15,16 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ToastBackgroundGlobalColors } from "../styles/globalStyles";
 import { ExpandableSection } from "react-native-ui-lib";
 import AttendanceMarkComponent from "./AttendanceMarkComponent";
-import { Icon } from "react-native-elements/dist/icons/Icon";
+import { Card } from "react-native-elements";
 
 const GirlsComponent = (props) => {
   // const [morePlayerModalOpen, setMorePlayerModalOpen] = useState(false);
   const [singlePlayerObj, setSinglePlayerObj] = useState(null);
   console.log("props girls component:  ", props);
+  console.log("lenght: ", props.data.length > 0);
   const girlsList = props.data;
-  const { navigation, morePlayerModalOpen, setMorePlayerModalOpen } = props;
+  const { data, navigation, morePlayerModalOpen, setMorePlayerModalOpen } =
+    props;
 
   const toggleOverlay = () => {
     setMorePlayerModalOpen(!morePlayerModalOpen);
@@ -156,11 +158,17 @@ const GirlsComponent = (props) => {
           </TouchableOpacity>
         )}
       /> */}
-      <FlatList
-        data={girlsList}
-        renderItem={({ item, index }) => renderRow(item, index)}
-        keyExtractor={keyExtractor}
-      />
+      {data && data.length > 0 ? (
+        <FlatList
+          data={girlsList}
+          renderItem={({ item, index }) => renderRow(item, index)}
+          keyExtractor={keyExtractor}
+        />
+      ) : (
+        <Card containerStyle={globalStyles.noDataContainer}>
+          <Text style={globalStyles.noDataMsg}>NO PLAYERS</Text>
+        </Card>
+      )}
       <PlayerMoreOptionModalComponent
         toggleOverlay={toggleOverlay}
         setMorePlayerModalOpen={setMorePlayerModalOpen}

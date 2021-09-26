@@ -13,6 +13,7 @@ const GirlsScreen = ({ navigation }) => {
   const [updateGirl, setUpdateGirs] = useState(null);
   const [userToken, setUserToken] = useState(null);
   const [morePlayerModalOpen, setMorePlayerModalOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // getTokenMethod();
@@ -21,7 +22,6 @@ const GirlsScreen = ({ navigation }) => {
       getTokenMethod();
       // getAllGirls();
       setMorePlayerModalOpen(false);
-  
     });
     return unsubscribe;
   }, [navigation]);
@@ -50,6 +50,7 @@ const GirlsScreen = ({ navigation }) => {
       // console.log("players get:", typeof(request.data.data));
       setgirls(request.data.data);
       console.log("girls:  ", request.data.data);
+      setLoading(false);
       // return request.data.data;
     } catch (error) {
       console.log(error);
@@ -57,7 +58,7 @@ const GirlsScreen = ({ navigation }) => {
   };
   return (
     <View style={styles.container}>
-      {girls.length > 0 ? (
+      {loading == false ? (
         <GirlsComponent
           setMorePlayerModalOpen={setMorePlayerModalOpen}
           morePlayerModalOpen={morePlayerModalOpen}
