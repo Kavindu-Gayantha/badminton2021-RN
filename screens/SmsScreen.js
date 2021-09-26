@@ -10,7 +10,7 @@ import { CirclesLoader } from "react-native-indicator";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ExpandableSection, Image } from "react-native-ui-lib";
 import { Icon, Card } from "react-native-elements";
-import { Col, Row, Grid } from "react-native-easy-grid";
+// import { Col, Row, Grid } from "react-native-easy-grid";
 
 const SmsScreen = ({ navigation }) => {
   const [smsAlerts, setSmsAlerts] = useState([]);
@@ -90,7 +90,7 @@ const SmsScreen = ({ navigation }) => {
       console.log(error);
     }
 
-    setLoading(false);
+    // setLoading(false);
   };
 
   const addSMSList = (input) => {
@@ -104,7 +104,6 @@ const SmsScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {userType && userType == "Admin" && (
-        // <CreateSmsComponent userToken={userToken} setSmsAlerts={addSMSList} />
         <ExpandableSection
           top={false}
           expanded={expanded}
@@ -121,7 +120,6 @@ const SmsScreen = ({ navigation }) => {
           <CirclesLoader color="green" />
         </View>
       )}
-      {/* <SmsListComponent data={smsAlerts} /> */}
     </View>
   );
 };
@@ -136,6 +134,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     alignSelf: "center",
+    color: "green",
   },
   cardContainer: {
     backgroundColor: "white",

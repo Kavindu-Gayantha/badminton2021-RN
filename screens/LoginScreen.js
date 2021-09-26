@@ -88,24 +88,21 @@ const LoginScreen = ({ navigation }) => {
             secureTextEntry={true}
             onResponderStart={() => setShowSubmitBtn(true)}
           />
-          {showSubmitBtn && (
-            <Button
-              title="Login"
-              buttonStyle={styles.submitButton}
-              onPress={onPressLogin}
-            />
-          )}
 
-          {showSubmitBtn && (
-            <View>
-              <Text style={{ textAlign: "center" }}>Or</Text>
-              <Button
-                title="Register"
-                buttonStyle={styles.submitButton}
-                onPress={() => navigation.navigate("Register")}
-              />
-            </View>
-          )}
+          <Button
+            title="Login"
+            buttonStyle={styles.submitButton}
+            onPress={onPressLogin}
+          />
+
+          <View>
+            <Text style={{ textAlign: "center" }}>Or</Text>
+            <Button
+              title="Register"
+              buttonStyle={styles.submitButton}
+              onPress={() => navigation.navigate("Register")}
+            />
+          </View>
         </Card>
       </ImageBackground>
     </View>

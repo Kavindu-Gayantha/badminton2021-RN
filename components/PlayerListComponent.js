@@ -163,7 +163,7 @@ const PlayerComponent = (props) => {
 
   return (
     <View style={styles.container}>
-      {loginUserType && loginUserType == "Admin" && attendanceView == true && (
+      {loginUserType && loginUserType == "Admin" && attendanceView && (
         <AttendanceMarkComponent
           switchVal={switchVal}
           date={date}

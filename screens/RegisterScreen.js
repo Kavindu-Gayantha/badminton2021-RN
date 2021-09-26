@@ -28,13 +28,13 @@ const RegisterScreen = ({ navigation }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [userType, setUserType] = useState("");
+  const [userType, setUserType] = useState(UserTypes[1].value);
   const [university, setUniversity] = useState(UniversitiesList);
   const [openUniDropDown, setOpenUniDropDown] = useState(false);
   const [selectedUni, setSelectedUni] = useState(0);
   const [gender, setGender] = useState(Gender[0].value);
   const [pwd, setPwd] = useState("");
-  const [uniDropDown, setUniDropDown] = useState(UserTypes[0].value);
+  const [uniDropDown, setUniDropDown] = useState(false);
   const [toastVisible, setToastVisible] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastBackgroundColor, setToastBackgroundColor] = useState("");
@@ -178,7 +178,7 @@ const RegisterScreen = ({ navigation }) => {
               // backfaceVisibility: 0,
               // opacity: 0.6,
             }}
-            initialValue={UserTypes[1].value}
+            initialValue={userType}
             onValueChange={handleUserType}
           >
             <RadioButton

@@ -28,7 +28,7 @@ const PlayersScreen = ({ navigation, route }) => {
   const { userToken } = route.params;
   const loginUserType = userToken.userType;
   // const [updatePlayer, setUpdatePlayer] = useState(null);
-  // console.log("user token route param: ", userToken);
+  console.log("user token route param player list not admin : ", userToken);
 
   useEffect(() => {
     // setUpdatePlayers();
