@@ -87,6 +87,16 @@ export const globalStyles = StyleSheet.create({
     // maxWidth: '100%'
     backgroundColor: "white",
   },
+  noDataContainer: {
+    backgroundColor: "white",
+    margin: 0,
+  },
+  noDataMsg: {
+    fontSize: 12,
+    paddingTop: 2,
+    color: "green",
+    textAlign: "center",
+  },
 });
 
 export const profileImgs = {

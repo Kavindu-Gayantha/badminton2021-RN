@@ -23,7 +23,10 @@ const SmsListComponent = (props) => {
           </Card>
         ))
       ) : (
-        <CirclesLoader color="green" />
+        // <CirclesLoader color="green" />
+        <Card containerStyle={styles.cardContainer}>
+          <Text style={styles.msg}>NO DATA</Text>
+        </Card>
       )}
     </ScrollView>
   );
