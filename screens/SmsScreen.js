@@ -9,7 +9,7 @@ import SmsListComponent from "../components/SmsListComponent";
 import { CirclesLoader } from "react-native-indicator";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ExpandableSection, Image } from "react-native-ui-lib";
-import { Icon } from "react-native-elements/dist/icons/Icon";
+import { Icon, Card } from "react-native-elements";
 import { Col, Row, Grid } from "react-native-easy-grid";
 
 const SmsScreen = ({ navigation }) => {
@@ -84,7 +84,8 @@ const SmsScreen = ({ navigation }) => {
       );
       // console.log("players get:", typeof(request.data.data));
       setSmsAlerts(request.data.data);
-      // console.log("smsAlerts state:  ", request.data.data);
+      setLoading(false);
+      console.log("sms loading:  ", loading);
     } catch (error) {
       console.log(error);
     }
@@ -116,10 +117,11 @@ const SmsScreen = ({ navigation }) => {
       {smsAlerts.length > 0 ? (
         <SmsListComponent data={smsAlerts} />
       ) : (
-        <View style={globalStyles.loader}>
-          <CirclesLoader color="green" />
-        </View>
+        <Card containerStyle={globalStyles.noDataContainer}>
+          <Text style={globalStyles.noDataMsg}>NO SMS</Text>
+        </Card>
       )}
+      {/* <SmsListComponent data={smsAlerts} /> */}
     </View>
   );
 };
@@ -134,5 +136,35 @@ const styles = StyleSheet.create({
   },
   icon: {
     alignSelf: "center",
+  },
+  cardContainer: {
+    backgroundColor: "white",
+    margin: 0,
+    // flex: 1,
+    // height: '100%'
+    // color:'red'
+  },
+  cardTitle: {
+    textAlign: "left",
+    fontSize: 12,
+    color: "grey",
+    textShadowColor: "red",
+    // paddingBottom: -1,
+    marginBottom: 3,
+  },
+  msg: {
+    fontSize: 18,
+    paddingTop: 2,
+    color: "#000000",
+  },
+  noDataContainer: {
+    backgroundColor: "white",
+    margin: 0,
+  },
+  noDataMsg: {
+    fontSize: 12,
+    paddingTop: 2,
+    color: "#000000",
+    textAlign: "center",
   },
 });
