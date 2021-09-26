@@ -64,7 +64,7 @@ const SettingsScreen = ({ navigation }) => {
         }
         break;
       case "Log out": {
-        navigation.navigate("Help");
+        AsyncStorage.clear().then(navigation.navigate("Login"));
       }
     }
     // if (item === "About") {
