@@ -42,7 +42,8 @@ const SmsScreen = ({ navigation }) => {
           <Icon
             raised
             size={12}
-            color="white"
+            iconStyle={{ color: "green" }}
+            color="green"
             backgroundColor="green"
             name={expanded ? "arrow-up" : "arrow-down"}
             type="font-awesome"

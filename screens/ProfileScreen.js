@@ -8,8 +8,12 @@ import axios from "axios";
 import { BASE_URL } from "../api/BASE_URL";
 import { Avatar, Icon } from "react-native-elements";
 import PlayerProfileComponent from "../components/PlayerProfileComponent";
+// import { Modal } from "react-native-ui-lib";
+// import EditProfileComponent from "../components/EditProfileComponent";
 
 const MyProfileScreen = (props) => {
+  const [editPlayerModalOpen, setEditPlayerModalOpen] = useState(false);
+
   const { navigation } = props;
   console.log("props my  profile: ", props.props);
   const userToken =
@@ -94,7 +98,13 @@ const MyProfileScreen = (props) => {
           />
         </View> */}
       {/* </View> */}
-      <PlayerProfileComponent userToken={userToken} userData={userData} />
+
+      <PlayerProfileComponent
+        userToken={userToken}
+        navigation={navigation}
+        userData={userData}
+        setUserData={setUserData}
+      />
     </View>
   );
 };

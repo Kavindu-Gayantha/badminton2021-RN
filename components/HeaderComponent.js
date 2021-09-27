@@ -2,6 +2,7 @@ import * as React from "react";
 import { Text, Button, View, StyleSheet } from "react-native";
 import { Icon, Header } from "react-native-elements";
 import { globalStyles } from "../styles/globalStyles";
+import LinearGradient from "react-native-linear-gradient";
 
 const HeaderComponent = ({ navigation, title }) => {
   // console.log("props:  ", title);
@@ -21,7 +22,12 @@ const HeaderComponent = ({ navigation, title }) => {
     //   <Text style={styles.titleRight}>Go Home</Text>
     // </View>
     <Header
-      backgroundColor="green"
+      // linearGradientProps={{
+      //   colors: ["red", "pink"],
+      //   start: { x: 0, y: 0.5 },
+      //   end: { x: 1, y: 0.5 },
+      // }}
+      // ViewComponent={LinearGradient}
       containerStyle={styles.titleGrid}
       leftComponent={<HeaderLeftComponent navigation={navigation} />}
       centerComponent={<HeaderCenterComponent title={title} />}
@@ -65,6 +71,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#134717",
     fontWeight: "bold",
     alignItems: "center",
+    // backgroundImage
     // height: 100,
     // padding: 10,
   },
