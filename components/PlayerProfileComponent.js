@@ -1,13 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Card, Button, Icon, Avatar } from "react-native-elements";
 import { globalStyles } from "../styles/globalStyles";
 import { profileImgs } from "../styles/globalStyles";
+import { Modal } from "react-native-ui-lib";
+import EditProfileComponent from "../components/EditProfileComponent";
+import axios from "axios";
+import { BASE_URL } from "../api/BASE_URL";
 
 export default function PlayerProfileComponent(props) {
   console.log("props plauyer profile component: ", props);
-  const { userData, userToken } = props;
+  const { userData, userToken, navigation, setUserData } = props;
 
+  const [editPlayerModalOpen, setEditPlayerModalOpen] = useState(false);
+
+  // useEffect(() => {
+  //   // const unsubscribe = navigation.addListener("focus", () => {
+  //   // do something
+  //   getUserDataWithEmail(userData.email);
+  //   console.log("use effect get data by email func");
+  // }, [editPlayerModalOpen]);
+
+  const getUserDataWithEmail = async (email) => {
+    //  setUpdateGirs();
+    //  console.log("girls tab");
+    try {
+      const request = await axios.get(
+        `${BASE_URL}/players/regDataByEmail/${email}`
+      );
+      // console.log("players get:", typeof(request.data.data));
+      setUserData(request.data.data);
+      console.log("user Reg Data after update plr:  ", request.data.data);
+      // return request.data.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
   // "active": true,
   //   "deleted": false,
   //   "email": "s@gmail.com",
@@ -53,7 +81,7 @@ export default function PlayerProfileComponent(props) {
               <Button
                 buttonStyle={{ backgroundColor: "green" }}
                 title="Edit Profile"
-                onPress={null}
+                onPress={() => setEditPlayerModalOpen(true)}
               />
             </View>
             <View style={styles.buttonWrap}>
@@ -80,6 +108,33 @@ export default function PlayerProfileComponent(props) {
           <Text>{userData != null && userData.gender}</Text>
         </Card>
       </View>
+
+      <Modal
+        visible={editPlayerModalOpen}
+        overlayBackgroundColor="white"
+        useGestureHandlerRootView
+        animationType="slide"
+        transparent={true}
+        // blurView={CreatePlayer}
+      >
+        <Modal.TopBar
+          title="Update Profile"
+          onDone={() => setEditPlayerModalOpen(false)}
+          onCancel={() => setEditPlayerModalOpen(false)}
+          doneLabel="Update"
+          doneButtonProps={{
+            color: "green",
+            borderRadius: 20,
+            backgroundColor: "red",
+          }}
+          // doneIcon="arrow"
+        />
+        <EditProfileComponent
+          userToken={userToken}
+          userData={userData}
+          getUserDataWithEmail={getUserDataWithEmail}
+        />
+      </Modal>
     </View>
   );
 }
