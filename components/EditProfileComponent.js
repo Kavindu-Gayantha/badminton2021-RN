@@ -77,7 +77,7 @@ const editProfileComponent = ({
       lastName: lastName,
       password: showPwd ? pwd : "",
       gender: selectedGender,
-      FacultyIdForEditProfile: selectedFac,
+      facultyIdForEditProfile: selectedFac,
     };
     console.log("submit", updatePlayerObj);
     editPlayerApiMethod(updatePlayerObj);
