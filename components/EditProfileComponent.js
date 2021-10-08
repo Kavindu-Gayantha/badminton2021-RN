@@ -75,9 +75,8 @@ const editProfileComponent = ({
       email: email,
       firstName: firstName,
       lastName: lastName,
-      password: showPwd ? pwd : "",
+
       gender: selectedGender,
-      facultyIdForEditProfile: selectedFac,
     };
     console.log("submit", updatePlayerObj);
     editPlayerApiMethod(updatePlayerObj);
@@ -115,7 +114,6 @@ const editProfileComponent = ({
           email: "",
           firstName: "",
           lastName: "",
-          password: "",
           gender: "",
         }}
         onSubmit={(values) => {
@@ -124,6 +122,9 @@ const editProfileComponent = ({
       >
         {(props) => (
           <View>
+            <Text style={{ marginTop: 4, marginBottom: 1, paddingBottom: 1 }}>
+              Email
+            </Text>
             <TextInput
               placeholder="Email"
               onChangeText={(value) => setEmail(value)}
@@ -131,19 +132,25 @@ const editProfileComponent = ({
               keyboardType="email-address"
               style={styles.inputBox}
             />
+            <Text style={{ marginTop: 4, marginBottom: 1, paddingBottom: 1 }}>
+              First Name
+            </Text>
             <TextInput
               placeholder="First Name"
               onChangeText={(value) => setFirstName(value)}
               value={firstName}
               style={styles.inputBox}
             />
+            <Text style={{ marginTop: 4, marginBottom: 1, paddingBottom: 1 }}>
+              Last Name
+            </Text>
             <TextInput
               placeholder="Last Name"
               onChangeText={(value) => setLastName(value)}
               value={lastName}
               style={styles.inputBox}
             />
-            <View
+            {/* <View
               style={{
                 flexDirection: "row",
                 justifyContent: "center",
@@ -152,8 +159,8 @@ const editProfileComponent = ({
                 backgroundColor: "gray",
                 marginTop: 5,
               }}
-            >
-              <View style={{ flexDirection: "column" }}>
+            > */}
+            {/* <View style={{ flexDirection: "column" }}>
                 <Text style={{ padding: 5 }}>Want to reset the password?</Text>
               </View>
               <View style={{ flexDirection: "column" }}>
@@ -164,10 +171,10 @@ const editProfileComponent = ({
                   value={showPwd}
                   // onChange={() => onChangeSwitch(item)}
                 />
-              </View>
-            </View>
+              </View> */}
+            {/* </View> */}
 
-            {showPwd && (
+            {/* {showPwd && (
               <TextInput
                 placeholder="Password"
                 secureTextEntry={true}
@@ -175,9 +182,9 @@ const editProfileComponent = ({
                 value={pwd}
                 style={styles.inputBox}
               />
-            )}
+            )} */}
 
-            <DropDownPicker
+            {/* <DropDownPicker
               open={showFacultyDropDown}
               value={selectedFac}
               items={faculties}
@@ -219,7 +226,7 @@ const editProfileComponent = ({
                 // console.log("vlaue", selectedUni);
                 setShowFacultyDropDown(false);
               }}
-            />
+            /> */}
             <View
               style={{
                 flexDirection: "row",
@@ -392,7 +399,7 @@ const styles = StyleSheet.create({
     padding: 5,
     backgroundColor: "white",
     borderRadius: 4,
-    marginTop: 10,
+    marginBottom: 15,
   },
   dropDown: {
     padding: 10,
