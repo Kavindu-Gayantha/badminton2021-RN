@@ -40,15 +40,23 @@ export default function PlayerProfileComponent(props) {
     tabKeyColorsGlobal.nonActiveColor
   );
 
+  const [attendaceIndividualCount, setAttendanceIndividualCount] = useState(0);
+  const [practiseDaysAllCount, setPractiseDaysAllCount] = useState(0);
+
   const uokImage = require("../assets/badminton.jpg");
   const uokImage2 = require("../assets/profileWomen.jpg");
 
   // useEffect(() => {
-  //   // const unsubscribe = navigation.addListener("focus", () => {
-  //   // do something
-  //   getUserDataWithEmail(userData.email);
-  //   console.log("use effect get data by email func");
-  // }, [editPlayerModalOpen]);
+  //   const unsubscribe = navigation.addListener("focus", () => {
+  //     // do something
+  //     // getUserDataWithEmail(userData.email);
+  //     getUserAttendanceWithRegId(
+  //       userData != null && userData.id,
+  //       userToken != null && userToken.uniId
+  //     );
+  //   });
+  //   return unsubscribe;
+  // }, [navigation]);
 
   const getUserDataWithEmail = async (email) => {
     //  setUpdateGirs();
@@ -60,11 +68,41 @@ export default function PlayerProfileComponent(props) {
       // console.log("players get:", typeof(request.data.data));
       setUserData(request.data.data);
       console.log("user Reg Data after update plr:  ", request.data.data);
+      // call attendace API call
+      // getUserAttendanceWithRegId(userData.id, userToken.uniId);
+
       // return request.data.data;
     } catch (error) {
       console.log(error);
     }
   };
+
+  const getUserAttendanceWithRegId = async (userToken) => {
+    const regId = userToken.regId;
+    const uniId = userToken.uniId;
+    //  setUpdateGirs();
+    //  console.log("girls tab");
+    try {
+      const request = await axios.get(
+        `${BASE_URL}/attendance/getIndividual/${regId}/${uniId}`
+      );
+      // console.log("players get:", typeof(request.data.data));
+      setPractiseDaysAllCount(
+        request.data.data[0].practiseHeldDaysAllMonthCount
+      );
+      setAttendanceIndividualCount(
+        request.data.data[0].attendanceAllMonthCount
+      );
+      // console.log(
+      //   "user Attendance Data: &&&&&&&&&&&&&&&&&&&&&&&&&&&&& ",
+      //   request.data.data
+      // );
+      // return request.data.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // "active": true,
   //   "deleted": false,
   //   "email": "s@gmail.com",
@@ -80,6 +118,8 @@ export default function PlayerProfileComponent(props) {
 
   const tabViewBtnOnPress = (tabIndex) => {
     console.log("tab index: ", tabIndex);
+    console.log("user data tab 2", userToken);
+    getUserAttendanceWithRegId(userToken);
 
     switch (tabIndex) {
       case 1:
@@ -175,7 +215,7 @@ export default function PlayerProfileComponent(props) {
             {userData !== null && userData.firstName}{" "}
             {userData != null && userData.lastName}
           </Text>
-          {userToken != null && (
+          {userToken != null ? (
             <View
               style={{
                 marginLeft: 3,
@@ -190,19 +230,6 @@ export default function PlayerProfileComponent(props) {
                 color: "green",
               }}
             >
-              <View style={styles.buttonWrap}>
-                {/* <Button
-                  buttonStyle={{ backgroundColor: "green" }}
-                  title="Edit Profile"
-                  onPress={() => setEditPlayerModalOpen(true)}
-                /> */}
-                <Icon
-                  name="edit"
-                  color="green"
-                  solid
-                  onPress={() => setEditPlayerModalOpen(true)}
-                />
-              </View>
               {/* <View style={styles.buttonWrap}>
                 <Button
                   buttonStyle={{ backgroundColor: "green" }}
@@ -211,14 +238,6 @@ export default function PlayerProfileComponent(props) {
                 />
                 <Icon color="green" name="edit" />
               </View> */}
-              <View style={styles.buttonWrap}>
-                {/* <Button
-                  buttonStyle={{ backgroundColor: "red", color: "green" }}
-                  title="Delete Profile"
-                  onPress={null}
-                /> */}
-                <Icon name="delete" solid color="red" />
-              </View>
               <View style={styles.buttonWrap}>
                 {/* <Button
                   buttonStyle={{ backgroundColor: "red", color: "green" }}
@@ -234,8 +253,32 @@ export default function PlayerProfileComponent(props) {
                     <Icon name="swap-horizontal-circle" solid color="green" />
                   </View>
                 )}
+              <View style={styles.buttonWrap}>
+                <Icon name="delete" solid color="red" />
+              </View>
             </View>
+          ) : (
             // </View>
+            <View
+              style={{
+                marginLeft: 3,
+                marginRight: 3,
+                flexDirection: "row",
+
+                width: "60%",
+                alignSelf: "center",
+              }}
+            >
+              <Text
+                style={{
+                  justifyContent: "center",
+                  flexDirection: "column",
+                  color: "gray",
+                }}
+              >
+                {userData !== null && userData.email}
+              </Text>
+            </View>
           )}
         </View>
 
@@ -308,6 +351,26 @@ export default function PlayerProfileComponent(props) {
       {basicDetailsBtn == tabKeyColorsGlobal.activeColor && (
         <ScrollView style={styles.tabViewContainer}>
           <View>
+            <View style={{ flexDirection: "row", justifyContent: "center" }}>
+              <View
+                style={{
+                  flexDirection: "column",
+                  backgroundColor: "green",
+                  margin: 2,
+                  padding: 2,
+                  borderRadius: 50,
+                }}
+              >
+                <Icon
+                  name="edit"
+                  color="green"
+                  solid
+                  raised
+                  size={15}
+                  onPress={() => setEditPlayerModalOpen(true)}
+                />
+              </View>
+            </View>
             <Card
               elevation={30}
               // enableShadow={false}
@@ -335,8 +398,44 @@ export default function PlayerProfileComponent(props) {
 
       {attendanceDetailsBtn == tabKeyColorsGlobal.activeColor && (
         <ScrollView style={styles.tabViewContainer}>
-          <View>
-            <Text>Attendance</Text>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-evenly",
+              // backgroundColor: "red",
+              padding: 5,
+              margin: 5,
+              flex: 3,
+            }}
+          >
+            <Card
+              // elevation={30}
+              containerStyle={{
+                flexDirection: "column",
+                flex: 1,
+                // backgroundColor: "red",
+                margin: 5,
+                padding: 5,
+                alignItems: "center",
+              }}
+            >
+              <Text style={styles.cardTitle}>Attended Days</Text>
+              <Text>{attendaceIndividualCount}</Text>
+            </Card>
+            <Card
+              // elevation={30}
+              containerStyle={{
+                flexDirection: "column",
+                flex: 1,
+                // backgroundColor: "red",
+                margin: 5,
+                padding: 5,
+                alignItems: "center",
+              }}
+            >
+              <Text style={styles.cardTitle}>Practise Days</Text>
+              <Text>{practiseDaysAllCount}</Text>
+            </Card>
           </View>
         </ScrollView>
       )}
@@ -394,7 +493,7 @@ export default function PlayerProfileComponent(props) {
         // blurView={CreatePlayer}
       >
         <Modal.TopBar
-          title="Update Profile"
+          title="Update Basic Details"
           onDone={() => setEditPlayerModalOpen(false)}
           onCancel={() => setEditPlayerModalOpen(false)}
           doneLabel="Update"

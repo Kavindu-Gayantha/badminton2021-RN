@@ -13,6 +13,8 @@ import PlayerProfileComponent from "../components/PlayerProfileComponent";
 
 const MyProfileScreen = (props) => {
   const [editPlayerModalOpen, setEditPlayerModalOpen] = useState(false);
+  // const [attendaceIndividualCount, setAttendanceIndividualCount] = useState(0);
+  // const [practiseDaysAllCount, setPractiseDaysAllCount] = useState(0);
 
   const { navigation } = props;
   console.log("props my  profile: ", props.props);
@@ -35,6 +37,7 @@ const MyProfileScreen = (props) => {
     const unsubscribe = navigation.addListener("focus", () => {
       // do something
       getUserDataWithEmail(userToken.email);
+      // getUserAttendanceWithRegId(userToken.regId, userToken.uniId);
     });
     return unsubscribe;
   }, [navigation]);
