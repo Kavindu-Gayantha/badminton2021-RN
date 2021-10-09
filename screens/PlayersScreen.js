@@ -25,6 +25,7 @@ const PlayersScreen = ({ navigation, route }) => {
   const [players, setPlayers] = useState([]);
   const [updatePlayer, setUpdatePlayer] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [userData, setUserData] = useState(null);
   const { userToken } = route.params;
   const loginUserType = userToken.userType;
   // const [updatePlayer, setUpdatePlayer] = useState(null);
@@ -34,6 +35,7 @@ const PlayersScreen = ({ navigation, route }) => {
     // setUpdatePlayers();
 
     getAllPlayers();
+    getUserDataWithEmail(userToken.email);
   }, [updatePlayer]);
 
   const getAllPlayers = async () => {
@@ -53,6 +55,22 @@ const PlayersScreen = ({ navigation, route }) => {
 
     setLoading(false);
   };
+  const getUserDataWithEmail = async (email) => {
+    //  setUpdateGirs();
+    //  console.log("girls tab");
+    try {
+      const request = await axios.get(
+        `${BASE_URL}/players/regDataByEmail/${email}`
+      );
+      // console.log("players get:", typeof(request.data.data));
+      // setgirls(request.data.data);
+      setUserData(request.data.data);
+      console.log("user Reg Data:  ", request.data.data);
+      // return request.data.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
   // set new player to existing playerlist
   const addPlayer = (input) => {
     setUpdatePlayer(input);
@@ -70,6 +88,7 @@ const PlayersScreen = ({ navigation, route }) => {
           userToken={userToken}
           navigation={navigation}
           setPlayers={addPlayer}
+          userData={userData}
         />
       ) : (
         <View style={globalStyles.loader}>

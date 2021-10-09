@@ -23,6 +23,25 @@ const HomeScreen = ({ navigation }) => {
     return unsubscribe;
   }, [navigation]);
 
+  const getUserDataWithEmail = async (email) => {
+    //  setUpdateGirs();
+    //  console.log("girls tab");
+    try {
+      const request = await axios.get(
+        `${BASE_URL}/players/regDataByEmail/${email}`
+      );
+      // console.log("players get:", typeof(request.data.data));
+      setUserData(request.data.data);
+      console.log("user Reg Data after update plr:  ", request.data.data);
+      // call attendace API call
+      // getUserAttendanceWithRegId(userData.id, userToken.uniId);
+
+      // return request.data.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getTokenMethod = async () => {
     try {
       const userToken = await AsyncStorage.getItem("loginToken");
