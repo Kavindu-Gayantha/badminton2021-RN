@@ -13,6 +13,7 @@ import ToastComponent from "./ToastComponent";
 import { globalStyles } from "../styles/globalStyles";
 import { RadioGroup, RadioButton } from "react-native-ui-lib";
 import { ToastBackgroundGlobalColors } from "../styles/globalStyles";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const editProfileComponent = ({
   userToken,
@@ -101,6 +102,40 @@ const editProfileComponent = ({
       getUserDataWithEmail(request.data.data.email);
       // setToas
       console.log("request response", request.data.statusMessage);
+      getAndSetTokenMethod(
+        request.data.data.email,
+        request.data.data.firstName
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getAndSetTokenMethod = async (newEmail, newFname) => {
+    try {
+      const userToken = await AsyncStorage.getItem("loginToken");
+      // setUserToken(JSON.parse(userToken));
+      const existingToken = JSON.parse(userToken);
+      console.log("token update profile screen: ", userToken);
+      const updatedToken = {
+        email: newEmail != null ? newEmail : existingToken.email,
+        firstName: newFname != null ? newFname : existingToken.firstName,
+        gender: existingToken.gender,
+        regId: existingToken.regId,
+        uniId: existingToken.uniId,
+        userType: existingToken.userType,
+      };
+      setTokenMethod(updatedToken);
+      return JSON.parse(userToken);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const setTokenMethod = async (token) => {
+    try {
+      await AsyncStorage.setItem("loginToken", JSON.stringify(token));
+      console.log("updated token update profile screen: ", token);
     } catch (error) {
       console.log(error);
     }
