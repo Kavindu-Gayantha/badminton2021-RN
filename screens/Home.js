@@ -1,7 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { Button, View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { Button, Icon } from "react-native-elements";
 import { globalStyles } from "../styles/globalStyles";
 // import getTokenMethod from "../api/Token";
 
@@ -64,15 +65,15 @@ const HomeScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Text style={styles.title}>Hi {userName}</Text>
       <View style={styles.separator} />
-      <View style={styles.buttonGroup}>
-        {/* {loginUserType === "Admin" && ( */}
-        <TouchableOpacity style={styles.buttonContainer}>
+      {/* <View style={styles.buttonGroup}> */}
+      {/* {loginUserType === "Admin" && ( */}
+      {/* <TouchableOpacity style={styles.buttonContainer}>
           <Text style={styles.buttonText} onPress={press}>
             Report
           </Text>
-        </TouchableOpacity>
-        {/* // )} */}
-        <TouchableOpacity style={styles.buttonContainer}>
+        </TouchableOpacity> */}
+      {/* // )} */}
+      {/* <TouchableOpacity style={styles.buttonContainer}>
           <Text style={styles.buttonText} onPress={() => goNextPage("Players")}>
             Players
           </Text>
@@ -86,16 +87,111 @@ const HomeScreen = ({ navigation }) => {
           >
             Schedule
           </Text>
-        </TouchableOpacity>
-        {/* {loginUserType === "Admin" && ( */}
-        <TouchableOpacity style={styles.buttonContainer}>
+        </TouchableOpacity> */}
+      {/* {loginUserType === "Admin" && ( */}
+      {/* <TouchableOpacity style={styles.buttonContainer}>
           <Text style={styles.buttonText} onPress={() => goNextPage("Videos")}>
             Videos
           </Text>
-        </TouchableOpacity>
-        {/* )} */}
-      </View>
+        </TouchableOpacity> */}
+      {/* )} */}
+      {/* </View> */}
 
+      <View
+        style={{
+          width: "90%",
+        }}
+      >
+        <View
+          style={{
+            flexDirection: "row",
+            flexWrap: "wrap",
+
+            justifyContent: "space-evenly",
+          }}
+        >
+          <View
+            style={{
+              flexDirection: "column",
+              flex: 1,
+              justifyContent: "space-evenly",
+              margin: 1,
+            }}
+          >
+            <Button
+              iconPosition="top"
+              buttonStyle={{ backgroundColor: "green" }}
+              onPress={() => goNextPage("SchedulePractice")}
+              icon={() => (
+                <Icon name="perm-contact-calendar" size={25} color="white" />
+              )}
+              title="Schedule"
+            />
+          </View>
+          <View
+            style={{
+              flexDirection: "column",
+              flex: 1,
+              justifyContent: "space-evenly",
+              margin: 1,
+            }}
+          >
+            <Button
+              iconPosition="top"
+              iconPosition="top"
+              buttonStyle={{ backgroundColor: "green" }}
+              onPress={() => goNextPage("Players")}
+              icon={() => <Icon name="groups" size={25} color="white" />}
+              title="Players"
+            />
+          </View>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            flexWrap: "wrap",
+
+            justifyContent: "space-evenly",
+          }}
+        >
+          <View
+            style={{
+              flexDirection: "column",
+              flex: 1,
+              justifyContent: "space-evenly",
+              margin: 1,
+            }}
+          >
+            <Button
+              iconPosition="top"
+              iconPosition="top"
+              buttonStyle={{ backgroundColor: "green" }}
+              onPress={() => goNextPage("Videos")}
+              icon={() => <Icon name="assignment" size={25} color="white" />}
+              title="Report"
+            />
+          </View>
+          <View
+            style={{
+              flexDirection: "column",
+              flex: 1,
+              justifyContent: "space-evenly",
+              margin: 1,
+            }}
+          >
+            <Button
+              iconPosition="top"
+              iconPosition="top"
+              buttonStyle={{ backgroundColor: "green" }}
+              onPress={() => goNextPage("Videos")}
+              icon={() => (
+                <Icon name="ondemand-video" size={25} color="white" />
+              )}
+              title="Videos"
+            />
+          </View>
+        </View>
+      </View>
       {/* <EditScreenInfo path="/screens/TabTwoScreen.tsx" /> */}
     </View>
   );
