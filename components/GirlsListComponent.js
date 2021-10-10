@@ -63,7 +63,6 @@ const GirlsComponent = (props) => {
           activeOpacity={0.3}
           height={77.5}
           onLongPress={() => openMorePlayerModel(row)}
-          onPress={() => alert(`pressed on order #${id + 1}`)}
         >
           <ListItem.Part left>
             <Image

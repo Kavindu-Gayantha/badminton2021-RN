@@ -77,16 +77,18 @@ export default function PlayerProfileComponent(props) {
     }
   };
 
-  const getUserAttendanceWithRegId = async (userToken) => {
-    const regId = userToken.regId;
-    const uniId = userToken.uniId;
+  const getUserAttendanceWithRegId = async (regId, uniId) => {
+    console.log("uni reg ", regId + "", uniId);
+    // const regId = userToken.regId;
+    // const uniId = userToken.uniId;
     //  setUpdateGirs();
     //  console.log("girls tab");
     try {
       const request = await axios.get(
         `${BASE_URL}/attendance/getIndividual/${regId}/${uniId}`
       );
-      // console.log("players get:", typeof(request.data.data));
+
+      console.log("attendace &^&^&^&^&^&^&^& get:", request.data.data[0]);
       setPractiseDaysAllCount(
         request.data.data[0].practiseHeldDaysAllMonthCount
       );
@@ -119,7 +121,10 @@ export default function PlayerProfileComponent(props) {
   const tabViewBtnOnPress = (tabIndex) => {
     console.log("tab index: ", tabIndex);
     console.log("user data tab 2", userToken);
-    getUserAttendanceWithRegId(userToken);
+    getUserAttendanceWithRegId(
+      userToken != undefined ? (userToken.regId, userToken.uniId) : userData.id,
+      userData.university
+    ).catch((error) => console.log(error));
 
     switch (tabIndex) {
       case 1:
@@ -162,11 +167,6 @@ export default function PlayerProfileComponent(props) {
           margin: 5,
           elevation: 10,
           borderRadius: 10,
-          // shadowColor: "#171717",
-          // shadowOffset: { width: -20, height: 4 },
-          // shadowOpacity: 0.5,
-          // shadowRadius: 50,
-          // shadowColor: "red",
         }}
       >
         <View
@@ -174,9 +174,7 @@ export default function PlayerProfileComponent(props) {
             flexDirection: "column",
             padding: 5,
             justifyContent: "space-between",
-            // alignContent: "center",
-            // alignItems: "center",
-            // flex: 1,
+
             width: "20%",
           }}
         >
@@ -197,11 +195,7 @@ export default function PlayerProfileComponent(props) {
             padding: 5,
             justifyContent: "center",
             alignSelf: "flex-start",
-            // alignContent: "center",
-            // alignItems: "center",
             width: "70%",
-            // backgroundColor: "red",
-            // flex: 6,
           }}
         >
           <Text
@@ -212,7 +206,7 @@ export default function PlayerProfileComponent(props) {
               fontSize: 20,
             }}
           >
-            {userData !== null && userData.firstName}{" "}
+            {userData !== null && userData.firstName}
             {userData != null && userData.lastName}
           </Text>
           {userToken != null ? (
@@ -222,28 +216,14 @@ export default function PlayerProfileComponent(props) {
                 marginRight: 3,
                 flexDirection: "row",
                 // justifyContent: "center",
-                justifyContent: "space-around",
-                // alignContent: "center",
-                width: "60%",
-                alignSelf: "flex-start",
-                // backgroundColor: "blue",
+                justifyContent: "center",
+                width: "100%",
+                alignSelf: "center",
+
                 color: "green",
               }}
             >
-              {/* <View style={styles.buttonWrap}>
-                <Button
-                  buttonStyle={{ backgroundColor: "green" }}
-                  title="Edit Profile"
-                  onPress={() => setEditPlayerModalOpen(true)}
-                />
-                <Icon color="green" name="edit" />
-              </View> */}
               <View style={styles.buttonWrap}>
-                {/* <Button
-                  buttonStyle={{ backgroundColor: "red", color: "green" }}
-                  title="Delete Profile"
-                  onPress={null}
-                /> */}
                 <Icon name="live-help" solid color="green" />
               </View>
               {userToken &&
@@ -261,17 +241,21 @@ export default function PlayerProfileComponent(props) {
             // </View>
             <View
               style={{
-                marginLeft: 3,
-                marginRight: 3,
+                // marginLeft: 3,
+                // marginRight: 3,
                 flexDirection: "row",
-
-                width: "60%",
+                textAlign: "center",
+                justifyContent: "center",
+                // backgroundColor: "red",
+                width: "100%",
                 alignSelf: "center",
               }}
             >
               <Text
                 style={{
                   justifyContent: "center",
+                  alignSelf: "center",
+                  textAlign: "center",
                   flexDirection: "column",
                   color: "gray",
                 }}
@@ -351,26 +335,28 @@ export default function PlayerProfileComponent(props) {
       {basicDetailsBtn == tabKeyColorsGlobal.activeColor && (
         <ScrollView style={styles.tabViewContainer}>
           <View>
-            <View style={{ flexDirection: "row", justifyContent: "center" }}>
-              <View
-                style={{
-                  flexDirection: "column",
-                  backgroundColor: "green",
-                  margin: 2,
-                  padding: 2,
-                  borderRadius: 50,
-                }}
-              >
-                <Icon
-                  name="edit"
-                  color="green"
-                  solid
-                  raised
-                  size={15}
-                  onPress={() => setEditPlayerModalOpen(true)}
-                />
+            {userToken != null && (
+              <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                <View
+                  style={{
+                    flexDirection: "column",
+                    backgroundColor: "green",
+                    margin: 2,
+                    padding: 2,
+                    borderRadius: 50,
+                  }}
+                >
+                  <Icon
+                    name="edit"
+                    color="green"
+                    solid
+                    raised
+                    size={15}
+                    onPress={() => setEditPlayerModalOpen(true)}
+                  />
+                </View>
               </View>
-            </View>
+            )}
             <Card
               elevation={30}
               // enableShadow={false}
