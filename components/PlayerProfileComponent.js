@@ -395,32 +395,35 @@ export default function PlayerProfileComponent(props) {
             }}
           >
             <Card
-              // elevation={30}
+              elevation={10}
               containerStyle={{
                 flexDirection: "column",
                 flex: 1,
-                // backgroundColor: "red",
+                // backgroundColor: "#98ee99",
                 margin: 5,
                 padding: 5,
                 alignItems: "center",
               }}
             >
+              <Icon name="emoji-people" color="green" />
               <Text style={styles.cardTitle}>Attended Days</Text>
-              <Text>{attendaceIndividualCount}</Text>
+              <Text style={styles.cardTitle}>{attendaceIndividualCount}</Text>
             </Card>
             <Card
-              // elevation={30}
+              elevation={10}
               containerStyle={{
                 flexDirection: "column",
                 flex: 1,
-                // backgroundColor: "red",
+                // backgroundColor: "#98ee99",
+                // borderColor: "red",
                 margin: 5,
                 padding: 5,
                 alignItems: "center",
               }}
             >
+              <Icon name="sports-tennis" color="green" />
               <Text style={styles.cardTitle}>Practise Days</Text>
-              <Text>{practiseDaysAllCount}</Text>
+              <Text style={styles.cardTitle}>{practiseDaysAllCount}</Text>
             </Card>
           </View>
         </ScrollView>
