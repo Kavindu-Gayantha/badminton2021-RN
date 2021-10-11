@@ -97,6 +97,10 @@ export const globalStyles = StyleSheet.create({
     color: "green",
     textAlign: "center",
   },
+  imageBackgroundImageStyle: {
+    flex: 1,
+    justifyContent: "center",
+  },
 });
 
 export const profileImgs = {

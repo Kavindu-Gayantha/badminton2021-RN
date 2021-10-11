@@ -18,6 +18,7 @@ import axios from "axios";
 import { BASE_URL } from "../api/BASE_URL";
 import { tabKeyColorsGlobal } from "../lib/constants";
 import { set } from "react-native-reanimated";
+import editFacultyDetailsComponent from "./EditFacultyDetailsComponent";
 // var ScrollableTabView = require("react-native-scrollable-tab-view");
 // import { ScrollableTabView } from "react-native-scrollable-tab-view";
 
@@ -28,6 +29,7 @@ export default function PlayerProfileComponent(props) {
   const { userData, userToken, navigation, setUserData } = props;
 
   const [editPlayerModalOpen, setEditPlayerModalOpen] = useState(false);
+  const [editFacultyModalOpen, setFacultyModalOpen] = useState(false);
 
   // tab btns
   const [basicDetailsBtn, setBasicDetailsBtn] = useState(
@@ -77,16 +79,18 @@ export default function PlayerProfileComponent(props) {
     }
   };
 
-  const getUserAttendanceWithRegId = async (userToken) => {
-    const regId = userToken.regId;
-    const uniId = userToken.uniId;
+  const getUserAttendanceWithRegId = async (regId, uniId) => {
+    console.log("uni reg ", regId + "", uniId);
+    // const regId = userToken.regId;
+    // const uniId = userToken.uniId;
     //  setUpdateGirs();
     //  console.log("girls tab");
     try {
       const request = await axios.get(
         `${BASE_URL}/attendance/getIndividual/${regId}/${uniId}`
       );
-      // console.log("players get:", typeof(request.data.data));
+
+      console.log("attendace &^&^&^&^&^&^&^& get:", request.data.data[0]);
       setPractiseDaysAllCount(
         request.data.data[0].practiseHeldDaysAllMonthCount
       );
@@ -119,7 +123,10 @@ export default function PlayerProfileComponent(props) {
   const tabViewBtnOnPress = (tabIndex) => {
     console.log("tab index: ", tabIndex);
     console.log("user data tab 2", userToken);
-    getUserAttendanceWithRegId(userToken);
+    getUserAttendanceWithRegId(
+      userToken != undefined ? (userToken.regId, userToken.uniId) : userData.id,
+      userData.university
+    ).catch((error) => console.log(error));
 
     switch (tabIndex) {
       case 1:
@@ -162,11 +169,6 @@ export default function PlayerProfileComponent(props) {
           margin: 5,
           elevation: 10,
           borderRadius: 10,
-          // shadowColor: "#171717",
-          // shadowOffset: { width: -20, height: 4 },
-          // shadowOpacity: 0.5,
-          // shadowRadius: 50,
-          // shadowColor: "red",
         }}
       >
         <View
@@ -174,9 +176,7 @@ export default function PlayerProfileComponent(props) {
             flexDirection: "column",
             padding: 5,
             justifyContent: "space-between",
-            // alignContent: "center",
-            // alignItems: "center",
-            // flex: 1,
+
             width: "20%",
           }}
         >
@@ -197,11 +197,7 @@ export default function PlayerProfileComponent(props) {
             padding: 5,
             justifyContent: "center",
             alignSelf: "flex-start",
-            // alignContent: "center",
-            // alignItems: "center",
             width: "70%",
-            // backgroundColor: "red",
-            // flex: 6,
           }}
         >
           <Text
@@ -212,7 +208,7 @@ export default function PlayerProfileComponent(props) {
               fontSize: 20,
             }}
           >
-            {userData !== null && userData.firstName}{" "}
+            {userData !== null && userData.firstName}
             {userData != null && userData.lastName}
           </Text>
           {userToken != null ? (
@@ -222,28 +218,14 @@ export default function PlayerProfileComponent(props) {
                 marginRight: 3,
                 flexDirection: "row",
                 // justifyContent: "center",
-                justifyContent: "space-around",
-                // alignContent: "center",
-                width: "60%",
-                alignSelf: "flex-start",
-                // backgroundColor: "blue",
+                justifyContent: "center",
+                width: "100%",
+                alignSelf: "center",
+
                 color: "green",
               }}
             >
-              {/* <View style={styles.buttonWrap}>
-                <Button
-                  buttonStyle={{ backgroundColor: "green" }}
-                  title="Edit Profile"
-                  onPress={() => setEditPlayerModalOpen(true)}
-                />
-                <Icon color="green" name="edit" />
-              </View> */}
               <View style={styles.buttonWrap}>
-                {/* <Button
-                  buttonStyle={{ backgroundColor: "red", color: "green" }}
-                  title="Delete Profile"
-                  onPress={null}
-                /> */}
                 <Icon name="live-help" solid color="green" />
               </View>
               {userToken &&
@@ -261,17 +243,21 @@ export default function PlayerProfileComponent(props) {
             // </View>
             <View
               style={{
-                marginLeft: 3,
-                marginRight: 3,
+                // marginLeft: 3,
+                // marginRight: 3,
                 flexDirection: "row",
-
-                width: "60%",
+                textAlign: "center",
+                justifyContent: "center",
+                // backgroundColor: "red",
+                width: "100%",
                 alignSelf: "center",
               }}
             >
               <Text
                 style={{
                   justifyContent: "center",
+                  alignSelf: "center",
+                  textAlign: "center",
                   flexDirection: "column",
                   color: "gray",
                 }}
@@ -351,46 +337,133 @@ export default function PlayerProfileComponent(props) {
       {basicDetailsBtn == tabKeyColorsGlobal.activeColor && (
         <ScrollView style={styles.tabViewContainer}>
           <View>
-            <View style={{ flexDirection: "row", justifyContent: "center" }}>
-              <View
-                style={{
-                  flexDirection: "column",
-                  backgroundColor: "green",
-                  margin: 2,
-                  padding: 2,
-                  borderRadius: 50,
-                }}
-              >
-                <Icon
-                  name="edit"
-                  color="green"
-                  solid
-                  raised
-                  size={15}
-                  onPress={() => setEditPlayerModalOpen(true)}
-                />
+            {userToken != null && (
+              <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                <View
+                  style={{
+                    flexDirection: "column",
+                    backgroundColor: "green",
+                    margin: 2,
+                    padding: 2,
+                    borderRadius: 50,
+                  }}
+                >
+                  <Icon
+                    name="edit"
+                    color="green"
+                    solid
+                    raised
+                    size={15}
+                    onPress={() => setEditPlayerModalOpen(true)}
+                  />
+                </View>
               </View>
-            </View>
+            )}
             <Card
               elevation={30}
               // enableShadow={false}
               containerStyle={styles.cardContainer}
             >
-              <Text style={styles.cardTitle}>Email</Text>
-              <Text>{userData != null && userData.email}</Text>
+              <View
+                style={{ flexDirection: "row", justifyContent: "flex-start" }}
+              >
+                <View
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    padding: 5,
+                  }}
+                >
+                  <Icon name="contact-mail" size={25} />
+                </View>
+                <View
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    padding: 5,
+                  }}
+                >
+                  <Text style={styles.cardTitle}>Email</Text>
+                  <Text>{userData != null && userData.email}</Text>
+                </View>
+              </View>
+
               {/* </View> */}
             </Card>
             <Card elevation={30} containerStyle={styles.cardContainer}>
-              <Text style={styles.cardTitle}>First Name</Text>
-              <Text>{userData != null && userData.firstName}</Text>
+              <View
+                style={{ flexDirection: "row", justifyContent: "flex-start" }}
+              >
+                <View
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    padding: 5,
+                  }}
+                >
+                  <Icon name="drive-file-rename-outline" size={25} />
+                </View>
+                <View
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    padding: 5,
+                  }}
+                >
+                  <Text style={styles.cardTitle}>First Name</Text>
+                  <Text>{userData != null && userData.firstName}</Text>
+                </View>
+              </View>
             </Card>
             <Card elevation={30} containerStyle={styles.cardContainer}>
-              <Text style={styles.cardTitle}>Last Name</Text>
-              <Text>{userData != null && userData.lastName}</Text>
+              <View
+                style={{ flexDirection: "row", justifyContent: "flex-start" }}
+              >
+                <View
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    padding: 5,
+                  }}
+                >
+                  <Icon name="drive-file-rename-outline" size={25} />
+                </View>
+                <View
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    padding: 5,
+                  }}
+                >
+                  <Text style={styles.cardTitle}>Last Name</Text>
+                  <Text>{userData != null && userData.lastName}</Text>
+                </View>
+              </View>
             </Card>
             <Card elevation={30} containerStyle={styles.cardContainer}>
-              <Text style={styles.cardTitle}>Gender</Text>
-              <Text>{userData != null && userData.gender}</Text>
+              <View
+                style={{ flexDirection: "row", justifyContent: "flex-start" }}
+              >
+                <View
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    padding: 5,
+                  }}
+                >
+                  <Icon name="person-pin" size={25} />
+                </View>
+                <View
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    padding: 5,
+                  }}
+                >
+                  <Text style={styles.cardTitle}>Gender</Text>
+                  <Text>{userData != null && userData.gender}</Text>
+                </View>
+              </View>
             </Card>
           </View>
         </ScrollView>
@@ -409,32 +482,35 @@ export default function PlayerProfileComponent(props) {
             }}
           >
             <Card
-              // elevation={30}
+              elevation={10}
               containerStyle={{
                 flexDirection: "column",
                 flex: 1,
-                // backgroundColor: "red",
+                // backgroundColor: "#98ee99",
                 margin: 5,
                 padding: 5,
                 alignItems: "center",
               }}
             >
+              <Icon name="emoji-people" color="green" />
               <Text style={styles.cardTitle}>Attended Days</Text>
-              <Text>{attendaceIndividualCount}</Text>
+              <Text style={styles.cardTitle}>{attendaceIndividualCount}</Text>
             </Card>
             <Card
-              // elevation={30}
+              elevation={10}
               containerStyle={{
                 flexDirection: "column",
                 flex: 1,
-                // backgroundColor: "red",
+                // backgroundColor: "#98ee99",
+                // borderColor: "red",
                 margin: 5,
                 padding: 5,
                 alignItems: "center",
               }}
             >
+              <Icon name="sports-tennis" color="green" />
               <Text style={styles.cardTitle}>Practise Days</Text>
-              <Text>{practiseDaysAllCount}</Text>
+              <Text style={styles.cardTitle}>{practiseDaysAllCount}</Text>
             </Card>
           </View>
         </ScrollView>
@@ -442,39 +518,111 @@ export default function PlayerProfileComponent(props) {
 
       {otherDetailsBtn == tabKeyColorsGlobal.activeColor && (
         <ScrollView style={styles.tabViewContainer}>
-          {/* <ImageBackground
-            source={uokImage}
-            resizeMode="cover"
-            style={{ justifyContent: "space-evenly", flex: 1 }}
-          > */}
           <View>
+            {userToken != null && (
+              <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                <View
+                  style={{
+                    flexDirection: "column",
+                    backgroundColor: "green",
+                    margin: 2,
+                    padding: 2,
+                    borderRadius: 50,
+                  }}
+                >
+                  <Icon
+                    name="edit"
+                    color="green"
+                    solid
+                    raised
+                    size={15}
+                    onPress={() => setFacultyModalOpen(true)}
+                  />
+                </View>
+              </View>
+            )}
             <Card
-              elevation={30}
+              elevation={10}
               // enableShadow={false}
 
               containerStyle={styles.cardContainer}
             >
-              {/* <Image
-                  source={uokImage2}
+              <View
+                style={{ flexDirection: "row", justifyContent: "flex-start" }}
+              >
+                <View
                   style={{
+                    flexDirection: "column",
                     justifyContent: "center",
-                    width: 40,
-                    flexWrap: "wrap",
+                    padding: 5,
                   }}
-                /> */}
-              <Text style={styles.cardTitle}>University</Text>
-              <Text>{userData != null && userData.universityName}</Text>
-              {/* </View> */}
+                >
+                  <Icon name="school" size={25} />
+                </View>
+                <View
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    padding: 5,
+                  }}
+                >
+                  <Text style={styles.cardTitle}>University</Text>
+                  <Text>{userData != null && userData.universityName}</Text>
+                </View>
+              </View>
             </Card>
             <Card elevation={30} containerStyle={styles.cardContainer}>
-              <Text style={styles.cardTitle}>Faculty</Text>
-              <Text>
-                {userData != null && userData.facultyIdForEditProfile}
-              </Text>
+              <View
+                style={{ flexDirection: "row", justifyContent: "flex-start" }}
+              >
+                <View
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    padding: 5,
+                  }}
+                >
+                  <Icon name="school" size={25} />
+                </View>
+                <View
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    padding: 5,
+                  }}
+                >
+                  <Text style={styles.cardTitle}>Faculty</Text>
+                  <Text>
+                    {userData != null && userData.facultyIdForEditProfile}
+                  </Text>
+                </View>
+              </View>
             </Card>
+
             <Card elevation={30} containerStyle={styles.cardContainer}>
-              <Text style={styles.cardTitle}>User Type</Text>
-              <Text>{userData != null && userData.userType}</Text>
+              <View
+                style={{ flexDirection: "row", justifyContent: "flex-start" }}
+              >
+                <View
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    padding: 5,
+                  }}
+                >
+                  <Icon name="supervised-user-circle" size={25} />
+                </View>
+                <View
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    padding: 5,
+                  }}
+                >
+                  <Text style={styles.cardTitle}>User Type</Text>
+                  <Text>{userData != null && userData.userType}</Text>
+                </View>
+              </View>
             </Card>
             {/* <Card elevation={30} containerStyle={styles.cardContainer}>
               <Text style={styles.cardTitle}>Gender</Text>
@@ -509,6 +657,34 @@ export default function PlayerProfileComponent(props) {
           userData={userData}
           getUserDataWithEmail={getUserDataWithEmail}
         />
+      </Modal>
+      <Modal
+        visible={editFacultyModalOpen}
+        overlayBackgroundColor="white"
+        useGestureHandlerRootView
+        animationType="slide"
+        transparent={true}
+        // blurView={CreatePlayer}
+      >
+        <Modal.TopBar
+          title="Update University Details"
+          onDone={() => setFacultyModalOpen(false)}
+          onCancel={() => setFacultyModalOpen(false)}
+          doneLabel="Update"
+          doneButtonProps={{
+            color: "green",
+            borderRadius: 20,
+            backgroundColor: "red",
+          }}
+          // doneIcon="arrow"
+        />
+        {/* <editFacultyDetailsComponent
+          userToken={userToken}
+          userData={userData}
+          getUserDataWithEmail={getUserDataWithEmail}
+          
+        /> */}
+        {/* <editFacultyDetailsComponent /> */}
       </Modal>
     </View>
   );

@@ -1,8 +1,14 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { Button, Icon } from "react-native-elements";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ImageBackground,
+} from "react-native";
+import { Button, Icon, Image, ActivityIndicator } from "react-native-elements";
 import { globalStyles } from "../styles/globalStyles";
 // import getTokenMethod from "../api/Token";
 
@@ -13,6 +19,8 @@ const HomeScreen = ({ navigation }) => {
   // const loginUserType = userToken.userType;
   const userName = userToken && userToken.firstName;
   // console.log("user type is: ", loginUserType);
+
+  const homeImage = require("./../assets/badminton.jpg");
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
@@ -63,8 +71,25 @@ const HomeScreen = ({ navigation }) => {
   };
   return (
     <View style={styles.container}>
+      {/* <ImageBackground
+        source={homeImage}
+        resizeMode="cover"
+        // width={100}
+        style={globalStyles.imageBackgroundImageStyle}
+      > */}
       <Text style={styles.title}>Hi {userName}</Text>
       <View style={styles.separator} />
+      {/* <Image
+        source={homeImage}
+        style={{ width: 200, height: 200 }}
+        PlaceholderContent={<ActivityIndicator />}
+      /> */}
+      {/* <ImageBackground
+        source={homeImage}
+        resizeMode="cover"
+        width={100}
+        style={globalStyles.imageBackgroundImageStyle}
+      > */}
       {/* <View style={styles.buttonGroup}> */}
       {/* {loginUserType === "Admin" && ( */}
       {/* <TouchableOpacity style={styles.buttonContainer}>
@@ -100,6 +125,7 @@ const HomeScreen = ({ navigation }) => {
       <View
         style={{
           width: "90%",
+          // alignSelf: "center",
         }}
       >
         <View
@@ -192,6 +218,7 @@ const HomeScreen = ({ navigation }) => {
           </View>
         </View>
       </View>
+      {/* </ImageBackground> */}
       {/* <EditScreenInfo path="/screens/TabTwoScreen.tsx" /> */}
     </View>
   );
@@ -201,7 +228,11 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // flexWrap: "wrap",
     alignItems: "center",
+    // justifyContent: "flex-start",
+    // alignContent: "stretch",
+    // justifyContent: "flex-start",
     // backgroundColor: "#6abf69",
     // justifyContent: 'center',
   },
@@ -210,11 +241,15 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     top: 0,
     display: "flex",
+    // alignSelf: "center",
+    // // flex: 1,
+    // flexWrap: "wrap",
     alignContent: "flex-start",
+    // justifyContent: "flex-start",
   },
   separator: {
-    marginVertical: 30,
-    height: 1,
+    marginVertical: 40,
+    height: 5,
     width: "80%",
   },
   buttonGroup: {
