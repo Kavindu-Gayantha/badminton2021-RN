@@ -18,6 +18,7 @@ import axios from "axios";
 import { BASE_URL } from "../api/BASE_URL";
 import { tabKeyColorsGlobal } from "../lib/constants";
 import { set } from "react-native-reanimated";
+import editFacultyDetailsComponent from "./EditFacultyDetailsComponent";
 // var ScrollableTabView = require("react-native-scrollable-tab-view");
 // import { ScrollableTabView } from "react-native-scrollable-tab-view";
 
@@ -28,6 +29,7 @@ export default function PlayerProfileComponent(props) {
   const { userData, userToken, navigation, setUserData } = props;
 
   const [editPlayerModalOpen, setEditPlayerModalOpen] = useState(false);
+  const [editFacultyModalOpen, setFacultyModalOpen] = useState(false);
 
   // tab btns
   const [basicDetailsBtn, setBasicDetailsBtn] = useState(
@@ -362,21 +364,106 @@ export default function PlayerProfileComponent(props) {
               // enableShadow={false}
               containerStyle={styles.cardContainer}
             >
-              <Text style={styles.cardTitle}>Email</Text>
-              <Text>{userData != null && userData.email}</Text>
+              <View
+                style={{ flexDirection: "row", justifyContent: "flex-start" }}
+              >
+                <View
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    padding: 5,
+                  }}
+                >
+                  <Icon name="contact-mail" size={25} />
+                </View>
+                <View
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    padding: 5,
+                  }}
+                >
+                  <Text style={styles.cardTitle}>Email</Text>
+                  <Text>{userData != null && userData.email}</Text>
+                </View>
+              </View>
+
               {/* </View> */}
             </Card>
             <Card elevation={30} containerStyle={styles.cardContainer}>
-              <Text style={styles.cardTitle}>First Name</Text>
-              <Text>{userData != null && userData.firstName}</Text>
+              <View
+                style={{ flexDirection: "row", justifyContent: "flex-start" }}
+              >
+                <View
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    padding: 5,
+                  }}
+                >
+                  <Icon name="drive-file-rename-outline" size={25} />
+                </View>
+                <View
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    padding: 5,
+                  }}
+                >
+                  <Text style={styles.cardTitle}>First Name</Text>
+                  <Text>{userData != null && userData.firstName}</Text>
+                </View>
+              </View>
             </Card>
             <Card elevation={30} containerStyle={styles.cardContainer}>
-              <Text style={styles.cardTitle}>Last Name</Text>
-              <Text>{userData != null && userData.lastName}</Text>
+              <View
+                style={{ flexDirection: "row", justifyContent: "flex-start" }}
+              >
+                <View
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    padding: 5,
+                  }}
+                >
+                  <Icon name="drive-file-rename-outline" size={25} />
+                </View>
+                <View
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    padding: 5,
+                  }}
+                >
+                  <Text style={styles.cardTitle}>Last Name</Text>
+                  <Text>{userData != null && userData.lastName}</Text>
+                </View>
+              </View>
             </Card>
             <Card elevation={30} containerStyle={styles.cardContainer}>
-              <Text style={styles.cardTitle}>Gender</Text>
-              <Text>{userData != null && userData.gender}</Text>
+              <View
+                style={{ flexDirection: "row", justifyContent: "flex-start" }}
+              >
+                <View
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    padding: 5,
+                  }}
+                >
+                  <Icon name="person-pin" size={25} />
+                </View>
+                <View
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    padding: 5,
+                  }}
+                >
+                  <Text style={styles.cardTitle}>Gender</Text>
+                  <Text>{userData != null && userData.gender}</Text>
+                </View>
+              </View>
             </Card>
           </View>
         </ScrollView>
@@ -431,39 +518,111 @@ export default function PlayerProfileComponent(props) {
 
       {otherDetailsBtn == tabKeyColorsGlobal.activeColor && (
         <ScrollView style={styles.tabViewContainer}>
-          {/* <ImageBackground
-            source={uokImage}
-            resizeMode="cover"
-            style={{ justifyContent: "space-evenly", flex: 1 }}
-          > */}
           <View>
+            {userToken != null && (
+              <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                <View
+                  style={{
+                    flexDirection: "column",
+                    backgroundColor: "green",
+                    margin: 2,
+                    padding: 2,
+                    borderRadius: 50,
+                  }}
+                >
+                  <Icon
+                    name="edit"
+                    color="green"
+                    solid
+                    raised
+                    size={15}
+                    onPress={() => setFacultyModalOpen(true)}
+                  />
+                </View>
+              </View>
+            )}
             <Card
-              elevation={30}
+              elevation={10}
               // enableShadow={false}
 
               containerStyle={styles.cardContainer}
             >
-              {/* <Image
-                  source={uokImage2}
+              <View
+                style={{ flexDirection: "row", justifyContent: "flex-start" }}
+              >
+                <View
                   style={{
+                    flexDirection: "column",
                     justifyContent: "center",
-                    width: 40,
-                    flexWrap: "wrap",
+                    padding: 5,
                   }}
-                /> */}
-              <Text style={styles.cardTitle}>University</Text>
-              <Text>{userData != null && userData.universityName}</Text>
-              {/* </View> */}
+                >
+                  <Icon name="school" size={25} />
+                </View>
+                <View
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    padding: 5,
+                  }}
+                >
+                  <Text style={styles.cardTitle}>University</Text>
+                  <Text>{userData != null && userData.universityName}</Text>
+                </View>
+              </View>
             </Card>
             <Card elevation={30} containerStyle={styles.cardContainer}>
-              <Text style={styles.cardTitle}>Faculty</Text>
-              <Text>
-                {userData != null && userData.facultyIdForEditProfile}
-              </Text>
+              <View
+                style={{ flexDirection: "row", justifyContent: "flex-start" }}
+              >
+                <View
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    padding: 5,
+                  }}
+                >
+                  <Icon name="school" size={25} />
+                </View>
+                <View
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    padding: 5,
+                  }}
+                >
+                  <Text style={styles.cardTitle}>Faculty</Text>
+                  <Text>
+                    {userData != null && userData.facultyIdForEditProfile}
+                  </Text>
+                </View>
+              </View>
             </Card>
+
             <Card elevation={30} containerStyle={styles.cardContainer}>
-              <Text style={styles.cardTitle}>User Type</Text>
-              <Text>{userData != null && userData.userType}</Text>
+              <View
+                style={{ flexDirection: "row", justifyContent: "flex-start" }}
+              >
+                <View
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    padding: 5,
+                  }}
+                >
+                  <Icon name="supervised-user-circle" size={25} />
+                </View>
+                <View
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    padding: 5,
+                  }}
+                >
+                  <Text style={styles.cardTitle}>User Type</Text>
+                  <Text>{userData != null && userData.userType}</Text>
+                </View>
+              </View>
             </Card>
             {/* <Card elevation={30} containerStyle={styles.cardContainer}>
               <Text style={styles.cardTitle}>Gender</Text>
@@ -498,6 +657,34 @@ export default function PlayerProfileComponent(props) {
           userData={userData}
           getUserDataWithEmail={getUserDataWithEmail}
         />
+      </Modal>
+      <Modal
+        visible={editFacultyModalOpen}
+        overlayBackgroundColor="white"
+        useGestureHandlerRootView
+        animationType="slide"
+        transparent={true}
+        // blurView={CreatePlayer}
+      >
+        <Modal.TopBar
+          title="Update University Details"
+          onDone={() => setFacultyModalOpen(false)}
+          onCancel={() => setFacultyModalOpen(false)}
+          doneLabel="Update"
+          doneButtonProps={{
+            color: "green",
+            borderRadius: 20,
+            backgroundColor: "red",
+          }}
+          // doneIcon="arrow"
+        />
+        {/* <editFacultyDetailsComponent
+          userToken={userToken}
+          userData={userData}
+          getUserDataWithEmail={getUserDataWithEmail}
+          
+        /> */}
+        {/* <editFacultyDetailsComponent /> */}
       </Modal>
     </View>
   );
