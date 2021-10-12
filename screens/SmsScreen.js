@@ -130,7 +130,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#98ee99",
     borderWidth: 1,
     padding: 5,
-    // marginTop: 5,
     flex: 1,
   },
   icon: {
@@ -140,16 +139,13 @@ const styles = StyleSheet.create({
   cardContainer: {
     backgroundColor: "white",
     margin: 0,
-    // flex: 1,
-    // height: '100%'
-    // color:'red'
   },
   cardTitle: {
     textAlign: "left",
     fontSize: 12,
     color: "grey",
     textShadowColor: "red",
-    // paddingBottom: -1,
+
     marginBottom: 3,
   },
   msg: {

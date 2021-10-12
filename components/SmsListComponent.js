@@ -8,7 +8,6 @@ import moment from "moment";
 import { CirclesLoader } from "react-native-indicator";
 
 const SmsListComponent = (props) => {
-  console.log("props", props);
   const smsList = props.data.reverse();
 
   return (
@@ -35,17 +34,12 @@ export default SmsListComponent;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#98ee99",
-    // borderWidth: 1,
-    // padding: -51,
     marginTop: 5,
     flex: 1,
   },
   cardContainer: {
     backgroundColor: "white",
     margin: 0,
-    // flex: 1,
-    // height: '100%'
-    // color:'red'
   },
   cardTitle: {
     textAlign: "left",

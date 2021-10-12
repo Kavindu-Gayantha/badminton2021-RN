@@ -1,12 +1,6 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  TextInput,
-} from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 
 import { ListItem, Icon, Overlay, Card } from "react-native-elements";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -39,7 +33,6 @@ const SettingsScreen = ({ navigation }) => {
   };
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
-      // do something
       getTokenMethod();
     });
     return unsubscribe;
@@ -67,16 +60,13 @@ const SettingsScreen = ({ navigation }) => {
         AsyncStorage.clear().then(navigation.navigate("Login"));
       }
     }
-    // if (item === "About") {
-    //  toggleOverlay();
-    // }
   };
 
   const getTokenMethod = async () => {
     try {
       const token = await AsyncStorage.getItem("loginToken");
       setUserToken(JSON.parse(token));
-      console.log("get token", userToken);
+
       return userToken;
     } catch (error) {
       console.log(error);
@@ -116,10 +106,7 @@ export default SettingsScreen;
 const styles = StyleSheet.create({
   listContainer: {
     backgroundColor: "#134717",
-    // padding: 5,
-    // margin: 1,
     height: 50,
-    // flex: 1,
     color: "white",
     flexDirection: "row",
     justifyContent: "center",
@@ -130,10 +117,8 @@ const styles = StyleSheet.create({
   textWrap: {
     flex: 9,
     padding: 1,
-    // fontSize: 15,
     justifyContent: "center",
     alignItems: "flex-start",
-    // fontWeight: 'bold'
   },
   iconWrap: {
     flex: 1,

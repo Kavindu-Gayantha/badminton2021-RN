@@ -14,11 +14,9 @@ const SchedulePracticeScreen = (props) => {
   const userToken = props.route.params.userToken;
   const navigation = props.navigation;
   const userType = props.route.params.userToken.userType;
-  console.log("props schedule screen: ", props);
-  // const [openSchedulePopUp, setOpenSchedulePopUp] = useState(false);
+
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState(new Date());
-  const [mode, setMode] = useState("time");
   const [practiseDates, setPractiseDates] = useState([]);
 
   const [updatePractiseSchedule, setUpdatePractiseSchedule] = useState(null);
@@ -32,29 +30,15 @@ const SchedulePracticeScreen = (props) => {
     return unsubscribe;
   }, [navigation]);
 
-  // const getTokenMethod = async () => {
-  //   try {
-  //     const token = await AsyncStorage.getItem("loginToken");
-  //     setUserToken(JSON.parse(token));
-  //     console.log("token Girls screen: ", userToken);
-  //     getAllGirls(JSON.parse(token));
-  //     return userToken;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   const getAllPractiseSchedules = async (token) => {
     const loginUserUniId = token.uniId;
     try {
       const request = await axios.get(
         `${BASE_URL}/schedule/getAllByUniId/${loginUserUniId}`
       );
-      // console.log("players get:", typeof(request.data.data));
+
       setPractiseDates(request.data.data);
       console.log("practise dates:  ", request.data.data);
-      // setLoading(false);
-      // return request.data.data;
     } catch (error) {
       alert(error);
     }
@@ -92,9 +76,7 @@ const SchedulePracticeScreen = (props) => {
 
       addNewSchedule(request.data.data);
       console.log("new ad prac", request.data.data);
-      // setShowSubmitTxt(true);
-      // setResponseMessage(request.data.statusMessage);
-      // props.setSmsAlerts(request.data.data);
+
       console.log("request response", request.data.statusMessage);
     } catch (error) {
       alert(error);
@@ -128,7 +110,6 @@ const SchedulePracticeScreen = (props) => {
           margin: 5,
           width: "100%",
           justifyContent: "center",
-
           alignSelf: "center",
         }}
       >
@@ -189,8 +170,6 @@ const SchedulePracticeScreen = (props) => {
                     style={{
                       flexDirection: "column",
                       justifyContent: "center",
-                      // backgroundColor: "red",
-
                       padding: 5,
                     }}
                   >
@@ -219,14 +198,14 @@ const SchedulePracticeScreen = (props) => {
         />
       )}
 
-      <FabNormalComponent
-        iconName="more-time"
-        openSchedulePopUp={openSchedulePopUp}
-      />
+      {userType && userType == "Admin" && (
+        <FabNormalComponent
+          iconName="more-time"
+          openSchedulePopUp={openSchedulePopUp}
+        />
+      )}
     </View>
   );
 };
 
 export default SchedulePracticeScreen;
-
-const styles = StyleSheet.create({});

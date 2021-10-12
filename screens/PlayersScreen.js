@@ -1,39 +1,23 @@
 import * as React from "react";
 import { useEffect } from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  Button,
-  ScrollView,
-  FlatList,
-} from "react-native";
-import { supabase } from "../lib/superbaseInit";
+import { View, StyleSheet } from "react-native";
 import { useState } from "react";
-// import axios from "./../api/axios";
-import { GetRequest } from "../api/Requests";
 import PlayerComponent from "../components/PlayerListComponent";
 import axios from "axios";
 import { BASE_URL } from "../api/BASE_URL";
 import { globalStyles } from "../styles/globalStyles";
-// import { createClient } from '@supabase/supabase-js'
 import { CirclesLoader } from "react-native-indicator";
 import HeaderComponent from "../components/HeaderComponent";
 
 const PlayersScreen = ({ navigation, route }) => {
-  // setUpdatePlayers([]);
   const [players, setPlayers] = useState([]);
   const [updatePlayer, setUpdatePlayer] = useState([]);
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState(null);
   const { userToken } = route.params;
   const loginUserType = userToken.userType;
-  // const [updatePlayer, setUpdatePlayer] = useState(null);
-  console.log("user token route param player list not admin : ", userToken);
 
   useEffect(() => {
-    // setUpdatePlayers();
-
     getAllPlayers();
     getUserDataWithEmail(userToken.email);
   }, [updatePlayer]);
@@ -46,9 +30,8 @@ const PlayersScreen = ({ navigation, route }) => {
       const request = await axios.get(
         `${BASE_URL}/players/getAll/${loginUserUniId}`
       );
-      // console.log("players get:", typeof(request.data.data));
+
       setPlayers(request.data.data);
-      console.log("players state:  ", players);
     } catch (error) {
       console.log(error);
     }
@@ -56,17 +39,12 @@ const PlayersScreen = ({ navigation, route }) => {
     setLoading(false);
   };
   const getUserDataWithEmail = async (email) => {
-    //  setUpdateGirs();
-    //  console.log("girls tab");
     try {
       const request = await axios.get(
         `${BASE_URL}/players/regDataByEmail/${email}`
       );
-      // console.log("players get:", typeof(request.data.data));
-      // setgirls(request.data.data);
+
       setUserData(request.data.data);
-      console.log("user Reg Data:  ", request.data.data);
-      // return request.data.data;
     } catch (error) {
       console.log(error);
     }
@@ -104,16 +82,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
-    // alignItems: 'flex-start',
-    // justifyContent: 'flex-start',
     marginTop: "12%",
   },
   titleGrid: {
     top: 0,
     fontWeight: "bold",
     alignItems: "center",
-    // justifyContent: 'center',
-    // flex: 3,
     marginTop: 15,
     flexDirection: "row",
     marginBottom: 8,
@@ -139,9 +113,6 @@ const styles = StyleSheet.create({
   },
   noDataContainer: {
     flex: 11,
-    // justifyContent: 'center',
-    // alignContent: 'center',
-    // alignItems: 'center',
     color: "blue",
     fontWeight: "bold",
     margin: 5,

@@ -20,8 +20,7 @@ import { Card } from "react-native-elements";
 const GirlsComponent = (props) => {
   // const [morePlayerModalOpen, setMorePlayerModalOpen] = useState(false);
   const [singlePlayerObj, setSinglePlayerObj] = useState(null);
-  console.log("props girls component:  ", props);
-  console.log("lenght: ", props.data.length > 0);
+
   const girlsList = props.data;
   const { data, navigation, morePlayerModalOpen, setMorePlayerModalOpen } =
     props;
@@ -91,17 +90,6 @@ const GirlsComponent = (props) => {
               <Text green50 text80 style={{ marginTop: 2 }}>
                 {row.id}
               </Text>
-              {/* {attendanceView == true && (
-                <Switch
-                  backgroundColor="white"
-                  onColor="green"
-                  offColor="#b2fab4"
-                  useCustomTheme
-                  onValueChange={() => onChangeSwitch(row)}
-                  value={switchVal.includes(row.id)}
-                  
-                />
-              )} */}
             </ListItem.Part>
             <ListItem.Part>
               <Text
@@ -123,37 +111,6 @@ const GirlsComponent = (props) => {
   }
   return (
     <View style={styles.container}>
-      {/* <FlatList
-        style={globalStyles.listContainer}
-        keyExtractor={(item) => item.id.toString()}
-        data={girlsList}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            onLongPress={() => openMorePlayerModel(item)}
-            style={globalStyles.touchableOpacityList}
-          >
-            <View style={globalStyles.coverListItemView}>
-              {item.gender === "Male" || item.gender === "male" ? (
-                <Image
-                  source={profileImgs.male}
-                  // width="10"
-                  style={globalStyles.flatListImg}
-                />
-              ) : (
-                <Image
-                  source={profileImgs.female}
-                  style={globalStyles.flatListImg}
-                />
-              )}
-            </View>
-            
-            <Text style={globalStyles.listItem}>
-              {item.name} - {item.facultyName}{" "}
-            </Text>
-           
-          </TouchableOpacity>
-        )}
-      /> */}
       {data && data.length > 0 ? (
         <FlatList
           data={girlsList}

@@ -94,10 +94,8 @@ export default VideoScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // padding: 2,
   },
   videos: {
     marginBottom: -10,
-    // flex: 1/3
   },
 });

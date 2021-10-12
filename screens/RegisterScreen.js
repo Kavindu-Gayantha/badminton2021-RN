@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 import {
   Text,
   View,
@@ -8,16 +8,13 @@ import {
   ImageBackground,
 } from "react-native";
 import { Button } from "react-native-elements/dist/buttons/Button";
-import { globalStyles } from "../styles/globalStyles";
 import { Card, Divider } from "react-native-elements";
 import axios from "axios";
 import { BASE_URL } from "../api/BASE_URL";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Gender, UniversitiesList, UserTypes } from "../lib/constants";
 import { RadioGroup } from "react-native-ui-lib";
 import { RadioButton } from "react-native-ui-lib";
-import { ScrollView } from "react-native-gesture-handler";
-// import ModalDropdown from "react-native-modal-dropdown";
+
 import DropDownPicker from "react-native-dropdown-picker";
 import ToastComponent from "../components/ToastComponent";
 import { ToastBackgroundGlobalColors } from "../styles/globalStyles";
@@ -39,25 +36,9 @@ const RegisterScreen = ({ navigation }) => {
   const [toastMessage, setToastMessage] = useState("");
   const [toastBackgroundColor, setToastBackgroundColor] = useState("");
 
-  // useEffect(() => {
-  //   const unsubscribe = navigation.addListener("focus", () => {
-  // do something
-  // const userToken = getTokenMethod();
-  // setUniDropDown(false);
-  // console.log("Token in boys: ", userToken);
-  //   });
-  //   return unsubscribe;
-  // }, [navigation]);
-
   const onUniDropDownOpenMethod = () => {
     setUniDropDown(true);
   };
-
-  // const onChangeUniSelectMethod = useCallback((item) => {
-  //   //  setUniDropDown(true);
-  //   console.log("item: selected: ", selectedUni);
-  //   // console.log("")
-  // }, []);
 
   const onPressRegister = () => {
     console.log("register");
@@ -78,12 +59,9 @@ const RegisterScreen = ({ navigation }) => {
   };
 
   const registerUserMethod = async (body) => {
-    // const loginAdminUniId = userToken.uniId;
     try {
       const request = await axios.post(`${BASE_URL}/auth/register`, body);
-      // setShowSubmitTxt(true);
-      // setResponseMessage(request.data.statusMessage);
-      // props.setPlayers(request.data.data);
+
       setToastBackgroundColor(
         request.data.status
           ? ToastBackgroundGlobalColors.success
@@ -91,16 +69,13 @@ const RegisterScreen = ({ navigation }) => {
       );
       setToastMessage(request.data.statusMessage);
       setToastVisible(true);
-      // setToas
       console.log("request response", request.data.statusMessage);
       if (request.data.status) {
         const timer = setTimeout(() => {
-          console.log("Hello, World!");
           setToastVisible(false);
           navigation.navigate("Login");
         }, 3000);
         return () => clearTimeout(timer);
-        // navigation.navigate("Login");
       }
     } catch (error) {
       console.log(error);
@@ -108,7 +83,6 @@ const RegisterScreen = ({ navigation }) => {
   };
 
   const genderHandleChange = (genderType) => {
-    console.log("gender", genderType);
     setGender(genderType);
   };
 
@@ -122,7 +96,6 @@ const RegisterScreen = ({ navigation }) => {
   };
 
   return (
-    // <View style={globalStyles.container}>
     <View style={styles.container}>
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>
         <Card containerStyle={styles.cardContainer}>

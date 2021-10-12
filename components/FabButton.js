@@ -12,10 +12,6 @@ const FabButton = ({
 }) => {
   const [open, setOpen] = useState(false);
 
-  // const setOpen = () => {
-  //   // setOpen
-  // }
-
   return (
     // <View style={styles.container}>
     <SpeedDial

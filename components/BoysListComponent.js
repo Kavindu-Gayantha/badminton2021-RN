@@ -8,7 +8,6 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-// import { Switch } from "react-native-elements";
 
 import { globalStyles, profileImgs } from "../styles/globalStyles";
 import { BASE_URL } from "../api/BASE_URL";
@@ -29,10 +28,6 @@ const BoyComponent = (props) => {
   const [switchVal, setSwitchVal] = useState([]);
   const [userToken, setUserToken] = useState(null);
   const [date, setDate] = useState(new Date());
-
-  // const [singlePlayerObj, setSinglePlayerObj] = useState(null);
-  // const [attendanceView, setAttendanceView] = useState(false);
-  //  const [switchVal, setSwitchVal] = useState([]);
   const [currentDate, setCurrentDate] = useState("");
   const [dateIn, setDateIn] = useState();
   const [responseMessage, setResponseMessage] = useState();
@@ -48,17 +43,9 @@ const BoyComponent = (props) => {
   const { navigation, morePlayerModalOpen, setMorePlayerModalOpen, data } =
     props;
 
-  // const { userType } = userToken;
-  // console.log("props sms screen: ", props);
-  // const userToken = props.route.params.userToken;
-  // const navigation = props.navigation;
-  // const userType = props.route.params.userToken.userType;
-
-  // const chevronUp = URL('')
   const onExpandMethod = () => {
     setExpanded(!expanded);
   };
-  // const loginUserType = userToken.userType;
 
   function getHeaderElement() {
     return (
@@ -82,15 +69,9 @@ const BoyComponent = (props) => {
     );
   }
 
-  console.log("props boys component:  ", props);
-  // const girlsList = props.data;
-
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
-      // do something
       const userToken = getTokenMethod();
-
-      console.log("Token in boys: ", userToken);
     });
     return unsubscribe;
   }, [navigation]);
@@ -99,7 +80,7 @@ const BoyComponent = (props) => {
     try {
       const userToken = await AsyncStorage.getItem("loginToken");
       setUserToken(JSON.parse(userToken));
-      console.log("token boys screen: ", userToken);
+
       return JSON.parse(userToken);
     } catch (error) {
       console.log(error);
@@ -116,7 +97,7 @@ const BoyComponent = (props) => {
       const request = await axios.post(`${BASE_URL}/attendance/submit`, body);
       // setShowSubmitTxt(true);
       setResponseMessage(request.data.statusMessage);
-      // props.setSmsAlerts(request.data.data);
+
       setToastMessage(request.data.statusMessage);
       setToastVisible(true);
       setToastBackgroundColor(
@@ -159,9 +140,6 @@ const BoyComponent = (props) => {
     return <Text>Left</Text>;
   }
   function renderRow(row, id) {
-    // console.log("row : ", row);
-    // const statusColor = row.inventory.status === 'Paid' ? Colors.green30 : Colors.red30;
-
     return (
       <View>
         <Drawer leftItem={renderLeftItem()} useNativeAnimations>
@@ -234,53 +212,6 @@ const BoyComponent = (props) => {
   }
   return (
     <View style={styles.container}>
-      {/* {userToken && userToken.userType == "Admin" && ( */}
-      {/* <ExpandableSection
-        top={false}
-        expanded={expanded}
-        sectionHeader={getHeaderElement()}
-        onPress={onExpandMethod}
-      >
-        <AttendanceMarkComponent
-          switchVal={switchVal}
-          date={date}
-          attendanceSubmitMethod={attendanceSubmitMethod}
-          setOpen={setOpen}
-        />
-      </ExpandableSection> */}
-      {/*  )} */}
-      {/* <Button onPress={addNewPlayer} title="Add Player" style={styles.button} /> */}
-      {/* display add new player component when button click */}
-      {/* {addPlayerArea && */}
-      {/* <FlatList
-        style={globalStyles.listContainer}
-        keyExtractor={(item) => item.id.toString()}
-        data={boysList}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            onLongPress={() => openMorePlayerModel(item)}
-            style={globalStyles.touchableOpacityList}
-          >
-            <View style={globalStyles.coverListItemView}>
-              {item.gender === "Male" || item.gender === "male" ? (
-                <Image
-                  source={profileImgs.male}
-                  style={globalStyles.flatListImg}
-                />
-              ) : (
-                <Image
-                  source={profileImgs.female}
-                  style={globalStyles.flatListImg}
-                />
-              )}
-            </View>
-
-            <Text style={globalStyles.listItem}>
-              {item.name} - {item.facultyName}{" "}
-            </Text>
-          </TouchableOpacity>
-        )}
-      /> */}
       {data && data.length > 0 ? (
         <FlatList
           data={boysList}

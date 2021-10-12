@@ -4,11 +4,9 @@ import axios from "axios";
 import { BASE_URL } from "../api/BASE_URL";
 
 const AddVideoComponent = (props) => {
-  // console.log("props add new vide : ", props);
   const [urlLink, setUrlLink] = useState("");
 
   const onSubmiYoutubeLink = () => {
-    // console.log("youuuuu: ", urlLink);
     const body = {
       youtubeLink: urlLink,
     };
@@ -19,7 +17,6 @@ const AddVideoComponent = (props) => {
 
   const convertYoutubeLinkToYoutubeId = (response) => {
     const youtubeLink = response.youtubeLink.toString();
-    // console.log("responsessssss: ", youtubeLink);
 
     const videoId = youtubeLink.substring(17, youtubeLink.length);
     console.log("id:  ", videoId);
@@ -37,8 +34,7 @@ const AddVideoComponent = (props) => {
   const addYoutubeLink = async (body) => {
     try {
       const request = await axios.post(`${BASE_URL}/video/create`, body);
-      // setShowSubmitTxt(true);
-      // setResponseMessage(request.data.statusMessage);
+
       setUrlLink(request.data.data);
       convertYoutubeLinkToYoutubeId(request.data.data);
       console.log("request response", request.data.statusMessage);
@@ -52,7 +48,6 @@ const AddVideoComponent = (props) => {
         <TextInput
           placeholder="Youtube Video Link"
           onChangeText={(value) => setUrlLink(value)}
-          
           style={styles.inputBox}
         />
       </View>
