@@ -6,6 +6,9 @@ import { globalStyles } from "../styles/globalStyles";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Icon } from "react-native-elements";
 import { Card } from "react-native-ui-lib";
+import { BASE_URL } from "../api/BASE_URL";
+import axios from "axios";
+import moment from "moment";
 
 const SchedulePracticeScreen = (props) => {
   const userToken = props.route.params.userToken;
@@ -16,21 +19,86 @@ const SchedulePracticeScreen = (props) => {
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("time");
-  const [practiseDates, setPractiseDates] = useState([
-    { id: 1, date: "2021/03/03", time: "04: 30" },
-    { id: 2, date: "2021/03/05", time: "04: 30" },
-  ]);
+  const [practiseDates, setPractiseDates] = useState([]);
 
+  const [updatePractiseSchedule, setUpdatePractiseSchedule] = useState(null);
+
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      getAllPractiseSchedules(userToken);
+    });
+    return unsubscribe;
+  }, [navigation]);
+
+  // const getTokenMethod = async () => {
+  //   try {
+  //     const token = await AsyncStorage.getItem("loginToken");
+  //     setUserToken(JSON.parse(token));
+  //     console.log("token Girls screen: ", userToken);
+  //     getAllGirls(JSON.parse(token));
+  //     return userToken;
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  const getAllPractiseSchedules = async (token) => {
+    const loginUserUniId = token.uniId;
+    try {
+      const request = await axios.get(
+        `${BASE_URL}/schedule/getAllByUniId/${loginUserUniId}`
+      );
+      // console.log("players get:", typeof(request.data.data));
+      setPractiseDates(request.data.data);
+      console.log("practise dates:  ", request.data.data);
+      // setLoading(false);
+      // return request.data.data;
+    } catch (error) {
+      alert(error);
+    }
+  };
   const openSchedulePopUp = () => {
     setOpen(true);
   };
 
+  const addNewSchedule = (newlyAdded) => {
+    setPractiseDates([...practiseDates, newlyAdded]);
+  };
+
   const datePickerOnChange = (event, selectedDate) => {
+    setOpen(false);
     const currentDate = selectedDate || date;
     setDate(currentDate);
+
+    const body = {
+      addedAdminId: userToken.regId,
+      dateTime: currentDate,
+    };
+
     console.log("date chagned: ", currentDate);
-    // alert(currentDate);
-    setOpen(false);
+    createPractiseSchedule(body).then(() => addNewSchedule(body));
+  };
+
+  const createPractiseSchedule = async (body) => {
+    setLoading(true);
+    try {
+      const request = await axios.post(
+        `${BASE_URL}/schedule/createSchedule`,
+        body
+      );
+      setLoading(false);
+
+      addNewSchedule(request.data.data);
+      console.log("new ad prac", request.data.data);
+      // setShowSubmitTxt(true);
+      // setResponseMessage(request.data.statusMessage);
+      // props.setSmsAlerts(request.data.data);
+      console.log("request response", request.data.statusMessage);
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return (
@@ -67,7 +135,11 @@ const SchedulePracticeScreen = (props) => {
         <ScrollView>
           {practiseDates.length > 0 ? (
             practiseDates.map((item) => (
-              <Card elevation={30} containerStyle={globalStyles.cardContainer}>
+              <Card
+                elevation={30}
+                containerStyle={globalStyles.cardContainer}
+                key={item.id}
+              >
                 <View
                   style={{
                     flexDirection: "row",
@@ -78,8 +150,6 @@ const SchedulePracticeScreen = (props) => {
                     style={{
                       flexDirection: "column",
                       justifyContent: "center",
-                      // backgroundColor: "red",
-
                       padding: 5,
                     }}
                   >
@@ -89,13 +159,11 @@ const SchedulePracticeScreen = (props) => {
                     style={{
                       flexDirection: "column",
                       justifyContent: "center",
-                      // backgroundColor: "red",
-
                       padding: 5,
                     }}
                   >
                     <Text style={globalStyles.cardTitle}>Date</Text>
-                    <Text>{item.date}</Text>
+                    <Text>{moment(item.dateTime).format("DD/MM/YYYY")}</Text>
                   </View>
 
                   {/* next col */}
@@ -127,7 +195,7 @@ const SchedulePracticeScreen = (props) => {
                     }}
                   >
                     <Text style={globalStyles.cardTitle}>Time</Text>
-                    <Text>{item.time}</Text>
+                    <Text>04:30 PM</Text>
                   </View>
                 </View>
               </Card>
