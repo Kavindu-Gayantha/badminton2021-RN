@@ -89,40 +89,18 @@ export default function PlayerProfileComponent(props) {
       const request = await axios.get(
         `${BASE_URL}/attendance/getIndividual/${regId}/${uniId}`
       );
-
-      console.log("attendace &^&^&^&^&^&^&^& get:", request.data.data[0]);
       setPractiseDaysAllCount(
         request.data.data[0].practiseHeldDaysAllMonthCount
       );
       setAttendanceIndividualCount(
         request.data.data[0].attendanceAllMonthCount
       );
-      // console.log(
-      //   "user Attendance Data: &&&&&&&&&&&&&&&&&&&&&&&&&&&&& ",
-      //   request.data.data
-      // );
-      // return request.data.data;
     } catch (error) {
       console.log(error);
     }
   };
 
-  // "active": true,
-  //   "deleted": false,
-  //   "email": "s@gmail.com",
-  //   "firstName": "kavindu",
-  //   "gender": "male",
-
-  //   "id": null,
-  //   "lastName": "Ari",
-  //   "password": null,
-  //   "university": null,
-  //   "universityName": "University of Kelaniya",
-  //   "userType": "Admin not",
-
   const tabViewBtnOnPress = (tabIndex) => {
-    console.log("tab index: ", tabIndex);
-    console.log("user data tab 2", userToken);
     getUserAttendanceWithRegId(
       userToken != undefined ? (userToken.regId, userToken.uniId) : userData.id,
       userData.university

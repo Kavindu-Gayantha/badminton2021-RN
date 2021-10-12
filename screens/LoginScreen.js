@@ -32,7 +32,6 @@ const LoginScreen = ({ navigation }) => {
     loginFunction(loginSubmitObject).then(() => {
       console.log(" submit finished : ", loginSubmitObject);
     });
-    // navigation.navigate("HomeTabs");
   };
 
   const loginFunction = async (body) => {
@@ -45,7 +44,7 @@ const LoginScreen = ({ navigation }) => {
 
       if (request.data.status == true) {
         // setLoading(false);
-        console.log("set loading", loading);
+
         setResStatus(true);
         setTokenMethod(request.data.data);
 
@@ -66,7 +65,6 @@ const LoginScreen = ({ navigation }) => {
   const setTokenMethod = async (token) => {
     try {
       await AsyncStorage.setItem("loginToken", JSON.stringify(token));
-      console.log("loginn token login screen: ", token);
     } catch (error) {
       console.log(error);
     }
@@ -92,7 +90,6 @@ const LoginScreen = ({ navigation }) => {
             onChangeText={(value) => setPassword(value)}
             value={password}
             style={styles.inputBox}
-            // keyboardType="password"
             secureTextEntry={true}
             onResponderStart={() => setShowSubmitBtn(true)}
           />
@@ -124,8 +121,6 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 2,
     backgroundColor: "#98ee99",
-    // margin: 15,
-    // padding: 10,
     justifyContent: "center",
   },
   title: {
@@ -147,19 +142,12 @@ const styles = StyleSheet.create({
     borderRadius: 28,
     margin: 8,
     width: "50%",
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // textAlign: 'center',
     alignSelf: "center",
   },
   cardContainer: {
     justifyContent: "center",
     opacity: 0.6,
     backgroundColor: "white",
-    // flex: 1/2,
-    // width: '100%'
-    // marginBottom: 20,
-    // margin:20,
   },
   image: {
     flex: 1,

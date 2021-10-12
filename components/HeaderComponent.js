@@ -7,27 +7,7 @@ import LinearGradient from "react-native-linear-gradient";
 const HeaderComponent = ({ navigation, title }) => {
   // console.log("props:  ", title);
   return (
-    // <View style={styles.titleGrid}>
-    //   {/* <Button
-    //     onPress={() => navigation.goBack()}
-    //     color="#66bb6a"
-    //     backgroundColor="#000000"
-    //     title="Back"
-    //     style={globalStyles.primaryBtn}
-    //   >
-    //     Back
-    //   </Button> */}
-    //   <HeaderLeftComponent />
-    //   <Text style={styles.title}>{title}</Text>
-    //   <Text style={styles.titleRight}>Go Home</Text>
-    // </View>
     <Header
-      // linearGradientProps={{
-      //   colors: ["red", "pink"],
-      //   start: { x: 0, y: 0.5 },
-      //   end: { x: 1, y: 0.5 },
-      // }}
-      // ViewComponent={LinearGradient}
       containerStyle={styles.titleGrid}
       leftComponent={<HeaderLeftComponent navigation={navigation} />}
       centerComponent={<HeaderCenterComponent title={title} />}
@@ -71,9 +51,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#134717",
     fontWeight: "bold",
     alignItems: "center",
-    // backgroundImage
-    // height: 100,
-    // padding: 10,
   },
   titleLeft: {
     flex: 1,

@@ -16,11 +16,9 @@ const GirlsScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // getTokenMethod();
     const unsubscribe = navigation.addListener("focus", () => {
-      // do something
       getTokenMethod();
-      // getAllGirls();
+
       setMorePlayerModalOpen(false);
     });
     return unsubscribe;
@@ -40,18 +38,15 @@ const GirlsScreen = ({ navigation }) => {
 
   const getAllGirls = async (token) => {
     const loginUserUniId = token.uniId;
-    // setUpdateGirs();
-    // console.log("girls tab");
-    // const loginUserUniId = userToken.uniId;
+
     try {
       const request = await axios.get(
         `${BASE_URL}/players/getGirls/${loginUserUniId}`
       );
-      // console.log("players get:", typeof(request.data.data));
+
       setgirls(request.data.data);
-      console.log("girls:  ", request.data.data);
+
       setLoading(false);
-      // return request.data.data;
     } catch (error) {
       console.log(error);
     }
@@ -78,15 +73,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
-    // alignItems: 'flex-start',
-    // justifyContent: 'flex-start',
+
     marginTop: "1%",
   },
   noDataContainer: {
     flex: 11,
-    // justifyContent: 'center',
-    // alignContent: 'center',
-    // alignItems: 'center',
     color: "blue",
     fontWeight: "bold",
     margin: 5,

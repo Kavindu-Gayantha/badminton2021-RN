@@ -58,21 +58,12 @@ const PlayerComponent = (props) => {
   // console.log("props ::", props);
   const { loginUserType, navigation, setPlayers, userToken } = props;
 
-  // var date = new Date().getDate(); //Current Date
-  // var month = new Date().getMonth() + 1; //Current Month
-  // var year = new Date().getFullYear(); //Current Year
-
   const onChangeSwitch = (item) => {
     console.log("swith : ", item.id);
     if (switchVal.indexOf(item.id) == -1) {
       setSwitchVal([...switchVal, item.id]);
       console.log("swich values array: ", switchVal);
     }
-
-    // list of ids are available now
-
-    // setSwitchVal([...switchVal, item.id]);
-    // console.log("swich values array: ", switchVal);
   };
   useEffect(() => {
     // setCurrentDate(date + "/" + month + "/" + year);
@@ -80,14 +71,6 @@ const PlayerComponent = (props) => {
     const unsubscribe = navigation.addListener("focus", () => {
       // do something
       setMorePlayerModalOpen(false);
-      // setAttendanceView(false);
-
-      //  setCurrentDate(
-      //    date + "/" + month + "/" + year
-      //  );
-      // setCurrentDate(`${date}/${month}/${year}`);
-      // console.log("date <<<< ", currentDate);
-      // console.log("date get date: ", date);
     });
     return unsubscribe;
   }, [navigation]);
@@ -190,18 +173,7 @@ const PlayerComponent = (props) => {
           onChange={datePickerOnChange}
         />
       )}
-      {/* <Modal visible={modalOpen} animationType="slide">
-        <View style={styles.modalContent}>
-          <CreatePlayer setPlayers={setPlayers} />
 
-          <Button
-            onPress={closeModal}
-            color="red"
-            style={styles.closeBtn}
-            title="close"
-          />
-        </View>
-      </Modal> */}
       <Modal
         visible={modalOpen}
         overlayBackgroundColor="white"

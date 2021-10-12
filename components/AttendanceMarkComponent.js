@@ -3,12 +3,11 @@ import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
 import { Icon } from "react-native-elements";
 import moment from "moment";
 
-
 const AttendanceMarkComponent = ({
   switchVal,
   date,
   attendanceSubmitMethod,
-  setOpen
+  setOpen,
 }) => {
   return (
     <View style={styles.currentDateViewStyle}>
@@ -26,16 +25,12 @@ const AttendanceMarkComponent = ({
       <View
         style={{
           flexDirection: "row",
-          // flex: 5,
-          // height: "5%",
           justifyContent: "space-between",
         }}
       >
         <View
           style={{
-            // flexDirection: "column",
             flex: 1,
-            // justifyContent: "space-between",
             textAlign: "center",
             alignItems: "center",
           }}
@@ -53,9 +48,6 @@ const AttendanceMarkComponent = ({
             alignItems: "center",
           }}
         >
-          {/* <Text style={{ fontSize: 15 }}>
-                Date: {currentDate}
-              </Text> */}
           <TouchableOpacity>
             <Icon
               name="alarm"
@@ -68,14 +60,12 @@ const AttendanceMarkComponent = ({
               {moment(date).format("MMMM Do YYYY")}
             </Text>
           </TouchableOpacity>
-          {/* <Input style={{margin: -30,}} Date onChange={(a)=> setDateIn(a)} value={dateIn} /> */}
         </View>
 
         <View
           style={{
             flexDirection: "column",
             flex: 1,
-            // justifyContent: "space-between",
             textAlign: "center",
             alignItems: "center",
           }}

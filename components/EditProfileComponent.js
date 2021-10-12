@@ -55,19 +55,8 @@ const editProfileComponent = ({
   };
 
   useEffect(() => {
-    // setCurrentDate(date + "/" + month + "/" + year);
-    // const unsubscribe = navigation.addListener("focus", () => {
-    // do something
-    // getUserDataWithEmail();
-    // });
-    // return unsubscribe;
     getAllFacultiesByTokenId();
   }, []);
-
-  // const editProfileFormValidation = yup.object({
-  //   email: yup.string().required(),
-  // });
-  // const []
 
   const onSubmitCreatePlayer = () => {
     const loginUserUniId = userToken.uniId;
@@ -185,83 +174,7 @@ const editProfileComponent = ({
               value={lastName}
               style={styles.inputBox}
             />
-            {/* <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "baseline",
-                padding: 10,
-                backgroundColor: "gray",
-                marginTop: 5,
-              }}
-            > */}
-            {/* <View style={{ flexDirection: "column" }}>
-                <Text style={{ padding: 5 }}>Want to reset the password?</Text>
-              </View>
-              <View style={{ flexDirection: "column" }}>
-                <Switch
-                  // backgroundColor="white"
-                  color="green"
-                  onValueChange={() => setShowPwd(true)}
-                  value={showPwd}
-                  // onChange={() => onChangeSwitch(item)}
-                />
-              </View> */}
-            {/* </View> */}
 
-            {/* {showPwd && (
-              <TextInput
-                placeholder="Password"
-                secureTextEntry={true}
-                onChangeText={(value) => setPwd(value)}
-                value={pwd}
-                style={styles.inputBox}
-              />
-            )} */}
-
-            {/* <DropDownPicker
-              open={showFacultyDropDown}
-              value={selectedFac}
-              items={faculties}
-              style={styles.inputBox}
-              listMode="FLATLIST"
-              flatListProps={{
-                initialNumToRender: 3,
-              }}
-              scrollViewProps={{
-                decelerationRate: "fast",
-              }}
-              dropDownDirection="TOP"
-              // zIndex={12}
-              // bottomOffset={3}
-              itemSeparator={true}
-              selectedItemLabelStyle={{
-                color: "green",
-                fontWeight: "bold",
-                // backgroundColor: "black",
-              }}
-              // mode="SIMPLE"
-              closeAfterSelecting={true}
-              schema={{
-                label: "faculty",
-                value: "faculty",
-              }}
-              setOpen={() => setShowFacultyDropDown(true)}
-              setValue={(e, index) => setSelectedFac(e)}
-              onPress={() => setShowFacultyDropDown(!showFacultyDropDown)}
-              mode="BADGE"
-              showBadgeDot={true}
-              placeholder="Select Faculty"
-              placeholderStyle={{
-                color: "green",
-                fontWeight: "bold",
-              }}
-              onChangeValue={(value) => {
-                setSelectedFac(value);
-                // console.log("vlaue", selectedUni);
-                setShowFacultyDropDown(false);
-              }}
-            /> */}
             <View
               style={{
                 flexDirection: "row",
@@ -343,44 +256,7 @@ const editProfileComponent = ({
                 </RadioGroup>
               </View>
             </View>
-            {/* <TextInput
-              placeholder="Faculty"
-              onChangeText={props.handleChange("facultyName")}
-              value={selectedFac}
-              style={styles.inputBox}
-              keyboardType="default"
-              onResponderStart={() => setShowFacultyDropDown(true)}
-            /> */}
-            {/* {facultyDropDown &&
-              faculties &&
-              faculties.map((value) => {
-                return (
-                  <View style={styles.dropDown} key={value.id}>
-                    <Text onPress={(e) => selectFaculty(value)}>
-                      {value.faculty}
-                    </Text>
-                  </View>
-                );
-              })} */}
-            {/* <TextInput
-              placeholder="Gender"
-              onChangeText={props.handleChange("gender")}
-              value={selectedGender}
-              style={styles.inputBox}
-              keyboardType="default"
-              onResponderStart={() => setGenderDropDown(true)}
-            /> */}
-            {/* {genderDropDown &&
-              Gender &&
-              Gender.map((array) => {
-                return (
-                  <View style={styles.dropDown} key={array.key}>
-                    <Text onPress={(e) => onSelectGender(array)}>
-                      {array.value}
-                    </Text>
-                  </View>
-                );
-              })} */}
+
             <View
               style={{
                 margin: 10,
