@@ -267,37 +267,6 @@ export default function PlayerProfileComponent(props) {
             </View>
           )}
         </View>
-
-        {/* <View style={{flexDirection: 'row', flexWrap: 'wrap'}}> */}
-
-        {/* {userToken != null && (
-          <View
-            style={{
-              padding: 10,
-              flexDirection: "row",
-              justifyContent: "center",
-              width: "80%",
-              alignSelf: "center",
-              backgroundColor: "red",
-            }}
-          >
-            <View style={styles.buttonWrap}>
-              <Button
-                buttonStyle={{ backgroundColor: "green" }}
-                title="Edit Profile"
-                onPress={() => setEditPlayerModalOpen(true)}
-              />
-            </View>
-            <View style={styles.buttonWrap}>
-              <Button
-                buttonStyle={{ backgroundColor: "red", color: "green" }}
-                title="Delete Profile"
-                onPress={null}
-              />
-            </View>
-          </View>
-          // </View>
-        )} */}
       </View>
 
       <View
@@ -362,7 +331,7 @@ export default function PlayerProfileComponent(props) {
             <Card
               elevation={30}
               // enableShadow={false}
-              containerStyle={styles.cardContainer}
+              containerStyle={globalStyles.cardContainer}
             >
               <View
                 style={{ flexDirection: "row", justifyContent: "flex-start" }}
@@ -383,14 +352,14 @@ export default function PlayerProfileComponent(props) {
                     padding: 5,
                   }}
                 >
-                  <Text style={styles.cardTitle}>Email</Text>
+                  <Text style={globalStyles.cardTitle}>Email</Text>
                   <Text>{userData != null && userData.email}</Text>
                 </View>
               </View>
 
               {/* </View> */}
             </Card>
-            <Card elevation={30} containerStyle={styles.cardContainer}>
+            <Card elevation={30} containerStyle={globalStyles.cardContainer}>
               <View
                 style={{ flexDirection: "row", justifyContent: "flex-start" }}
               >
@@ -410,12 +379,12 @@ export default function PlayerProfileComponent(props) {
                     padding: 5,
                   }}
                 >
-                  <Text style={styles.cardTitle}>First Name</Text>
+                  <Text style={globalStyles.cardTitle}>First Name</Text>
                   <Text>{userData != null && userData.firstName}</Text>
                 </View>
               </View>
             </Card>
-            <Card elevation={30} containerStyle={styles.cardContainer}>
+            <Card elevation={30} containerStyle={globalStyles.cardContainer}>
               <View
                 style={{ flexDirection: "row", justifyContent: "flex-start" }}
               >
@@ -435,12 +404,12 @@ export default function PlayerProfileComponent(props) {
                     padding: 5,
                   }}
                 >
-                  <Text style={styles.cardTitle}>Last Name</Text>
+                  <Text style={globalStyles.cardTitle}>Last Name</Text>
                   <Text>{userData != null && userData.lastName}</Text>
                 </View>
               </View>
             </Card>
-            <Card elevation={30} containerStyle={styles.cardContainer}>
+            <Card elevation={30} containerStyle={globalStyles.cardContainer}>
               <View
                 style={{ flexDirection: "row", justifyContent: "flex-start" }}
               >
@@ -460,7 +429,7 @@ export default function PlayerProfileComponent(props) {
                     padding: 5,
                   }}
                 >
-                  <Text style={styles.cardTitle}>Gender</Text>
+                  <Text style={globalStyles.cardTitle}>Gender</Text>
                   <Text>{userData != null && userData.gender}</Text>
                 </View>
               </View>
@@ -493,8 +462,10 @@ export default function PlayerProfileComponent(props) {
               }}
             >
               <Icon name="emoji-people" color="green" />
-              <Text style={styles.cardTitle}>Attended Days</Text>
-              <Text style={styles.cardTitle}>{attendaceIndividualCount}</Text>
+              <Text style={globalStyles.cardTitle}>Attended Days</Text>
+              <Text style={globalStyles.cardTitle}>
+                {attendaceIndividualCount}
+              </Text>
             </Card>
             <Card
               elevation={10}
@@ -509,8 +480,8 @@ export default function PlayerProfileComponent(props) {
               }}
             >
               <Icon name="sports-tennis" color="green" />
-              <Text style={styles.cardTitle}>Practise Days</Text>
-              <Text style={styles.cardTitle}>{practiseDaysAllCount}</Text>
+              <Text style={globalStyles.cardTitle}>Practise Days</Text>
+              <Text style={globalStyles.cardTitle}>{practiseDaysAllCount}</Text>
             </Card>
           </View>
         </ScrollView>
@@ -545,7 +516,7 @@ export default function PlayerProfileComponent(props) {
               elevation={10}
               // enableShadow={false}
 
-              containerStyle={styles.cardContainer}
+              containerStyle={globalStyles.cardContainer}
             >
               <View
                 style={{ flexDirection: "row", justifyContent: "flex-start" }}
@@ -566,12 +537,12 @@ export default function PlayerProfileComponent(props) {
                     padding: 5,
                   }}
                 >
-                  <Text style={styles.cardTitle}>University</Text>
+                  <Text style={globalStyles.cardTitle}>University</Text>
                   <Text>{userData != null && userData.universityName}</Text>
                 </View>
               </View>
             </Card>
-            <Card elevation={30} containerStyle={styles.cardContainer}>
+            <Card elevation={30} containerStyle={globalStyles.cardContainer}>
               <View
                 style={{ flexDirection: "row", justifyContent: "flex-start" }}
               >
@@ -591,7 +562,7 @@ export default function PlayerProfileComponent(props) {
                     padding: 5,
                   }}
                 >
-                  <Text style={styles.cardTitle}>Faculty</Text>
+                  <Text style={globalStyles.cardTitle}>Faculty</Text>
                   <Text>
                     {userData != null && userData.facultyIdForEditProfile}
                   </Text>
@@ -599,7 +570,7 @@ export default function PlayerProfileComponent(props) {
               </View>
             </Card>
 
-            <Card elevation={30} containerStyle={styles.cardContainer}>
+            <Card elevation={30} containerStyle={globalStyles.cardContainer}>
               <View
                 style={{ flexDirection: "row", justifyContent: "flex-start" }}
               >
@@ -619,7 +590,7 @@ export default function PlayerProfileComponent(props) {
                     padding: 5,
                   }}
                 >
-                  <Text style={styles.cardTitle}>User Type</Text>
+                  <Text style={globalStyles.cardTitle}>User Type</Text>
                   <Text>{userData != null && userData.userType}</Text>
                 </View>
               </View>
@@ -691,30 +662,6 @@ export default function PlayerProfileComponent(props) {
 }
 
 const styles = StyleSheet.create({
-  cardContainer: {
-    padding: 10,
-    // paddingLeft: 25,
-    height: 80,
-    // flex: 1,
-    backgroundColor: "white",
-    width: "90%",
-    justifyContent: "center",
-    alignSelf: "center",
-    margin: 5,
-    flexDirection: "column",
-    borderRadius: 10,
-    elevation: 5,
-    shadowColor: "red",
-  },
-  cardItem: {
-    flex: 1,
-    flexDirection: "column",
-  },
-  cardTitle: {
-    fontWeight: "bold",
-    color: "grey",
-    fontSize: 20,
-  },
   profilePicContainer: {
     // flex: 1/2,
     // flexDirection: 'row',

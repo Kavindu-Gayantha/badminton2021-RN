@@ -16,7 +16,7 @@ export const globalStyles = StyleSheet.create({
   },
   titleText: {
     color: "#08570A",
-    fontSize: 30,
+    fontSize: 25,
     textAlign: "center",
     fontWeight: "bold",
     // fontFamily: 'nunito-bold'
@@ -89,10 +89,10 @@ export const globalStyles = StyleSheet.create({
   },
   noDataContainer: {
     backgroundColor: "white",
-    margin: 0,
+    margin: 1,
   },
   noDataMsg: {
-    fontSize: 12,
+    fontSize: 18,
     paddingTop: 2,
     color: "green",
     textAlign: "center",
@@ -100,6 +100,30 @@ export const globalStyles = StyleSheet.create({
   imageBackgroundImageStyle: {
     flex: 1,
     justifyContent: "center",
+  },
+  cardContainer: {
+    padding: 10,
+    // paddingLeft: 25,
+    height: 80,
+    // flex: 1,
+    backgroundColor: "white",
+    width: "90%",
+    justifyContent: "center",
+    alignSelf: "center",
+    margin: 5,
+    flexDirection: "column",
+    borderRadius: 10,
+    elevation: 5,
+    shadowColor: "red",
+  },
+  cardItem: {
+    flex: 1,
+    flexDirection: "column",
+  },
+  cardTitle: {
+    fontWeight: "bold",
+    color: "grey",
+    fontSize: 20,
   },
 });
 
