@@ -6,8 +6,9 @@ import {
   TextInput,
   StyleSheet,
   ImageBackground,
+  Alert,
 } from "react-native";
-import { Button } from "react-native-elements/dist/buttons/Button";
+import { Button } from "react-native-elements";
 import { globalStyles } from "../styles/globalStyles";
 import { Card, Divider } from "react-native-elements";
 import axios from "axios";
@@ -20,6 +21,7 @@ const LoginScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [showSubmitBtn, setShowSubmitBtn] = useState(false);
   const [resStatus, setResStatus] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const onPressLogin = () => {
     const loginSubmitObject = {
@@ -34,24 +36,30 @@ const LoginScreen = ({ navigation }) => {
   };
 
   const loginFunction = async (body) => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
     try {
       const request = await axios.post(`${BASE_URL}/auth/login`, body);
 
       if (request.data.status == true) {
+        // setLoading(false);
+        console.log("set loading", loading);
         setResStatus(true);
         setTokenMethod(request.data.data);
+
         navigation.navigate("HomeTabs");
       } else {
-        alert(`Oops: ${request.data.statusMessage}`);
+        setTimeout(() => {
+          setLoading(false);
+          alert(`Oops: ${request.data.statusMessage}`);
+        }, 1000);
       }
-      // setShowSubmitTxt(true);
-      // setResponseMessage(request.data.statusMessage);
-      //  setUrlLink(request.data.data);
-      //  convertYoutubeLinkToYoutubeId(request.data.data);
 
       console.log("request response", request.data.statusMessage);
     } catch (error) {
-      console.log(error);
+      alert("Oops!", error);
     }
   };
 
@@ -92,6 +100,7 @@ const LoginScreen = ({ navigation }) => {
           <Button
             title="Login"
             buttonStyle={styles.submitButton}
+            loading={loading}
             onPress={onPressLogin}
           />
 
